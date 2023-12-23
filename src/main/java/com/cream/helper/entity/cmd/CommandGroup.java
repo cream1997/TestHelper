@@ -1,10 +1,10 @@
-package com.cream.helper.core.cmd;
+package com.cream.helper.entity.cmd;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CommandGroup {
-    
+
     private final long id;
 
     private final String groupName;
