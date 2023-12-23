@@ -1,7 +1,5 @@
 package com.cream.helper.pojo;
 
-import com.alibaba.fastjson2.JSON;
-
 public class Result {
 
     private final Status status;
@@ -31,10 +29,5 @@ public class Result {
         Status(int value) {
             this.value = value;
         }
-    }
-
-    @Override
-    public String toString() {
-        return JSON.toJSONString(this);
     }
 }

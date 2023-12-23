@@ -3,10 +3,10 @@ package com.cream.helper.controller;
 import com.cream.helper.pojo.Result;
 import com.cream.helper.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class UserController {
 
     private final UserService userService;
