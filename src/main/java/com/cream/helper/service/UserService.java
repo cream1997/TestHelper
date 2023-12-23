@@ -3,11 +3,12 @@ package com.cream.helper.service;
 import com.cream.helper.pojo.Result;
 import org.springframework.stereotype.Service;
 
-/**
- * 测试平台的账号服务
- */
 @Service
-public class AccountService {
+public class UserService {
+
+    /**
+     * 注册账号
+     */
     public Result register(String username, String password) {
         return null;
     }
@@ -16,7 +17,14 @@ public class AccountService {
         return null;
     }
 
-    public Result logout(String username) {
+    public Result logout(long rid) {
+        return null;
+    }
+
+    /**
+     * 抓取可用的服务器列表
+     */
+    public Result fetchServerList() {
         return null;
     }
 }

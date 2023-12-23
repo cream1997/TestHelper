@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 
+/**
+ * 测试助手的账号控制器
+ */
 @Controller
 public class AccountController {
 
@@ -15,6 +18,7 @@ public class AccountController {
     public AccountController(AccountService accountService) {
         this.accountService = accountService;
     }
+
 
     @PostMapping("/register")
     public Result register(String username, String password) {
@@ -28,15 +32,7 @@ public class AccountController {
     }
 
     @PostMapping("/logout")
-    public Result logout(long rid) {
-        return accountService.logout(rid);
-    }
-
-    /**
-     * 获取服务器列表
-     */
-    @PostMapping("/fetchServerList")
-    public Result fetchServerList() {
-        return accountService.fetchServerList();
+    public Result logout(String username) {
+        return accountService.logout(username);
     }
 }
