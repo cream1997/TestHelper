@@ -17,7 +17,7 @@ public class Result {
         return new Result(Status.SUCCESS, data, null);
     }
 
-    public static Result error(Object data, String errorInfo) {
+    public static Result fail(Object data, String errorInfo) {
         return new Result(Status.ERROR, data, errorInfo);
     }
 
