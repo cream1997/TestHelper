@@ -5,6 +5,7 @@ import Home from "@/pages/Home.vue";
 export default createRouter({
     history: createWebHashHistory(), // 路径中带有#号，不需要服务端配合
     routes: [
+        {path: "/", redirect: "/login"},
         {path: "/login", component: Login},
         {path: "/home", component: Home}
     ]
