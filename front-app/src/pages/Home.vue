@@ -3,13 +3,7 @@
 </script>
 
 <template>
-  <header>
-    header
-  </header>
-
-  <main>
-    main
-  </main>
+  <h1>主页</h1>
 </template>
 
 <style scoped>

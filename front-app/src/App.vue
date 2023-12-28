@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import Home from "@/components/Home.vue";
-import Login from "@/pages/Login.vue";
+import {RouterView, useRouter} from "vue-router";
+import {onMounted} from "vue";
+// 跳转到登录页
+onMounted(() => {
+  useRouter().push("/login")
+})
 </script>
 
 <template>
-  <home/>
-  <login/>
+  <RouterView/>
 </template>

@@ -1,15 +1,30 @@
 <script setup lang="ts" name="Login">
 import {ref} from "vue";
+import {useRouter} from "vue-router";
 
-let username = ref("admin")
-let password = ref()
+const router = useRouter();
 
-function login() {
-  alert(username.value + "@" + password.value)
+let username = ref();
+let password = ref();
+
+const account = defaultAccount();
+if (account) {
+  // todo 默认账号直接登录
 }
 
+function login() {
+  router.push({
+    path: "/home"
+  })
+}
+
+// todo
 function register() {
-  alert(username.value + "@" + password.value)
+}
+
+function defaultAccount() {
+  // todo 后续需要修改（可能根据本地存储）
+  return undefined;
 }
 </script>
 
