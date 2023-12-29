@@ -1,16 +1,17 @@
-package com.cream.helper.entity;
+package com.cream.helper.obj.entity.account;
 
 import lombok.Getter;
 
-public class User {
+public class Account {
     @Getter
-    private final int id;
+    private final long id;
     @Getter
     private final String username;
     @Getter
     private final String password;
 
-    public User(int id, String username, String password) {
+
+    public Account(long id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;

@@ -1,6 +1,6 @@
 package com.cream.helper.controller;
 
-import com.cream.helper.net.Message;
+import com.cream.helper.core.net.Message;
 import com.cream.helper.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -5,7 +5,7 @@
         INSERT INTO account (id, username, password)
         VALUES (#{id}, #{username}, #{password})
     </insert>
-    <select id="getAccount" resultType="com.cream.helper.entity.Account">
+    <select id="getAccount" resultType="com.cream.helper.obj.entity.account.Account">
         SELECT *
         FROM account
         WHERE username = #{username}

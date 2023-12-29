@@ -1,6 +1,6 @@
 package com.cream.helper.service;
 
-import com.cream.helper.net.Message;
+import com.cream.helper.core.net.Message;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,4 +1,4 @@
-package com.cream.helper.entity.cmd;
+package com.cream.helper.obj.entity.cmd;
 
 public class RightValueExpression {
     /**

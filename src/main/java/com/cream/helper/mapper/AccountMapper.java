@@ -1,6 +1,6 @@
 package com.cream.helper.mapper;
 
-import com.cream.helper.entity.Account;
+import com.cream.helper.obj.entity.account.Account;
 import org.apache.ibatis.annotations.Param;
 
 public interface AccountMapper {

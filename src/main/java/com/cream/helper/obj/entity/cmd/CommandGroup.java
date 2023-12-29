@@ -1,4 +1,4 @@
-package com.cream.helper.entity.cmd;
+package com.cream.helper.obj.entity.cmd;
 
 import java.util.ArrayList;
 import java.util.List;

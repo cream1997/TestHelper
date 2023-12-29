@@ -1,6 +1,7 @@
 <script setup lang="ts" name="Login">
 import {ref} from "vue";
 import {useRouter} from "vue-router";
+import axios from "@/axios/axios";
 
 const router = useRouter();
 
@@ -20,6 +21,16 @@ function login() {
 
 // todo
 function register() {
+  axios.post("/register",
+      {
+        username: username.value,
+        password: password.value
+      }
+  ).then(res => {
+    console.log(res);
+  }).catch(err => {
+    console.log(err);
+  })
 }
 
 function defaultAccount() {

@@ -1,4 +1,4 @@
-package com.cream.helper.net;
+package com.cream.helper.core.net;
 
 import lombok.Getter;
 
