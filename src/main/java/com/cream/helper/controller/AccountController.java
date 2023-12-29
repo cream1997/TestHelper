@@ -1,11 +1,12 @@
 package com.cream.helper.controller;
 
-import com.alibaba.fastjson2.JSON;
+import com.cream.helper.obj.dto.LoginDTO;
 import com.cream.helper.pojo.Result;
 import com.cream.helper.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -24,8 +25,8 @@ public class AccountController {
 
 
     @PostMapping("/register")
-    public String register(String username, String password) {
-        return JSON.toJSONString(accountService.register(username, password));
+    public Result register(@RequestBody LoginDTO loginDTO) {
+        return accountService.register(loginDTO.getUsername(), loginDTO.getPassword());
     }
 
 
