@@ -1,4 +1,4 @@
-CREATE TABLE `account`
+CREATE TABLE t_account
 (
     `id`       bigint      NOT NULL,
     `username` varchar(50) NOT NULL,
