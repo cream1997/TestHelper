@@ -3,6 +3,10 @@ import axios from "axios";
 const axiosInstance = axios.create({
     baseURL: "http://localhost:8080/",
     timeout: 1500,
+    headers: {
+        // fixme 网上都说默认就是json，但是实际测试发现不是，这里我手动设置一下，后续在看是什原因
+        "Content-Type": "application/json;charset=UTF-8"
+    },
     // headers: {'X-Custom-Header': 'foobar'} todo 似乎是用来解决跨越问题的，先注释
     // `transformRequest` 允许在向服务器发送前，修改请求数据
     // 它只能用于 'PUT', 'POST' 和 'PATCH' 这几个请求方法
@@ -10,8 +14,8 @@ const axiosInstance = axios.create({
     // 你可以修改请求头。
     transformRequest: [function (data, headers) {
         // 对发送的 data 进行任意转换处理
-
-        return data;
+        // fixme 不知道这样处理对不对；目前不加这个，发送对象都需要手动包裹
+        return JSON.stringify(data);
     }],
 
     // `transformResponse` 在传递给 then/catch 前，允许修改响应数据
