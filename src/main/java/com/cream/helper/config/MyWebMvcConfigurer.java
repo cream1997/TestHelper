@@ -7,6 +7,7 @@ import com.alibaba.fastjson2.support.spring6.http.converter.FastJsonHttpMessageC
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -32,5 +33,19 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         converter.setDefaultCharset(StandardCharsets.UTF_8);
         converter.setSupportedMediaTypes(Collections.singletonList(MediaType.APPLICATION_JSON));
         converters.addFirst(converter);
+    }
+
+    /**
+     * 跨域配置
+     */
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        // 完全放开跨域
+        registry
+                .addMapping("/**") //添加映射路径
+                .allowCredentials(true) //是否发送Cookie
+                .allowedOriginPatterns("*") //允许跨域的域名，*代表允许任何域名
+                .allowedMethods("*") //允许任何方法（post、get等）
+                .exposedHeaders("*"); //允许任何头
     }
 }
