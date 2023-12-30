@@ -23,7 +23,7 @@ public class AccountController {
 
 
     @PostMapping("/register")
-    public Result register(@RequestBody LoginDTO loginDTO) {
+    public Result<String> register(@RequestBody LoginDTO loginDTO) {
         return accountService.register(loginDTO.getUsername(), loginDTO.getPassword());
     }
 

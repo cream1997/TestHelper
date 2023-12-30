@@ -20,7 +20,7 @@ public class AccountService {
         this.accountMapper = accountMapper;
     }
 
-    public Result register(String username, String password) {
+    public Result<String> register(String username, String password) {
         if (StringUtils.isAnyBlank(username, password)) {
             return Result.fail(null, "用户名或密码不能为空");
         }

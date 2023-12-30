@@ -3,25 +3,24 @@ package com.cream.helper.obj.vo;
 import lombok.Getter;
 
 @Getter
-public class Result {
+public class Result<T> {
 
+    private final T data;
     private final Status status;
-    private final Object data;
-
     private final String info;
 
-    private Result(Status status, Object data, String info) {
+    private Result(T data, Status status, String info) {
         this.status = status;
         this.data = data;
         this.info = info;
     }
 
-    public static Result success(Object data) {
-        return new Result(Status.SUCCESS, data, null);
+    public static <T> Result<T> success(T data) {
+        return new Result<>(data, Status.SUCCESS, null);
     }
 
-    public static Result fail(Object data, String errorInfo) {
-        return new Result(Status.ERROR, data, errorInfo);
+    public static <T> Result<T> fail(T data, String errorInfo) {
+        return new Result<>(data, Status.ERROR, errorInfo);
     }
 
     private enum Status {
