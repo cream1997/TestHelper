@@ -1,4 +1,5 @@
 import axios from "axios";
+import {ElMessage as Tip} from "element-plus";
 
 const axiosInstance = axios.create({
     baseURL: "http://localhost:8080/",
@@ -21,8 +22,11 @@ const axiosInstance = axios.create({
     // `transformResponse` 在传递给 then/catch 前，允许修改响应数据
     transformResponse: [function (data) {
         // 对接收的 data 进行任意转换处理
-
-        return data;
+        /**
+         * 案例axios会默认解析为json, 但是不知道是不是因为fastjson返回的json字符串带有美化的/r/t等字符，
+         * 导致收到的data是个字符串，所以做如下处理
+         */
+        return JSON.parse(data);
     }],
 });
 
@@ -40,8 +44,17 @@ axiosInstance.interceptors.request.use(config => {
 axiosInstance.interceptors.response.use(response => {
     // 2xx 范围内的状态码都会触发该函数。
     // 对响应数据做点什么
-    // 配置直接返回data数据，这样在接收回调处就不用显示.data了
-    return response.data;
+    const data = response.data;
+    if (data.status === "ERROR") {
+        Tip.error(data.info)
+        if (data.data) {
+            Tip.error(data.data)
+        }
+        return Promise.reject(null)
+    } else {
+        // 配置直接返回data数据，这样在接收回调处就不用显示.data了
+        return response.data.data;
+    }
 }, function (error) {
     // 超出 2xx 范围的状态码都会触发该函数。
     // 对响应错误做点什么
