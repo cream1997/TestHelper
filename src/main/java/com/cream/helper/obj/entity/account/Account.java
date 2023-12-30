@@ -31,19 +31,17 @@ public class Account {
     /**
      * 创建时间
      */
-    @TableField(value = "create_time")
-    private final Timestamp createTime;
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    private Timestamp createTime;
     /**
      * 更新时间
      */
-    @TableField(value = "update_time", update = "now()")
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private Timestamp updateTime;
 
 
-    public Account(String username, String password, long createTime) {
+    public Account(String username, String password) {
         this.username = username;
         this.password = password;
-        this.createTime = new Timestamp(createTime);
-        this.updateTime = new Timestamp(createTime);
     }
 }
