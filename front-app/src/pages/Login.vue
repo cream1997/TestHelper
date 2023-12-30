@@ -28,8 +28,15 @@ function login() {
   if (accountInvalid()) {
     return
   }
-  router.push({
-    path: "/home"
+  axios.post("/login", {
+    username: username.value,
+    password: password.value
+  }).then((res: any) => {
+    Tip.success("登录成功");
+    router.push({
+      path: "/home",
+      query: {accountId: res}
+    })
   })
 }
 

@@ -19,9 +19,14 @@ public class Result<T> {
         return new Result<>(data, Status.SUCCESS, null);
     }
 
-    public static <T> Result<T> fail(T data, String errorInfo) {
+    public static <T> Result<T> failWithRet(T data, String errorInfo) {
         return new Result<>(data, Status.ERROR, errorInfo);
     }
+
+    public static <T> Result<T> fail(String errorInfo) {
+        return new Result<>(null, Status.ERROR, errorInfo);
+    }
+
 
     private enum Status {
         SUCCESS(0),

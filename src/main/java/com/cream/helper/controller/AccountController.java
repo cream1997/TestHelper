@@ -29,8 +29,8 @@ public class AccountController {
 
 
     @PostMapping("/login")
-    public Result login(String username, String password) {
-        return accountService.login(username, password);
+    public Result<Long> login(@RequestBody LoginDTO loginDTO) {
+        return accountService.login(loginDTO.getUsername(), loginDTO.getPassword());
     }
 
     @PostMapping("/logout")
