@@ -1,5 +1,8 @@
 package com.cream.helper.pojo;
 
+import lombok.Getter;
+
+@Getter
 public class Result {
 
     private final Status status;
