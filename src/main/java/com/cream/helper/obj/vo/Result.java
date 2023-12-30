@@ -1,5 +1,8 @@
 package com.cream.helper.obj.vo;
 
+import lombok.Getter;
+
+@Getter
 public class Result {
 
     private final Status status;
