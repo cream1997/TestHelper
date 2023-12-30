@@ -2,6 +2,7 @@
 import {onMounted, onUnmounted, ref} from "vue";
 import {useRouter} from "vue-router";
 import axios from "@/axios/axios";
+import {ElMessage as Tip} from "element-plus";
 
 const router = useRouter();
 
@@ -15,7 +16,11 @@ if (account) {
 
 function accountInvalid() {
   if (!username.value || !password.value) {
-    alert("账号密码不能为空")
+    // 设置延迟是为了阻止alert影响到按钮的样式变化
+    setTimeout(() => {
+      Tip.error("账号密码不能为空");
+    }, 50)
+
     return true;
   } else {
     return false;
@@ -167,6 +172,10 @@ h1 {
 
 .btn:hover {
   background: linear-gradient(to right, #B3A5FC, #65CBF7);
+}
+
+.btn:active {
+  background: linear-gradient(to right, #51458d, #65CBF7);
 }
 
 @media screen and(min-width: 960px) {
