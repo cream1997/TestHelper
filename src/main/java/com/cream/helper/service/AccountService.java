@@ -24,11 +24,11 @@ public class AccountService {
         if (StringUtils.isAnyBlank(username, password)) {
             return Result.fail(null, "用户名或密码不能为空");
         }
-        try {
-            accountMapper.insert(new Account(username, password));
-        } catch (Exception e) {
-            return Result.fail(e.getMessage(), "注册失败");
+        Account account = accountMapper.getAccount(username);
+        if (account != null) {
+            return Result.fail(null, "账号已被注册");
         }
+        accountMapper.insert(new Account(username, password));
         return Result.success("注册成功");
     }
 

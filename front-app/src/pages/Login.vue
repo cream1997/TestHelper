@@ -43,10 +43,8 @@ function register() {
         username: username.value,
         password: password.value
       }
-  ).then(res => {
-    console.log(res);
-  }).catch(err => {
-    console.log(err);
+  ).then((res: any) => {
+    Tip.success(res)
   })
 }
 
