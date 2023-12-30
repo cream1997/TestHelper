@@ -6,8 +6,8 @@ import {ElMessage as Tip} from "element-plus";
 
 const router = useRouter();
 
-let username = ref();
-let password = ref();
+let username = ref("admin");
+let password = ref("admin");
 
 const account = defaultAccount();
 if (account) {
