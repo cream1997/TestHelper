@@ -1,6 +1,6 @@
 package com.cream.helper.service;
 
-import com.cream.helper.pojo.Result;
+import com.cream.helper.obj.vo.Result;
 import org.springframework.stereotype.Service;
 
 @Service
