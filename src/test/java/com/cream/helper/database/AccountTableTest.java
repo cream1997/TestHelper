@@ -16,7 +16,7 @@ public class AccountTableTest {
 
     @Test
     public void testAddAccount() {
-        Account account = new Account(IdUtil.nanoId(), "123456");
+        Account account = new Account(IdUtil.nanoId(), IdUtil.nanoId());
         account.setDeleted(true);
         accountMapper.insert(account);
         assert account.getId() != null;

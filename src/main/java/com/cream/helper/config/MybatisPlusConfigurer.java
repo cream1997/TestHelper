@@ -10,6 +10,8 @@ import java.sql.Timestamp;
 @Configuration
 public class MybatisPlusConfigurer implements MetaObjectHandler {
 
+    private static final String createTime = "createTime";
+    private static final String updateTime = "updateTime";
 
     /**
      * 插入时的填充策略
@@ -17,8 +19,8 @@ public class MybatisPlusConfigurer implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         long now = Times.now();
-        this.setFieldValByName("createTime", new Timestamp(now), metaObject);
-        this.setFieldValByName("updateTime", new Timestamp(now), metaObject);
+        this.setFieldValByName(createTime, new Timestamp(now), metaObject);
+        this.setFieldValByName(updateTime, new Timestamp(now), metaObject);
     }
 
     /**
@@ -26,6 +28,6 @@ public class MybatisPlusConfigurer implements MetaObjectHandler {
      */
     @Override
     public void updateFill(MetaObject metaObject) {
-        this.setFieldValByName("updateTime", new Timestamp(Times.now()), metaObject);
+        this.setFieldValByName(updateTime, new Timestamp(Times.now()), metaObject);
     }
 }
