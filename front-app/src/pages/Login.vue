@@ -17,10 +17,7 @@ if (account) {
 function accountInvalid() {
   if (!username.value || !password.value) {
     // 设置延迟是为了阻止alert影响到按钮的样式变化
-    setTimeout(() => {
-      Tip.error("账号密码不能为空");
-    }, 50)
-
+    Tip.error("账号密码不能为空");
     return true;
   } else {
     return false;
