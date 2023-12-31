@@ -21,8 +21,8 @@ public class MockRoleLoginService implements IRoleLoginService {
 
     @Override
     public Result<List<Role>> fetchRoleList(long userId) {
-        // todo
-        return null;
+        List<Role> roleList = mockRoleMapper.getRoleList(userId);
+        return Result.success(roleList);
     }
 
     @Override
