@@ -3,6 +3,7 @@ package com.cream.helper.service.impl.mock;
 import com.cream.helper.annotation.MockComponent;
 import com.cream.helper.mapper.mock.MockRoleMapper;
 import com.cream.helper.obj.bo.Role;
+import com.cream.helper.obj.bo.RoleEnterInfo;
 import com.cream.helper.obj.vo.Result;
 import com.cream.helper.service.IRoleLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,13 @@ public class MockRoleLoginService implements IRoleLoginService {
         } else {
             return Result.fail("删除失败");
         }
+    }
+
+    @Override
+    public Result<RoleEnterInfo> enterRole(Role role) {
+        if (!mockRoleMapper.containsRole(role.getId(), role.getUserId())) {
+            return Result.fail("角色不存在");
+        }
+        return Result.success(new RoleEnterInfo(role, null));
     }
 }

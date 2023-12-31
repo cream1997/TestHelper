@@ -19,4 +19,11 @@
           and user_id = #{userId}
         order by create_time desc
     </select>
+    
+    <select id="containsRole" resultType="java.lang.Boolean">
+        select count(1)
+        from t_mock_role
+        where id = #{id}
+          and user_id = #{userId}
+    </select>
 </mapper>
