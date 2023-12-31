@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * 提供模拟数据的服务
  */
-@MockComponent()
+@MockComponent
 public class MockGameLoginService implements IGameLoginService {
 
     private final MockRemoteUserMapper mockRemoteUserMapper;
