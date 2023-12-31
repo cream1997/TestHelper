@@ -2,8 +2,7 @@ package com.cream.helper.core.gm;
 
 import com.cream.helper.utils.NullUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static com.cream.helper.core.gm.ParamsAdder.setParam;
 
@@ -37,5 +36,20 @@ public enum GmCommand {
             throw new RuntimeException("设置参数异常（参数为空时，应使用一个参数的构造器创建枚举）");
         }
         params.addAll(paramsAdder.getParams());
+    }
+
+    private static final Map<String, GmCommand> allGmCmd;
+
+    static {
+        Map<String, GmCommand> allGmCmdMap = new HashMap<>();
+        for (GmCommand value : GmCommand.values()) {
+            allGmCmdMap.put(value.name(), value);
+        }
+        // 外部不可修改
+        allGmCmd = Collections.unmodifiableMap(allGmCmdMap);
+    }
+
+    public static Collection<GmCommand> getAllGmCmd() {
+        return allGmCmd.values();
     }
 }

@@ -1,11 +1,15 @@
 package com.cream.helper.controller;
 
+import com.cream.helper.core.gm.GmCommand;
+import com.cream.helper.obj.dto.ExeGmReq;
+import com.cream.helper.obj.vo.Result;
 import com.cream.helper.service.impl.GmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
+import java.util.Collection;
 
 @RestController
 public class GmController {
@@ -19,15 +23,15 @@ public class GmController {
 
 
     @PostMapping("/exeGmCmd")
-    public String exeGmCmd(long rid, String cmd, Map<String, String> params) {
-        return gmService.exeGmCmd(rid, cmd, params);
+    public Result<String> exeGmCmd(@RequestBody ExeGmReq exeGmReq) {
+        return gmService.exeGmCmd(exeGmReq);
     }
 
     /**
      * 获取所有可用的GM命令
      */
     @PostMapping("/fetchAllGmCmd")
-    public String fetchAllGmCommand() {
+    public Result<Collection<GmCommand>> fetchAllGmCommand() {
         return gmService.fetchAllGmCommand();
     }
 }
