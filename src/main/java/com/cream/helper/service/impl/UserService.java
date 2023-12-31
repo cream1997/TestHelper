@@ -111,7 +111,10 @@ public class UserService {
         return Result.success(new LoginInfo(remoteUser, null));
     }
 
-    public Result logout(long rid) {
+    /**
+     * todo 没有引入Session机制时，不需要logout
+     */
+    public Result<String> logout(long id) {
         return null;
     }
 

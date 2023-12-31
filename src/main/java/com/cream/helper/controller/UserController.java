@@ -36,8 +36,8 @@ public class UserController {
     }
 
     @PostMapping("/userLogout")
-    public Result userLogout(long rid) {
-        return userService.logout(rid);
+    public Result<String> userLogout(long id) {
+        return userService.logout(id);
     }
 
     /**
