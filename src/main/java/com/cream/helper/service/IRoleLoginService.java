@@ -14,4 +14,6 @@ public interface IRoleLoginService {
     Result<Role> deleteRole(Role role);
 
     Result<RoleEnterInfo> enterRole(Role role);
+
+    Result<Role> exitRole(Role role);
 }

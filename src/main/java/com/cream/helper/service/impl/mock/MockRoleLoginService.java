@@ -57,4 +57,9 @@ public class MockRoleLoginService implements IRoleLoginService {
         }
         return Result.success(new RoleEnterInfo(role, null));
     }
+
+    @Override
+    public Result<Role> exitRole(Role role) {
+        return Result.success(role);
+    }
 }

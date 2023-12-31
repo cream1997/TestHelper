@@ -52,4 +52,12 @@ public class RoleController {
         }
         return roleLoginService.enterRole(role);
     }
+
+    @PostMapping("/exitRole")
+    public Result<Role> exitRole(@RequestBody Role role) {
+        if (role.getUserId() == 0) {
+            return Result.fail("请先登录");
+        }
+        return roleLoginService.exitRole(role);
+    }
 }
