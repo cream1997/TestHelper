@@ -1,6 +1,6 @@
 package com.cream.helper.core.gm;
 
-import org.springframework.util.CollectionUtils;
+import com.cream.helper.utils.NullUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,8 @@ public enum GmCommand {
 
     GmCommand(String desc, ParamsAdder paramsAdder) {
         this.desc = desc;
-        if (CollectionUtils.isEmpty(paramsAdder.getParams())) {
+
+        if (NullUtil.isEmpty(paramsAdder.getParams())) {
             throw new RuntimeException("设置参数异常（参数为空时，应使用一个参数的构造器创建枚举）");
         }
         params.addAll(paramsAdder.getParams());

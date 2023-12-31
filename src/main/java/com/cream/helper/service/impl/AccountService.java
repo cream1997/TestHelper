@@ -3,7 +3,7 @@ package com.cream.helper.service.impl;
 import com.cream.helper.mapper.AccountMapper;
 import com.cream.helper.obj.entity.account.Account;
 import com.cream.helper.obj.vo.Result;
-import org.apache.commons.lang3.StringUtils;
+import com.cream.helper.utils.NullUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ public class AccountService {
     }
 
     public Result<String> register(String username, String password) {
-        if (StringUtils.isAnyBlank(username, password)) {
+        if (NullUtil.isAnyBlank(username, password)) {
             return Result.failWithRet(null, "用户名或密码不能为空");
         }
         Account account = accountMapper.getAccount(username);
@@ -33,7 +33,7 @@ public class AccountService {
     }
 
     public Result<Long> login(String username, String password) {
-        if (StringUtils.isAnyBlank(username, password)) {
+        if (NullUtil.isAnyBlank(username, password)) {
             return Result.failWithRet(null, "用户名或密码不能为空");
         }
         Account account = accountMapper.getAccount(username);

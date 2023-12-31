@@ -5,7 +5,7 @@ import com.cream.helper.obj.bo.LoginInfo;
 import com.cream.helper.obj.entity.account.User;
 import com.cream.helper.obj.vo.Result;
 import com.cream.helper.service.IGameLoginService;
-import org.apache.commons.lang3.StringUtils;
+import com.cream.helper.utils.NullUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +28,7 @@ public class UserService {
      * 注册账号
      */
     public Result<String> register(String username, String password) {
-        if (StringUtils.isAnyBlank(username, password)) {
+        if (NullUtil.isAnyBlank(username, password)) {
             return Result.fail("用户名或密码不能为空");
         }
 //        1.查看远端是否已注册
@@ -87,7 +87,7 @@ public class UserService {
 
 
     public Result<LoginInfo> login(String username, String password) {
-        if (StringUtils.isAnyBlank(username, password)) {
+        if (NullUtil.isAnyBlank(username, password)) {
             return Result.fail("用户名或密码不能为空");
         }
         User remoteUser = gameLoginService.getRemoteUser(username);
