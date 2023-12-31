@@ -26,11 +26,11 @@ public class MessageController {
 
 
     /**
-     * 解释见{@link IMessageService#fetchResMsg)}
+     * 解释见{@link IMessageService#fetchAllResMsg )}
      */
-    @PostMapping("/fetchResMsg")
-    public Result<Message> fetchResMsg(long rid) {
-        return messageService.fetchResMsg(rid);
+    @PostMapping("/fetchAllResMsg")
+    public Result<List<Message>> fetchAllResMsg(long rid) {
+        return messageService.fetchAllResMsg(rid);
     }
 
     /**

@@ -41,6 +41,10 @@ public class RoleSessionManager {
         return rid2Session.containsKey(rid);
     }
 
+    public boolean isOffLine(long rid) {
+        return !isOnline(rid);
+    }
+
     public void addOnline(Role role) {
         rid2Session.put(role.getId(), new RoleSession(role.getId(), role.getUserId()));
     }
