@@ -1,6 +1,7 @@
 package com.cream.helper.service.impl.mock;
 
 import com.cream.helper.annotation.MockComponent;
+import com.cream.helper.core.net.GameClient;
 import com.cream.helper.core.net.RoleSessionManager;
 import com.cream.helper.mapper.mock.MockRoleMapper;
 import com.cream.helper.obj.bo.Role;
@@ -60,7 +61,8 @@ public class MockRoleLoginService implements IRoleLoginService {
         if (!mockRoleMapper.containsRole(role.getId(), role.getUserId())) {
             return Result.fail("角色不存在");
         }
-        sessionManager.addOnline(role);
+        GameClient gameClient = new GameClient();
+        sessionManager.addOnline(role, gameClient);
         return Result.success(new RoleEnterInfo(role, null));
     }
 
@@ -73,7 +75,7 @@ public class MockRoleLoginService implements IRoleLoginService {
 
     @Override
     public Result<RoleHeartInfo> heart(Role role) {
-        if (!sessionManager.isOnline(role.getId())) {
+        if (!sessionManager.isOffLine(role.getId())) {
             return Result.fail("角色不在线");
         }
         return sessionManager.heart(role.getId());

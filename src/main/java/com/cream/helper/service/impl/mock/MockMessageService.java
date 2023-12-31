@@ -1,7 +1,9 @@
 package com.cream.helper.service.impl.mock;
 
 import com.cream.helper.annotation.MockComponent;
+import com.cream.helper.core.net.GameClient;
 import com.cream.helper.core.net.RoleSessionManager;
+import com.cream.helper.core.net.bo.RoleSession;
 import com.cream.helper.core.net.msg.Message;
 import com.cream.helper.core.net.msg.MessagePool;
 import com.cream.helper.core.net.msg.MessageTemplatePool;
@@ -30,9 +32,14 @@ public class MockMessageService implements IMessageService {
     }
 
     @Override
-    public Result<String> acceptRequest(long rid, Message message) {
-        // todo 检查登录
-        return null;
+    public Result<String> sendRequest(long rid, Message message) {
+        if (roleSessionManager.isOffLine(rid)) {
+            return Result.fail("角色不在线");
+        }
+        RoleSession roleSession = roleSessionManager.getRoleSession(rid);
+        GameClient gameClient = roleSession.getGameClient();
+        gameClient.sendMsg(message);
+        return Result.success("发送成功");
     }
 
     @Override

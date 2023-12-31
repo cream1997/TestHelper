@@ -19,9 +19,9 @@ public class MessageController {
         this.messageService = messageService;
     }
 
-    @PostMapping("/acceptRequest")
-    public Result<String> acceptRequest(long rid, Message message) {
-        return messageService.acceptRequest(rid, message);
+    @PostMapping("/sendRequest")
+    public Result<String> sendRequest(long rid, Message message) {
+        return messageService.sendRequest(rid, message);
     }
 
 

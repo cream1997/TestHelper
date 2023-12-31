@@ -10,7 +10,7 @@ public interface IMessageService {
     /**
      * 接受请求
      */
-    Result<String> acceptRequest(long rid, Message message);
+    Result<String> sendRequest(long rid, Message message);
 
     /**
      * 抓取所有请求消息模板

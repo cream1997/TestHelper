@@ -45,8 +45,8 @@ public class RoleSessionManager {
         return !isOnline(rid);
     }
 
-    public void addOnline(Role role) {
-        rid2Session.put(role.getId(), new RoleSession(role.getId(), role.getUserId()));
+    public void addOnline(Role role, GameClient gameClient) {
+        rid2Session.put(role.getId(), new RoleSession(role.getId(), role.getUserId(), gameClient));
     }
 
     public void removeOnline(long rid) {
@@ -61,5 +61,9 @@ public class RoleSessionManager {
         roleSession.setLastHeartTime(Times.now());
         long userId = roleSession.getUserId(), lastHeartTime = roleSession.getLastHeartTime();
         return Result.success(new RoleHeartInfo(userId, rid, lastHeartTime));
+    }
+
+    public RoleSession getRoleSession(long rid) {
+        return rid2Session.get(rid);
     }
 }
