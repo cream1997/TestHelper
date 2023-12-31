@@ -35,4 +35,12 @@ public class RoleController {
         }
         return roleLoginService.createRole(role);
     }
+
+    @PostMapping("/deleteRole")
+    public Result<Role> deleteRole(@RequestBody Role role) {
+        if (role.getUserId() == 0) {
+            return Result.fail("请先登录");
+        }
+        return roleLoginService.deleteRole(role);
+    }
 }

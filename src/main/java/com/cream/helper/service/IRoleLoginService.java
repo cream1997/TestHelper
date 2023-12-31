@@ -9,4 +9,6 @@ public interface IRoleLoginService {
     Result<List<Role>> fetchRoleList(long userId);
 
     Result<Role> createRole(Role role);
+
+    Result<Role> deleteRole(Role role);
 }

@@ -36,4 +36,16 @@ public class MockRoleLoginService implements IRoleLoginService {
         mockRoleMapper.insert(role);
         return Result.success(role);
     }
+
+    @Override
+    public Result<Role> deleteRole(Role role) {
+        if (role.getId() == null) {
+            return Result.fail("删除失败");
+        }
+        if (mockRoleMapper.deleteRole(role.getId(), role.getUserId())) {
+            return Result.success(role);
+        } else {
+            return Result.fail("删除失败");
+        }
+    }
 }

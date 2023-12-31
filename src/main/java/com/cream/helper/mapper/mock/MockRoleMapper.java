@@ -10,4 +10,6 @@ public interface MockRoleMapper extends BaseMapper<Role> {
     boolean containsName(@Param("name") String name);
 
     List<Role> getRoleList(@Param("userId") long userId);
+
+    boolean deleteRole(@Param("id") long id, @Param("userId") long userId);
 }
