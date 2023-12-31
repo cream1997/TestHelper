@@ -1,10 +1,14 @@
 package com.cream.helper.controller;
 
+import com.cream.helper.obj.dto.UserDTO;
 import com.cream.helper.obj.vo.Result;
+import com.cream.helper.obj.vo.ServerItem;
 import com.cream.helper.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -17,8 +21,8 @@ public class UserController {
     }
 
     @PostMapping("/registerUser")
-    public Result registerUser(String username, String password) {
-        return userService.register(username, password);
+    public Result<String> registerUser(UserDTO userDTO) {
+        return userService.register(userDTO.getUsername(), userDTO.getPassword());
     }
 
 
@@ -36,7 +40,7 @@ public class UserController {
      * 获取服务器列表
      */
     @PostMapping("/fetchServerList")
-    public Result fetchServerList() {
+    public Result<List<ServerItem>> fetchServerList() {
         return userService.fetchServerList();
     }
 }
