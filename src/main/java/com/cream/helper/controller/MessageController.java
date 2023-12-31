@@ -1,7 +1,8 @@
 package com.cream.helper.controller;
 
-import com.cream.helper.core.net.Message;
-import com.cream.helper.service.impl.MessageService;
+import com.cream.helper.core.net.bo.Message;
+import com.cream.helper.obj.vo.Result;
+import com.cream.helper.service.IMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,21 +10,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MessageController {
 
-    private final MessageService messageService;
+    private final IMessageService messageService;
 
     @Autowired
-    public MessageController(MessageService messageService) {
+    public MessageController(IMessageService messageService) {
         this.messageService = messageService;
     }
 
     @PostMapping("/acceptRequest")
-    public String acceptRequest(long rid, Message message) {
+    public Result<String> acceptRequest(long rid, Message message) {
         return messageService.acceptRequest(rid, message);
     }
 
 
     /**
-     * 解释见{@link MessageService#fetchResMsg)}
+     * 解释见{@link IMessageService#fetchResMsg)}
      */
     @PostMapping("/fetchResMsg")
     public String fetchResMsg(long rid) {

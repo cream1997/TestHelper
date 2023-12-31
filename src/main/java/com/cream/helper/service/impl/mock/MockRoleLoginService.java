@@ -1,6 +1,7 @@
 package com.cream.helper.service.impl.mock;
 
 import com.cream.helper.annotation.MockComponent;
+import com.cream.helper.core.net.RoleSessionManager;
 import com.cream.helper.mapper.mock.MockRoleMapper;
 import com.cream.helper.obj.bo.Role;
 import com.cream.helper.obj.bo.RoleEnterInfo;
@@ -16,9 +17,12 @@ public class MockRoleLoginService implements IRoleLoginService {
 
     private final MockRoleMapper mockRoleMapper;
 
+    private final RoleSessionManager sessionManager;
+
     @Autowired
-    public MockRoleLoginService(MockRoleMapper mockRoleMapper) {
+    public MockRoleLoginService(MockRoleMapper mockRoleMapper, RoleSessionManager sessionManager) {
         this.mockRoleMapper = mockRoleMapper;
+        this.sessionManager = sessionManager;
     }
 
     @Override
@@ -56,18 +60,22 @@ public class MockRoleLoginService implements IRoleLoginService {
         if (!mockRoleMapper.containsRole(role.getId(), role.getUserId())) {
             return Result.fail("角色不存在");
         }
+        sessionManager.addOnline(role);
         return Result.success(new RoleEnterInfo(role, null));
     }
 
     @Override
     public Result<Role> exitRole(Role role) {
+        sessionManager.removeOnline(role.getId());
         return Result.success(role);
     }
 
 
     @Override
     public Result<RoleHeartInfo> heart(Role role) {
-        // todo 实现心跳功能
-        return null;
+        if (!sessionManager.isOnline(role.getId())) {
+            return Result.fail("角色不在线");
+        }
+        return sessionManager.heart(role.getId());
     }
 }
