@@ -1,6 +1,7 @@
 package com.cream.helper.service.impl;
 
-import com.cream.helper.mapper.UserMapper;
+import com.cream.helper.mapper.LocalUserMapper;
+import com.cream.helper.obj.bo.LoginInfo;
 import com.cream.helper.obj.entity.account.User;
 import com.cream.helper.obj.vo.Result;
 import com.cream.helper.service.IGameLoginService;
@@ -13,13 +14,13 @@ import java.util.Objects;
 @Service
 public class UserService {
 
-    private final UserMapper userMapper;
+    private final LocalUserMapper localUserMapper;
 
     private final IGameLoginService gameLoginService;
 
     @Autowired
-    public UserService(UserMapper userMapper, IGameLoginService gameLoginService) {
-        this.userMapper = userMapper;
+    public UserService(LocalUserMapper localUserMapper, IGameLoginService gameLoginService) {
+        this.localUserMapper = localUserMapper;
         this.gameLoginService = gameLoginService;
     }
 
@@ -48,7 +49,7 @@ public class UserService {
             return Result.fail("账号已被注册");
         }
         // 查看是否重复注册
-        User localUser = userMapper.getUser(remoteUser.getUsername());
+        User localUser = localUserMapper.getUser(remoteUser.getUsername());
         if (localUser == null) {
             // 注册本地
             return doLocalRegister(remoteUser, false);
@@ -70,9 +71,9 @@ public class UserService {
     private Result<String> doLocalRegister(User user, boolean deleteOldData) {
         // 添加到本地数据库, 删除本地可能存在的不一致数据
         if (deleteOldData) {
-            userMapper.deleteById(user.getId());
+            localUserMapper.deleteById(user.getId());
         }
-        userMapper.insert(user);
+        localUserMapper.insert(user);
         return Result.success("注册成功");
     }
 
@@ -80,12 +81,34 @@ public class UserService {
      * 本地数据与远端不一致
      */
     private boolean userNotEqual(User localUser, User remoteUser) {
-        return localUser.getId() != remoteUser.getId() || !Objects.equals(localUser.getPassword(), remoteUser.getPassword());
+        return localUser.getId() != remoteUser.getId() ||
+                !Objects.equals(localUser.getPassword(), remoteUser.getPassword());
     }
 
 
-    public Result login(String username, String password) {
-        return null;
+    public Result<LoginInfo> login(String username, String password) {
+        if (StringUtils.isAnyBlank(username, password)) {
+            return Result.fail("用户名或密码不能为空");
+        }
+        User remoteUser = gameLoginService.getRemoteUser(username);
+        if (remoteUser == null) {
+            return Result.fail("账号不存在");
+        }
+        if (!Objects.equals(password, remoteUser.getPassword())) {
+            return Result.fail("密码错误");
+        }
+        // 校验与本地数据的一致性
+        User localUser = localUserMapper.getUser(username);
+        if (localUser == null) {
+            // 注册本地
+            doLocalRegister(remoteUser, false);
+        } else {
+            if (userNotEqual(localUser, remoteUser)) {
+                doLocalRegister(remoteUser, true);
+            }
+        }
+        // todo 扩展信息待补充
+        return Result.success(new LoginInfo(remoteUser, null));
     }
 
     public Result logout(long rid) {

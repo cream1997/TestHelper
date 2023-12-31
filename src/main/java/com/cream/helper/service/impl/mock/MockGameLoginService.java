@@ -29,7 +29,11 @@ public class MockGameLoginService implements IGameLoginService {
     @Override
     public User getRemoteUser(String username) {
         MockRemoteUser mockRemoteUser = mockRemoteUserMapper.getMockRemoteUser(username);
-        return new User(mockRemoteUser);
+        if (mockRemoteUser == null) {
+            return null;
+        } else {
+            return new User(mockRemoteUser);
+        }
     }
 
     @Override

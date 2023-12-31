@@ -1,5 +1,6 @@
 package com.cream.helper.controller;
 
+import com.cream.helper.obj.bo.LoginInfo;
 import com.cream.helper.obj.dto.UserDTO;
 import com.cream.helper.obj.vo.Result;
 import com.cream.helper.obj.vo.ServerItem;
@@ -30,7 +31,7 @@ public class UserController {
 
 
     @PostMapping("/userLogin")
-    public Result userLogin(String username, String password) {
+    public Result<LoginInfo> userLogin(String username, String password) {
         return userService.login(username, password);
     }
 
