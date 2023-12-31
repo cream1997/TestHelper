@@ -22,3 +22,13 @@ CREATE TABLE `t_user`
     PRIMARY KEY (`id`),
     UNIQUE KEY `t_user_un` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `t_mock_remote_user`
+(
+    `id`       bigint      NOT NULL,
+    `username` varchar(50) NOT NULL,
+    `password` varchar(50) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `t_mock_remote_user_un` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
