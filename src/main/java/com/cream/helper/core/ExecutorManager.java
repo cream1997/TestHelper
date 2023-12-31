@@ -1,6 +1,6 @@
 package com.cream.helper.core;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -8,7 +8,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Service
+@Component
 public class ExecutorManager {
 
     private final AtomicInteger scheduledThreadNum = new AtomicInteger(0);
