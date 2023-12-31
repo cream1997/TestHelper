@@ -1,5 +1,6 @@
 package com.cream.helper.core.net;
 
+import com.cream.helper.core.ExecutorManager;
 import com.cream.helper.core.net.bo.RoleSession;
 import com.cream.helper.obj.bo.Role;
 import com.cream.helper.obj.bo.RoleHeartInfo;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 管理RoleSession
@@ -16,7 +18,24 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class RoleSessionManager {
 
+    private final ExecutorManager executorManager;
+
     private final Map<Long, RoleSession> rid2Session = new ConcurrentHashMap<>();
+
+    public RoleSessionManager(ExecutorManager executorManager) {
+        this.executorManager = executorManager;
+        cycleCheckOffLine();
+    }
+
+    /**
+     * 周期检查下线
+     */
+    private void cycleCheckOffLine() {
+        executorManager.runFixedDelay(() -> {
+            rid2Session.values()
+                    .removeIf(roleSession -> roleSession.getLastHeartTime() + 15 * Times.ONE_SECOND < Times.now());
+        }, 0, 10, TimeUnit.SECONDS);
+    }
 
     public boolean isOnline(long rid) {
         return rid2Session.containsKey(rid);
