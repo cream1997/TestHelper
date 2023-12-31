@@ -4,6 +4,7 @@ import com.cream.helper.mapper.UserMapper;
 import com.cream.helper.obj.entity.account.User;
 import com.cream.helper.obj.vo.Result;
 import com.cream.helper.obj.vo.ServerItem;
+import com.cream.helper.service.IRemoteUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,12 @@ public class UserService {
 
     private final UserMapper userMapper;
 
+    private final IRemoteUserService remoteUserService;
+
     @Autowired
-    public UserService(UserMapper userMapper) {
+    public UserService(UserMapper userMapper, IRemoteUserService remoteUserService) {
         this.userMapper = userMapper;
+        this.remoteUserService = remoteUserService;
     }
 
     /**
@@ -30,9 +34,8 @@ public class UserService {
         if (StringUtils.isAnyBlank(username, password)) {
             return Result.fail("用户名或密码不能为空");
         }
-        // todo 远端注册实现，为保证与远端一致，本地允许删除
 //        1.查看远端是否已注册
-        User remoteUser = getRemoteUser(username);
+        User remoteUser = remoteUserService.getRemoteUser(username);
         if (remoteUser != null) {
             return localRegister(password, remoteUser);
         } else {
@@ -64,7 +67,7 @@ public class UserService {
     }
 
     private Result<String> fullRegister(String username, String password) {
-        User user = registerRemote(username, password);
+        User user = remoteUserService.registerRemote(username, password);
         return doLocalRegister(user, true);
     }
 
@@ -82,24 +85,6 @@ public class UserService {
      */
     private boolean userNotEqual(User localUser, User remoteUser) {
         return localUser.getId() != remoteUser.getId() || !Objects.equals(localUser.getPassword(), remoteUser.getPassword());
-    }
-
-    private User registerRemote(String username, String password) {
-        // todo 注册远端
-        if (1 == 2) {
-            // 如果注册失败，抛出异常
-            throw new RuntimeException("注册失败");
-        } else {
-            // todo 返回远端数据
-            return new User(1, username, password);
-        }
-
-    }
-
-
-    private User getRemoteUser(String username) {
-        // todo
-        return null;
     }
 
 

@@ -4,11 +4,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 @TableName("t_mock_remote_user")
 public class MockRemoteUser {
 
@@ -18,4 +16,9 @@ public class MockRemoteUser {
     private String username;
     @TableField("password")
     private String password;
+
+    public MockRemoteUser(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 }
