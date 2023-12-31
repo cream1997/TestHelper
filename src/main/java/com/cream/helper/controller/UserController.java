@@ -3,6 +3,7 @@ package com.cream.helper.controller;
 import com.cream.helper.obj.dto.UserDTO;
 import com.cream.helper.obj.vo.Result;
 import com.cream.helper.obj.vo.ServerItem;
+import com.cream.helper.service.IGameLoginService;
 import com.cream.helper.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,10 +15,12 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final IGameLoginService gameLoginService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, IGameLoginService gameLoginService) {
         this.userService = userService;
+        this.gameLoginService = gameLoginService;
     }
 
     @PostMapping("/registerUser")
@@ -41,6 +44,6 @@ public class UserController {
      */
     @PostMapping("/fetchServerList")
     public Result<List<ServerItem>> fetchServerList() {
-        return userService.fetchServerList();
+        return gameLoginService.fetchServerList();
     }
 }

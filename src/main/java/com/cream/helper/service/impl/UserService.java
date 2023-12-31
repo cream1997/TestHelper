@@ -3,15 +3,11 @@ package com.cream.helper.service.impl;
 import com.cream.helper.mapper.UserMapper;
 import com.cream.helper.obj.entity.account.User;
 import com.cream.helper.obj.vo.Result;
-import com.cream.helper.obj.vo.ServerItem;
 import com.cream.helper.service.IGameLoginService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -96,17 +92,5 @@ public class UserService {
         return null;
     }
 
-    /**
-     * 抓取可用的服务器列表
-     */
-    public Result<List<ServerItem>> fetchServerList() {
-        /*
-         * todo 模拟数据, 待修改
-         */
-        ServerItem dev = new ServerItem("研发服", "192.168.1.1", 6666);
-        ServerItem beta = new ServerItem("beta服", "192.168.2.2", 8888);
-        ServerItem trunk = new ServerItem("稳定服", "192.168.3.3", 6688);
-        List<ServerItem> serverList = new ArrayList<>(Arrays.asList(dev, beta, trunk));
-        return Result.success(serverList);
-    }
+
 }
