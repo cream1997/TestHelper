@@ -1,4 +1,4 @@
-package com.cream.helper.controller;
+package com.cream.helper.controller.account;
 
 import com.cream.helper.obj.dto.LoginDTO;
 import com.cream.helper.obj.vo.Result;
