@@ -4,6 +4,7 @@ import com.cream.helper.annotation.MockComponent;
 import com.cream.helper.mapper.mock.MockRoleMapper;
 import com.cream.helper.obj.bo.Role;
 import com.cream.helper.obj.bo.RoleEnterInfo;
+import com.cream.helper.obj.bo.RoleHeartInfo;
 import com.cream.helper.obj.vo.Result;
 import com.cream.helper.service.IRoleLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +62,12 @@ public class MockRoleLoginService implements IRoleLoginService {
     @Override
     public Result<Role> exitRole(Role role) {
         return Result.success(role);
+    }
+
+
+    @Override
+    public Result<RoleHeartInfo> heart(Role role) {
+        // todo 实现心跳功能
+        return null;
     }
 }

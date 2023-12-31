@@ -2,6 +2,7 @@ package com.cream.helper.controller.account;
 
 import com.cream.helper.obj.bo.Role;
 import com.cream.helper.obj.bo.RoleEnterInfo;
+import com.cream.helper.obj.bo.RoleHeartInfo;
 import com.cream.helper.obj.vo.Result;
 import com.cream.helper.service.IRoleLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +60,13 @@ public class RoleController {
             return Result.fail("请先登录");
         }
         return roleLoginService.exitRole(role);
+    }
+
+    @PostMapping("/roleHeart")
+    public Result<RoleHeartInfo> roleHeart(@RequestBody Role role) {
+        if (role.getUserId() == 0) {
+            throw new RuntimeException("心跳异常");
+        }
+        return roleLoginService.heart(role);
     }
 }
