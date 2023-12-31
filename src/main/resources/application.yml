@@ -7,6 +7,11 @@ spring:
     url: jdbc:mysql://localhost:3306/helper
     username: root
     password: Cr@123456
+#项目自定义配置
+project:
+  use-mock-component: true
+
+#持久层框架配置
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   configuration:

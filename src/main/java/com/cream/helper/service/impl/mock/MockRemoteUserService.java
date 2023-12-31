@@ -1,16 +1,16 @@
 package com.cream.helper.service.impl.mock;
 
+import com.cream.helper.annotation.MockComponent;
 import com.cream.helper.mapper.mock.MockRemoteUserMapper;
 import com.cream.helper.obj.entity.account.User;
 import com.cream.helper.obj.entity.mock.MockRemoteUser;
 import com.cream.helper.service.IRemoteUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * 提供模拟数据的服务
  */
-@Service
+@MockComponent()
 public class MockRemoteUserService implements IRemoteUserService {
 
     private final MockRemoteUserMapper mockRemoteUserMapper;
