@@ -1,4 +1,4 @@
-package com.cream.helper.service;
+package com.cream.helper.service.impl;
 
 import com.cream.helper.core.net.Message;
 import org.springframework.stereotype.Service;

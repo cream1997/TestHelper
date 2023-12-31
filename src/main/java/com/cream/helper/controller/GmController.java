@@ -1,6 +1,6 @@
 package com.cream.helper.controller;
 
-import com.cream.helper.service.GmService;
+import com.cream.helper.service.impl.GmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;

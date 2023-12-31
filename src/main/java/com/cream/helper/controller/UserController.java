@@ -3,7 +3,7 @@ package com.cream.helper.controller;
 import com.cream.helper.obj.dto.UserDTO;
 import com.cream.helper.obj.vo.Result;
 import com.cream.helper.obj.vo.ServerItem;
-import com.cream.helper.service.UserService;
+import com.cream.helper.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;

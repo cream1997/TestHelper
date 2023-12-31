@@ -1,4 +1,4 @@
-package com.cream.helper.service;
+package com.cream.helper.service.impl;
 
 import com.cream.helper.mapper.UserMapper;
 import com.cream.helper.obj.entity.account.User;

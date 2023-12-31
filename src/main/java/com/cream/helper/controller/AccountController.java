@@ -2,7 +2,7 @@ package com.cream.helper.controller;
 
 import com.cream.helper.obj.dto.LoginDTO;
 import com.cream.helper.obj.vo.Result;
-import com.cream.helper.service.AccountService;
+import com.cream.helper.service.impl.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
