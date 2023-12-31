@@ -4,7 +4,7 @@ import com.cream.helper.mapper.UserMapper;
 import com.cream.helper.obj.entity.account.User;
 import com.cream.helper.obj.vo.Result;
 import com.cream.helper.obj.vo.ServerItem;
-import com.cream.helper.service.IRemoteUserService;
+import com.cream.helper.service.IGameLoginService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +19,12 @@ public class UserService {
 
     private final UserMapper userMapper;
 
-    private final IRemoteUserService remoteUserService;
+    private final IGameLoginService gameLoginService;
 
     @Autowired
-    public UserService(UserMapper userMapper, IRemoteUserService remoteUserService) {
+    public UserService(UserMapper userMapper, IGameLoginService gameLoginService) {
         this.userMapper = userMapper;
-        this.remoteUserService = remoteUserService;
+        this.gameLoginService = gameLoginService;
     }
 
     /**
@@ -35,7 +35,7 @@ public class UserService {
             return Result.fail("用户名或密码不能为空");
         }
 //        1.查看远端是否已注册
-        User remoteUser = remoteUserService.getRemoteUser(username);
+        User remoteUser = gameLoginService.getRemoteUser(username);
         if (remoteUser != null) {
             return localRegister(password, remoteUser);
         } else {
@@ -67,7 +67,7 @@ public class UserService {
     }
 
     private Result<String> fullRegister(String username, String password) {
-        User user = remoteUserService.registerRemote(username, password);
+        User user = gameLoginService.registerRemote(username, password);
         return doLocalRegister(user, true);
     }
 

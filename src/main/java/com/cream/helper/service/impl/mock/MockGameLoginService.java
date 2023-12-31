@@ -4,19 +4,19 @@ import com.cream.helper.annotation.MockComponent;
 import com.cream.helper.mapper.mock.MockRemoteUserMapper;
 import com.cream.helper.obj.entity.account.User;
 import com.cream.helper.obj.entity.mock.MockRemoteUser;
-import com.cream.helper.service.IRemoteUserService;
+import com.cream.helper.service.IGameLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 提供模拟数据的服务
  */
 @MockComponent()
-public class MockRemoteUserService implements IRemoteUserService {
+public class MockGameLoginService implements IGameLoginService {
 
     private final MockRemoteUserMapper mockRemoteUserMapper;
 
     @Autowired
-    public MockRemoteUserService(MockRemoteUserMapper mockRemoteUserMapper) {
+    public MockGameLoginService(MockRemoteUserMapper mockRemoteUserMapper) {
         this.mockRemoteUserMapper = mockRemoteUserMapper;
     }
 
