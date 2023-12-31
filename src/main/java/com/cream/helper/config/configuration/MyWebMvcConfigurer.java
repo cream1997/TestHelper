@@ -1,4 +1,4 @@
-package com.cream.helper.config;
+package com.cream.helper.config.configuration;
 
 import com.alibaba.fastjson2.JSONReader;
 import com.alibaba.fastjson2.JSONWriter;

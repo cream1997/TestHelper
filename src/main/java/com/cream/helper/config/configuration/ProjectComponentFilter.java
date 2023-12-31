@@ -1,4 +1,4 @@
-package com.cream.helper.config.sub;
+package com.cream.helper.config.configuration;
 
 
 import com.cream.helper.annotation.MockComponent;
