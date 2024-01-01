@@ -19,13 +19,19 @@ import RequestEditor from "@/components/RequestEditor.vue";
       <MsgDisplay/>
     </div>
 
-    <div class="gmTool">
-      <GMTool/>
+    <div class="common-req-panel">
+      <div class="gmTool">
+        <GMTool/>
+      </div>
+
+      <div class="requestEditor">
+        <RequestEditor/>
+      </div>
+    </div>
+    <div class="test-script-editor">
+
     </div>
 
-    <div class="requestEditor">
-      <RequestEditor/>
-    </div>
   </div>
 </template>
 
@@ -57,19 +63,24 @@ import RequestEditor from "@/components/RequestEditor.vue";
 
 .msgDisplay {
   width: 450px;
-  height: 800px;
+  height: 750px;
   background-color: #51458d;
 }
 
 .gmTool {
   background-color: #8B0000;
   width: 400px;
-  height: 6300px;
+  height: 300px;
 }
 
 .requestEditor {
   background-color: #FFD700;
   width: 400px;
-  height: 600px;
+  height: 450px;
+}
+
+.test-script-editor {
+  width: 400px;
+  background-color: #B3A5FC;
 }
 </style>
