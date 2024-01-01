@@ -16,3 +16,9 @@ mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
+
+#日志配置
+logging:
+  file:
+    path: D:\tmp
+    name: TestHelp.log
