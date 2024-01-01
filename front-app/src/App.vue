@@ -19,15 +19,6 @@ html, body {
 #app {
   margin: 0;
   padding: 0;
+  max-width: none;
 }
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  outline: none;
-  border: none;
-}
-
-
 </style>
