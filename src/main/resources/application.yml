@@ -20,5 +20,4 @@ mybatis-plus:
 #日志配置
 logging:
   file:
-    path: D:\tmp
-    name: TestHelp.log
+    name: D:\\tmp\TestHelp.log
