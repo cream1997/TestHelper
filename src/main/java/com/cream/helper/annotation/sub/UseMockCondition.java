@@ -13,7 +13,7 @@ public class UseMockCondition implements Condition {
         Environment environment = context.getEnvironment();
         Boolean useMock = environment.getProperty("project.use-mock-component", Boolean.class);
         if (Boolean.TRUE.equals(useMock)) {
-            log.error("项目开启了mock组件");
+            log.warn("项目开启了mock组件{}", metadata);
             return true;
         } else {
             return false;
