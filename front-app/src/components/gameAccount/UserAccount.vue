@@ -8,13 +8,13 @@ let password = ref()
 <template>
 
   <form class="login-form" action="javascript:">
-    <h5 class="form-title">游戏账号登录</h5>
-    <label for="name" class="username-label">用户名：
-      <input type="text" id="name" name="name" v-model="username"/>
+    <h4 class="form-title">游戏账号登录</h4>
+    <label for="name" class="username-label">
+      <input type="text" id="name" name="name" v-model="username" placeholder="用户名"/>
     </label>
 
     <label for="password" class="password-label">
-      密码：<input type="password" id="password" name="password" v-model="password"/>
+      <input type="password" id="password" name="password" v-model="password" placeholder="密码"/>
     </label>
     <div class="server-selector">
       服务器：<select>
@@ -37,10 +37,17 @@ let password = ref()
 }
 
 .form-title, .username-label, .password-label, .server-selector {
-  margin: 0 0;
   width: 100%;
-  height: 20px;
   text-align: center;
+}
+
+.form-title {
+  margin: 0 0;
+  height: 20px;
+}
+
+.username-label, .password-label {
+  line-height: 30px;
 }
 
 .button-box {
