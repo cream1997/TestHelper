@@ -1,5 +1,5 @@
 <script setup lang="ts" name="Home">
-import Account from "@/components/Account.vue";
+import Account from "@/components/gameAccount/AccountBox.vue";
 import QuickMenu from "@/components/QuickMenu.vue";
 import MsgDisplay from "@/components/MsgDisplay.vue";
 import GMTool from "@/components/GMTool.vue";
@@ -51,14 +51,14 @@ import RequestEditor from "@/components/RequestEditor.vue";
 
 .account {
   background-color: #65CBF7;
-  width: 500px;
-  height: 150px;
+  width: 400px;
+  height: 130px;
 }
 
 .quickMenu {
   background: #9C3493;
-  height: 150px;
-  width: calc(100% - 500px);
+  height: 130px;
+  width: calc(100% - 400px);
 }
 
 .msgDisplay {
