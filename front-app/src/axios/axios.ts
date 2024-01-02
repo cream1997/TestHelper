@@ -1,8 +1,9 @@
 import axios from "axios";
 import {ElMessage as Tip} from "element-plus";
+import config from "@/config.json"
 
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:8080/",
+    baseURL: `http://${config.backendIp}:${config.backendPort}/`,
     timeout: 1500,
     headers: {
         // fixme 网上都说默认就是json，但是实际测试发现不是，这里我手动设置一下，后续在看是什原因
