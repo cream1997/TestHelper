@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @TableName("t_user")
 public class User {
     @TableId(value = "id")
-    private final long id;
+    private final Long id;
     @TableField(value = "username")
     private final String username;
     @TableField("password")

@@ -11,7 +11,7 @@ import lombok.Data;
 public class MockRemoteUser {
 
     @TableId(value = "id", type = IdType.ASSIGN_ID)
-    private long id;
+    private Long id;
     @TableField("username")
     private String username;
     @TableField("password")
