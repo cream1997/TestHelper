@@ -1,6 +1,6 @@
 package com.cream.helper.controller;
 
-import com.cream.helper.core.gm.GmCommand;
+import com.cream.helper.core.exe.constant.gm.GmCmdType;
 import com.cream.helper.obj.dto.ExeGmReq;
 import com.cream.helper.obj.vo.Result;
 import com.cream.helper.service.impl.GmService;
@@ -31,7 +31,7 @@ public class GmController {
      * 获取所有可用的GM命令
      */
     @PostMapping("/fetchAllGmCmd")
-    public Result<Collection<GmCommand>> fetchAllGmCommand() {
+    public Result<Collection<GmCmdType>> fetchAllGmCommand() {
         return gmService.fetchAllGmCommand();
     }
 }

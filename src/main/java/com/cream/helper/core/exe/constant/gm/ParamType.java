@@ -1,4 +1,4 @@
-package com.cream.helper.core.gm;
+package com.cream.helper.core.exe.constant.gm;
 
 public enum ParamType {
     Int,

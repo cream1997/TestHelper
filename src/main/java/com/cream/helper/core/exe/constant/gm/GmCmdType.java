@@ -1,17 +1,15 @@
-package com.cream.helper.core.gm;
+package com.cream.helper.core.exe.constant.gm;
 
 import com.cream.helper.utils.NullUtil;
 
 import java.util.*;
 
-import static com.cream.helper.core.gm.ParamsAdder.setParam;
 
+public enum GmCmdType {
 
-public enum GmCommand {
-
-    AddExp("加经验", setParam("经验值")),
-    SetLevel("设置等级", setParam("等级值")),
-    LevelUp("升级", setParam("升级值"));
+    AddExp("加经验", ParamsAdder.setParam("经验值")),
+    SetLevel("设置等级", ParamsAdder.setParam("等级值")),
+    LevelUp("升级", ParamsAdder.setParam("升级值"));
     /**
      * 描述说明
      */
@@ -25,11 +23,11 @@ public enum GmCommand {
         return new ArrayList<>(params);
     }
 
-    GmCommand(String desc) {
+    GmCmdType(String desc) {
         this.desc = desc;
     }
 
-    GmCommand(String desc, ParamsAdder paramsAdder) {
+    GmCmdType(String desc, ParamsAdder paramsAdder) {
         this.desc = desc;
 
         if (NullUtil.isEmpty(paramsAdder.getParams())) {
@@ -38,18 +36,18 @@ public enum GmCommand {
         params.addAll(paramsAdder.getParams());
     }
 
-    private static final Map<String, GmCommand> allGmCmd;
+    private static final Map<String, GmCmdType> allGmCmd;
 
     static {
-        Map<String, GmCommand> allGmCmdMap = new HashMap<>();
-        for (GmCommand value : GmCommand.values()) {
+        Map<String, GmCmdType> allGmCmdMap = new HashMap<>();
+        for (GmCmdType value : GmCmdType.values()) {
             allGmCmdMap.put(value.name(), value);
         }
         // 外部不可修改
         allGmCmd = Collections.unmodifiableMap(allGmCmdMap);
     }
 
-    public static Collection<GmCommand> getAllGmCmd() {
+    public static Collection<GmCmdType> getAllGmCmd() {
         return allGmCmd.values();
     }
 }

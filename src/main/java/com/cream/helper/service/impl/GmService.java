@@ -1,6 +1,6 @@
 package com.cream.helper.service.impl;
 
-import com.cream.helper.core.gm.GmCommand;
+import com.cream.helper.core.exe.constant.gm.GmCmdType;
 import com.cream.helper.core.net.GameClient;
 import com.cream.helper.core.net.RoleSessionManager;
 import com.cream.helper.core.net.bo.RoleSession;
@@ -37,8 +37,8 @@ public class GmService {
     /**
      * 获取所有GM命令
      */
-    public Result<Collection<GmCommand>> fetchAllGmCommand() {
-        Collection<GmCommand> allGmCmd = GmCommand.getAllGmCmd();
+    public Result<Collection<GmCmdType>> fetchAllGmCommand() {
+        Collection<GmCmdType> allGmCmd = GmCmdType.getAllGmCmd();
         return Result.success(allGmCmd);
     }
 }
