@@ -1,86 +1,70 @@
 <script setup lang="ts" name="Home">
 import Account from "@/components/gameAccount/AccountBox.vue";
 import QuickMenu from "@/components/QuickMenu.vue";
+import CommonReq from "@/components/commonReq/CommonReq.vue";
 import MsgDisplay from "@/components/MsgDisplay.vue";
-import GMTool from "@/components/GMTool.vue";
-import RequestEditor from "@/components/RequestEditor.vue";
 </script>
 
 <template>
   <div class="homeBox">
-    <div class="account">
+    <div class="account module">
       <Account/>
     </div>
-    <div class="quickMenu">
+    <div class="quickMenu module">
       <QuickMenu/>
     </div>
 
-    <div class="msgDisplay">
+    <div class="msgDisplay module">
       <MsgDisplay/>
     </div>
 
-    <div class="common-req-panel">
-      <div class="gmTool">
-        <GMTool/>
-      </div>
-
-      <div class="requestEditor">
-        <RequestEditor/>
-      </div>
+    <div class="common-req-panel module">
+      <CommonReq/>
     </div>
-    <div class="test-script-editor">
+    <div class="test-script-editor module">
 
     </div>
-
   </div>
 </template>
 
 <style scoped>
 .homeBox {
+  background-color: #ada8a8;
   width: 100%;
   height: 100%;
-  background-color: #888;
   display: flex;
   flex-wrap: wrap;
 }
 
-.homeBox > * {
+.module {
+  background-color: gray;
   border: 1px solid black;
   box-sizing: border-box;
+  padding: 1px;
 }
 
 .account {
-  background-color: #65CBF7;
-  width: 400px;
+  width: 450px;
   height: 130px;
 }
 
 .quickMenu {
-  background: #9C3493;
   height: 130px;
-  width: calc(100% - 400px);
+  width: calc(100% - 450px);
 }
 
 .msgDisplay {
   width: 450px;
   height: 750px;
-  background-color: #51458d;
 }
 
-.gmTool {
-  background-color: #8B0000;
+.common-req-panel {
   width: 400px;
-  height: 300px;
+  height: 750px;
 }
 
-.requestEditor {
-  background-color: #FFD700;
-  width: 400px;
-  height: 450px;
-}
 
 .test-script-editor {
-  width: 400px;
-  background-color: #B3A5FC;
+  width: calc(100% - 850px);
 }
 </style>
