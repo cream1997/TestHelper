@@ -5,6 +5,7 @@ import App from './App.vue'
 import router from "@/router";
 import ElementPlus from "element-plus"
 import 'element-plus/dist/index.css'
+import {createPinia} from "pinia";
 
 createApp(App)
     .use(router)
@@ -13,6 +14,7 @@ createApp(App)
         size: "small",
         zIndex: 2000
     })
+    .use(createPinia()) //引入状态管理库pinia
     .mount('#app')
 
 
