@@ -3,6 +3,7 @@ import {onMounted, onUnmounted, ref} from "vue";
 import {useRouter} from "vue-router";
 import axios from "@/axios/axios";
 import {ElMessage as Tip} from "element-plus";
+import {useAccountStore} from "@/store/account";
 
 const router = useRouter();
 
@@ -33,6 +34,9 @@ function login() {
     password: password.value
   }).then((res: any) => {
     Tip.success("登录成功");
+    // 存入accountStore
+    const accountStore = useAccountStore();
+    accountStore.accountId = res;
     router.push({
       path: "/home",
       query: {accountId: res}
@@ -40,7 +44,6 @@ function login() {
   })
 }
 
-// todo
 function register() {
   if (accountInvalid()) {
     return;
