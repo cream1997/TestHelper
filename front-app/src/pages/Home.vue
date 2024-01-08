@@ -1,5 +1,5 @@
 <script setup lang="ts" name="Home">
-import Account from "@/components/gameAccount/AccountBox.vue";
+import Account from "@/components/gameAccount/GameAccountBox.vue";
 import QuickMenu from "@/components/QuickMenu.vue";
 import CommonReq from "@/components/commonReq/CommonReq.vue";
 import MsgDisplay from "@/components/MsgDisplay.vue";
