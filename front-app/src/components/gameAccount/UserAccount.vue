@@ -3,6 +3,8 @@ import {ref} from "vue";
 import {axios} from "@/axios/axios";
 import {useAccountStore} from "@/store/account";
 import {checkAccountNotNull} from "@/tools/CheckFormUtil";
+import Cookies from "js-cookie";
+import router from "@/router";
 
 let username = ref()
 let password = ref()
@@ -17,7 +19,11 @@ function registerUser() {
   }).then(res => {
     alert(res)
   })
+}
 
+function logoutAccount() {
+  Cookies.set("accountInfo", "")
+  router.push("/login")
 }
 
 </script>
@@ -25,7 +31,9 @@ function registerUser() {
 <template>
 
   <form class="login-form" action="javascript:">
-    <h4 class="form-title">游戏账号登录</h4>
+    <h4 class="form-title">游戏账号登录
+      <button class="logout-account-button" @click="logoutAccount">退出</button>
+    </h4>
     <label for="name" class="username-label">
       <input type="text" id="name" name="name" v-model="username" placeholder="用户名"/>
     </label>
@@ -41,8 +49,8 @@ function registerUser() {
     </select>
     </div>
     <div class="button-box">
-      <button>登录</button>
-      <button @click="registerUser">注册</button>
+      <button class="user-button">登录</button>
+      <button class="user-button" @click="registerUser">注册</button>
     </div>
   </form>
 </template>
@@ -72,7 +80,7 @@ input {
   height: 20px;
 }
 
-button {
+.user-button {
   margin-top: 3px;
   font-size: 15px;
 }
