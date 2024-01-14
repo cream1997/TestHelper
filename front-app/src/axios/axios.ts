@@ -67,7 +67,7 @@ axiosInstance.interceptors.response.use(response => {
 });
 
 /**
- * 定义这个方法的目的是，能够在使用处指定then方法的泛型不然，他总是AxiosResponse<?>
+ * 定义这个方法的目的是，能够在使用处指定then方法的泛型，不然他总是AxiosResponse<?>
  */
 function post<T = any, D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<T> {
     return axiosInstance.post(url, data, config)
