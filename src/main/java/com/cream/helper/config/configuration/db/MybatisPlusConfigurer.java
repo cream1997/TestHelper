@@ -1,4 +1,4 @@
-package com.cream.helper.config.configuration;
+package com.cream.helper.config.configuration.db;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.cream.helper.utils.Times;

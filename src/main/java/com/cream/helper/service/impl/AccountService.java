@@ -4,8 +4,8 @@ import com.cream.helper.mapper.AccountMapper;
 import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.entity.account.Account;
 import com.cream.helper.obj.vo.AccountVO;
-import com.cream.helper.utils.NullUtil;
-import com.cream.helper.utils.tools.JwtTool;
+import com.cream.helper.tools.JwtTool;
+import com.cream.helper.tools.account.FormCheckTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,17 +17,17 @@ public class AccountService {
 
     private final AccountMapper accountMapper;
     private final JwtTool jwtTool;
+    private final FormCheckTool formCheckTool;
 
     @Autowired
-    public AccountService(AccountMapper accountMapper, JwtTool jwtTool) {
+    public AccountService(AccountMapper accountMapper, JwtTool jwtTool, FormCheckTool formCheckTool) {
         this.accountMapper = accountMapper;
         this.jwtTool = jwtTool;
+        this.formCheckTool = formCheckTool;
     }
 
     public Ret<String> register(String username, String password) {
-        if (NullUtil.isAnyBlank(username, password)) {
-            return Ret.err(null, "用户名或密码不能为空");
-        }
+        formCheckTool.checkNull(username, password);
         Account account = accountMapper.getAccount(username);
         if (account != null) {
             return Ret.err(null, "账号已被注册");
@@ -37,9 +37,7 @@ public class AccountService {
     }
 
     public Ret<AccountVO> login(String username, String password) {
-        if (NullUtil.isAnyBlank(username, password)) {
-            return Ret.err(null, "用户名或密码不能为空");
-        }
+        formCheckTool.checkNull(username, password);
         Account account = accountMapper.getAccount(username);
         if (account == null) {
             return Ret.err("账号不存在");

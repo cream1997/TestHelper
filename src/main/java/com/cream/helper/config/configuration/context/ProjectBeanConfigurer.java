@@ -1,4 +1,4 @@
-package com.cream.helper.config.configuration;
+package com.cream.helper.config.configuration.context;
 
 import com.cream.helper.core.net.msg.Message;
 import com.cream.helper.core.net.msg.MessageTemplatePool;

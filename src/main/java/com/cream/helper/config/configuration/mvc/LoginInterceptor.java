@@ -1,4 +1,4 @@
-package com.cream.helper.config.configuration;
+package com.cream.helper.config.configuration.mvc;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

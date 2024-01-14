@@ -5,7 +5,7 @@ import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.bo.LoginInfo;
 import com.cream.helper.obj.entity.account.User;
 import com.cream.helper.service.IGameLoginService;
-import com.cream.helper.utils.NullUtil;
+import com.cream.helper.tools.account.FormCheckTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +18,13 @@ public class UserService {
 
     private final IGameLoginService gameLoginService;
 
+    private final FormCheckTool formCheckTool;
+
     @Autowired
-    public UserService(LocalUserMapper localUserMapper, IGameLoginService gameLoginService) {
+    public UserService(LocalUserMapper localUserMapper, IGameLoginService gameLoginService, FormCheckTool formCheckTool) {
         this.localUserMapper = localUserMapper;
         this.gameLoginService = gameLoginService;
+        this.formCheckTool = formCheckTool;
     }
 
     /**
@@ -32,9 +35,7 @@ public class UserService {
             // fixme
             return Ret.err("未登录测试平台");
         }
-        if (NullUtil.isAnyBlank(username, password)) {
-            return Ret.err("用户名或密码不能为空");
-        }
+        formCheckTool.checkNull(username, password);
 //        1.查看远端是否已注册
         User remoteUser = gameLoginService.getRemoteUser(username);
         if (remoteUser != null) {
@@ -91,9 +92,7 @@ public class UserService {
 
 
     public Ret<LoginInfo> login(String username, String password) {
-        if (NullUtil.isAnyBlank(username, password)) {
-            return Ret.err("用户名或密码不能为空");
-        }
+        formCheckTool.checkNull(username, password);
         User remoteUser = gameLoginService.getRemoteUser(username);
         if (remoteUser == null) {
             return Ret.err("账号不存在");
