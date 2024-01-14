@@ -7,9 +7,10 @@ import {useAccountStore} from "@/store/account";
 import {checkAccountNotNull} from "@/tools/CheckFormUtil";
 import type Account from "@/interface/Account";
 import Cookies from 'js-cookie'
+import config from "@/config.json"
 
 const router = useRouter();
-const AccountCookieKey = "accountInfo";
+const AccountCookieKey = config.accountCookieKey;
 let accountName = ref("admin");
 let password = ref("admin");
 

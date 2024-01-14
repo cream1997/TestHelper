@@ -2,6 +2,10 @@ import type {AxiosRequestConfig} from "axios";
 import axios from "axios";
 import {ElMessage as Tip} from "element-plus";
 import config from "@/config.json"
+import Cookies from "js-cookie";
+import type Account from "@/interface/Account";
+
+const AccountCookieKey = config.accountCookieKey;
 
 const axiosInstance = axios.create({
     baseURL: `http://${config.backendIp}:${config.backendPort}/`,
@@ -36,6 +40,13 @@ const axiosInstance = axios.create({
 // 添加请求拦截器
 axiosInstance.interceptors.request.use(config => {
     // 在发送请求之前做些什么
+    // 携带token
+    const accountCookie = Cookies.get(AccountCookieKey);
+    if (accountCookie) {
+        const accountInfo: Account = JSON.parse(accountCookie);
+        config.headers['token'] = accountInfo.token;
+    }
+
     return config;
 }, function (error) {
     // 对请求错误做些什么
