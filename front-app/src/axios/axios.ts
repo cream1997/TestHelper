@@ -1,3 +1,4 @@
+import type {AxiosRequestConfig} from "axios";
 import axios from "axios";
 import {ElMessage as Tip} from "element-plus";
 import config from "@/config.json"
@@ -63,4 +64,15 @@ axiosInstance.interceptors.response.use(response => {
     return Promise.reject(error);
 });
 
-export default axiosInstance;
+/**
+ * 定义这个方法的目的是，能够在使用处指定then方法的泛型不然，他总是AxiosResponse<?>
+ */
+function post<T = any, D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<T> {
+    return axiosInstance.post(url, data, config)
+        .then(res => {
+            return res as T;
+        })
+}
+
+export {axiosInstance as axios};
+export {post}

@@ -1,6 +1,6 @@
 <script setup lang="ts" name="UserAccount">
 import {ref} from "vue";
-import axios from "@/axios/axios";
+import {axios} from "@/axios/axios";
 import {useAccountStore} from "@/store/account";
 import {checkAccountNotNull} from "@/tools/CheckFormUtil";
 

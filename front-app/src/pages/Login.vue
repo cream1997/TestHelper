@@ -1,10 +1,11 @@
 <script setup lang="ts" name="Login">
 import {onMounted, onUnmounted, ref} from "vue";
 import {useRouter} from "vue-router";
-import axios from "@/axios/axios";
+import {post} from "@/axios/axios";
 import {ElMessage as Tip} from "element-plus";
 import {useAccountStore} from "@/store/account";
 import {checkAccountNotNull} from "@/tools/CheckFormUtil";
+import type Account from "@/interface/Account";
 
 const router = useRouter();
 
@@ -18,24 +19,24 @@ if (account) {
 
 function login() {
   checkAccountNotNull(username.value, password.value);
-  axios.post("/login", {
+  post("/login", {
     username: username.value,
     password: password.value
-  }).then((res: any) => {
+  }).then((account: Account) => {
     Tip.success("登录成功");
     // 存入accountStore
     const accountStore = useAccountStore();
-    accountStore.accountId = res;
+    accountStore.accountId = account.id;
     router.push({
       path: "/home",
-      query: {accountId: res}
+      query: {accountId: account.id}
     })
   })
 }
 
 function register() {
   checkAccountNotNull(username.value, password.value);
-  axios.post("/register",
+  post("/register",
       {
         username: username.value,
         password: password.value
