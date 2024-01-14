@@ -82,6 +82,10 @@ function setLoginPageStyle() {
 }
 
 setLoginPageStyle();
+
+function forgetPassword() {
+  Tip.info("请联系管理员！")
+}
 </script>
 
 <template>
@@ -93,7 +97,7 @@ setLoginPageStyle();
       <h1>测试助手</h1>
       <input type="text" v-model="accountName" class="inputItem" placeholder="请输入账号">
       <input type="password" v-model="password" class="inputItem" placeholder="请输入密码">
-      <a href="#" class="forgetPassword">忘记密码?</a>
+      <a href="#" class="forgetPassword" @click="forgetPassword">忘记密码?</a>
       <button class="btn" @click="login">登录</button>
       <button class="btn" @click="register">注册</button>
     </div>
@@ -161,6 +165,14 @@ h1 {
   color: #9C3493;
   text-align: right;
   display: block;
+}
+
+.forgetPassword:hover {
+  color: #51458d;
+}
+
+.forgetPassword:active {
+  color: #B3A5FC;
 }
 
 .btn {
