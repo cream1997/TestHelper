@@ -11,6 +11,7 @@
     "type-check": "vue-tsc --build --force"
   },
   "dependencies": {
+    "@types/js-cookie": "^3.0.6",
     "axios": "^1.6.3",
     "element-plus": "^2.4.4",
     "js-cookie": "^3.0.5",
