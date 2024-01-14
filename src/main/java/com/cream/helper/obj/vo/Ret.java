@@ -15,18 +15,17 @@ public class Ret<T> {
         this.info = info;
     }
 
-    public static <T> Ret<T> success(T data) {
+    public static <T> Ret<T> ok(T data) {
         return new Ret<>(data, Status.SUCCESS, null);
     }
 
-    public static <T> Ret<T> failWithRet(T data, String errorInfo) {
-        return new Ret<>(data, Status.ERROR, errorInfo);
-    }
-
-    public static <T> Ret<T> fail(String errorInfo) {
+    public static <T> Ret<T> err(String errorInfo) {
         return new Ret<>(null, Status.ERROR, errorInfo);
     }
 
+    public static <T> Ret<T> err(T data, String errorInfo) {
+        return new Ret<>(data, Status.ERROR, errorInfo);
+    }
 
     private enum Status {
         SUCCESS(0),

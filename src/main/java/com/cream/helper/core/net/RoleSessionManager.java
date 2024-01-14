@@ -60,7 +60,7 @@ public class RoleSessionManager {
         }
         roleSession.setLastHeartTime(Times.now());
         long userId = roleSession.getUserId(), lastHeartTime = roleSession.getLastHeartTime();
-        return Ret.success(new RoleHeartInfo(userId, rid, lastHeartTime));
+        return Ret.ok(new RoleHeartInfo(userId, rid, lastHeartTime));
     }
 
     public RoleSession getRoleSession(long rid) {

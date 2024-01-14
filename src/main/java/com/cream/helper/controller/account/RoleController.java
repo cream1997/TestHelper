@@ -25,7 +25,7 @@ public class RoleController {
     @PostMapping("/fetchRoleList")
     public Ret<List<Role>> fetchRoleList(long userId) {
         if (userId == 0) {
-            return Ret.fail("请先登录");
+            return Ret.err("请先登录");
         }
         return roleLoginService.fetchRoleList(userId);
     }
@@ -33,7 +33,7 @@ public class RoleController {
     @PostMapping("/createRole")
     public Ret<Role> createRole(@RequestBody Role role) {
         if (role.getUserId() == 0) {
-            return Ret.fail("请先登录");
+            return Ret.err("请先登录");
         }
         return roleLoginService.createRole(role);
     }
@@ -41,7 +41,7 @@ public class RoleController {
     @PostMapping("/deleteRole")
     public Ret<Role> deleteRole(@RequestBody Role role) {
         if (role.getUserId() == 0) {
-            return Ret.fail("请先登录");
+            return Ret.err("请先登录");
         }
         return roleLoginService.deleteRole(role);
     }
@@ -49,7 +49,7 @@ public class RoleController {
     @PostMapping("/enterRole")
     public Ret<RoleEnterInfo> enterRole(@RequestBody Role role) {
         if (role.getUserId() == 0) {
-            return Ret.fail("请先登录");
+            return Ret.err("请先登录");
         }
         return roleLoginService.enterRole(role);
     }
@@ -57,7 +57,7 @@ public class RoleController {
     @PostMapping("/exitRole")
     public Ret<Role> exitRole(@RequestBody Role role) {
         if (role.getUserId() == 0) {
-            return Ret.fail("请先登录");
+            return Ret.err("请先登录");
         }
         return roleLoginService.exitRole(role);
     }

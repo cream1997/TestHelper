@@ -29,54 +29,54 @@ public class MockRoleLoginService implements IRoleLoginService {
     @Override
     public Ret<List<Role>> fetchRoleList(long userId) {
         List<Role> roleList = mockRoleMapper.getRoleList(userId);
-        return Ret.success(roleList);
+        return Ret.ok(roleList);
     }
 
     @Override
     public Ret<Role> createRole(Role role) {
         String name = role.getName();
         if (mockRoleMapper.containsName(name)) {
-            return Ret.fail("角色名称已存在");
+            return Ret.err("角色名称已存在");
         }
         // 初始化等级
         role.setLevel(1);
         mockRoleMapper.insert(role);
-        return Ret.success(role);
+        return Ret.ok(role);
     }
 
     @Override
     public Ret<Role> deleteRole(Role role) {
         if (role.getId() == null) {
-            return Ret.fail("删除失败");
+            return Ret.err("删除失败");
         }
         if (mockRoleMapper.deleteRole(role.getId(), role.getUserId())) {
-            return Ret.success(role);
+            return Ret.ok(role);
         } else {
-            return Ret.fail("删除失败");
+            return Ret.err("删除失败");
         }
     }
 
     @Override
     public Ret<RoleEnterInfo> enterRole(Role role) {
         if (!mockRoleMapper.containsRole(role.getId(), role.getUserId())) {
-            return Ret.fail("角色不存在");
+            return Ret.err("角色不存在");
         }
         GameClient gameClient = new GameClient();
         sessionManager.addOnline(role, gameClient);
-        return Ret.success(new RoleEnterInfo(role, null));
+        return Ret.ok(new RoleEnterInfo(role, null));
     }
 
     @Override
     public Ret<Role> exitRole(Role role) {
         sessionManager.removeOnline(role.getId());
-        return Ret.success(role);
+        return Ret.ok(role);
     }
 
 
     @Override
     public Ret<RoleHeartInfo> heart(Role role) {
         if (!sessionManager.isOffLine(role.getId())) {
-            return Ret.fail("角色不在线");
+            return Ret.err("角色不在线");
         }
         return sessionManager.heart(role.getId());
     }

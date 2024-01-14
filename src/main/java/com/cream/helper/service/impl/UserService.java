@@ -30,10 +30,10 @@ public class UserService {
     public Ret<String> register(long accountId, String username, String password) {
         if (accountId == 0L) {
             // fixme
-            return Ret.fail("未登录测试平台");
+            return Ret.err("未登录测试平台");
         }
         if (NullUtil.isAnyBlank(username, password)) {
-            return Ret.fail("用户名或密码不能为空");
+            return Ret.err("用户名或密码不能为空");
         }
 //        1.查看远端是否已注册
         User remoteUser = gameLoginService.getRemoteUser(username);
@@ -50,7 +50,7 @@ public class UserService {
      */
     private Ret<String> localRegister(long accountId, String password, User remoteUser) {
         if (!Objects.equals(password, remoteUser.getPassword())) {
-            return Ret.fail("账号已被注册");
+            return Ret.err("账号已被注册");
         }
         // 查看是否重复注册
         User localUser = localUserMapper.getUser(remoteUser.getUsername());
@@ -62,7 +62,7 @@ public class UserService {
                 // 数据不一致已远端为准
                 return doLocalRegister(localUser, true);
             } else {
-                return Ret.fail("重复注册");
+                return Ret.err("重复注册");
             }
         }
     }
@@ -78,7 +78,7 @@ public class UserService {
             localUserMapper.deleteById(user.getId());
         }
         localUserMapper.insert(user);
-        return Ret.success("注册成功");
+        return Ret.ok("注册成功");
     }
 
     /**
@@ -92,14 +92,14 @@ public class UserService {
 
     public Ret<LoginInfo> login(String username, String password) {
         if (NullUtil.isAnyBlank(username, password)) {
-            return Ret.fail("用户名或密码不能为空");
+            return Ret.err("用户名或密码不能为空");
         }
         User remoteUser = gameLoginService.getRemoteUser(username);
         if (remoteUser == null) {
-            return Ret.fail("账号不存在");
+            return Ret.err("账号不存在");
         }
         if (!Objects.equals(password, remoteUser.getPassword())) {
-            return Ret.fail("密码错误");
+            return Ret.err("密码错误");
         }
         // 校验与本地数据的一致性
         User localUser = localUserMapper.getUser(username);
@@ -112,7 +112,7 @@ public class UserService {
             }
         }
         // todo 扩展信息待补充
-        return Ret.success(new LoginInfo(remoteUser, null));
+        return Ret.ok(new LoginInfo(remoteUser, null));
     }
 
     /**

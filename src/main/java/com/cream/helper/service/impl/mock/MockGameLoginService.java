@@ -52,7 +52,7 @@ public class MockGameLoginService implements IGameLoginService {
         ServerItem beta = new ServerItem("beta服", "192.168.2.2", 8888);
         ServerItem trunk = new ServerItem("稳定服", "192.168.3.3", 6688);
         List<ServerItem> serverList = new ArrayList<>(Arrays.asList(dev, beta, trunk));
-        return Ret.success(serverList);
+        return Ret.ok(serverList);
     }
 
 }

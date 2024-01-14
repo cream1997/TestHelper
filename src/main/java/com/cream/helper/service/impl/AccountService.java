@@ -22,28 +22,28 @@ public class AccountService {
 
     public Ret<String> register(String username, String password) {
         if (NullUtil.isAnyBlank(username, password)) {
-            return Ret.failWithRet(null, "用户名或密码不能为空");
+            return Ret.err(null, "用户名或密码不能为空");
         }
         Account account = accountMapper.getAccount(username);
         if (account != null) {
-            return Ret.failWithRet(null, "账号已被注册");
+            return Ret.err(null, "账号已被注册");
         }
         accountMapper.insert(new Account(username, password));
-        return Ret.success("注册成功");
+        return Ret.ok("注册成功");
     }
 
     public Ret<Long> login(String username, String password) {
         if (NullUtil.isAnyBlank(username, password)) {
-            return Ret.failWithRet(null, "用户名或密码不能为空");
+            return Ret.err(null, "用户名或密码不能为空");
         }
         Account account = accountMapper.getAccount(username);
         if (account == null) {
-            return Ret.fail("账号不存在");
+            return Ret.err("账号不存在");
         }
         if (!password.equals(account.getPassword())) {
-            return Ret.fail("密码错误");
+            return Ret.err("密码错误");
         } else {
-            return Ret.success(account.getId());
+            return Ret.ok(account.getId());
         }
     }
 

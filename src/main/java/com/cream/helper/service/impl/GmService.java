@@ -25,13 +25,13 @@ public class GmService {
     public Ret<String> exeGmCmd(ExeGmReq exeGmReq) {
         long rid = exeGmReq.getRid();
         if (sessionManager.isOffLine(rid)) {
-            return Ret.fail("角色不在线");
+            return Ret.err("角色不在线");
         }
         RoleSession roleSession = sessionManager.getRoleSession(rid);
         GameClient gameClient = roleSession.getGameClient();
 //        todo
 //        gameClient.sendMsg();
-        return Ret.success("执行成功");
+        return Ret.ok("执行成功");
     }
 
     /**
@@ -39,6 +39,6 @@ public class GmService {
      */
     public Ret<Collection<GmCmdType>> fetchAllGmCommand() {
         Collection<GmCmdType> allGmCmd = GmCmdType.getAllGmCmd();
-        return Ret.success(allGmCmd);
+        return Ret.ok(allGmCmd);
     }
 }
