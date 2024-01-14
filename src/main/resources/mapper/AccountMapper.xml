@@ -4,6 +4,6 @@
     <select id="getAccount" resultType="com.cream.helper.obj.entity.account.Account">
         SELECT *
         FROM t_account
-        WHERE username = #{username}
+        WHERE account_name = #{username}
     </select>
 </mapper>

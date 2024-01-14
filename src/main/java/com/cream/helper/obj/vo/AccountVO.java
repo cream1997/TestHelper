@@ -4,12 +4,12 @@ import lombok.Data;
 
 @Data
 public class AccountVO {
-    private final long accountId;
+    private final long id;
     private final String accountName;
     private final String token;
 
-    public AccountVO(long accountId, String accountName, String token) {
-        this.accountId = accountId;
+    public AccountVO(long id, String accountName, String token) {
+        this.id = id;
         this.accountName = accountName;
         this.token = token;
     }
