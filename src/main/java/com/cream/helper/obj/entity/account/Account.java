@@ -16,8 +16,8 @@ public class Account {
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
-    @TableField("username")
-    private final String username;
+    @TableField("account_name")
+    private final String accountName;
 
     @TableField("password")
     private String password;
@@ -28,7 +28,7 @@ public class Account {
     @TableLogic
     @TableField("deleted")
     private boolean deleted;
-    
+
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Timestamp createTime;
 
@@ -36,8 +36,8 @@ public class Account {
     private Timestamp updateTime;
 
 
-    public Account(String username, String password) {
-        this.username = username;
+    public Account(String accountName, String password) {
+        this.accountName = accountName;
         this.password = password;
     }
 }

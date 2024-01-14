@@ -1,7 +1,7 @@
 package com.cream.helper.controller;
 
 import com.cream.helper.core.net.msg.Message;
-import com.cream.helper.obj.vo.Ret;
+import com.cream.helper.obj.Ret;
 import com.cream.helper.service.IMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -2,9 +2,9 @@ package com.cream.helper.service.impl.mock;
 
 import com.cream.helper.annotation.MockComponent;
 import com.cream.helper.mapper.mock.MockRemoteUserMapper;
+import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.entity.account.User;
 import com.cream.helper.obj.entity.mock.MockRemoteUser;
-import com.cream.helper.obj.vo.Ret;
 import com.cream.helper.obj.vo.ServerItem;
 import com.cream.helper.service.IGameLoginService;
 import org.springframework.beans.factory.annotation.Autowired;

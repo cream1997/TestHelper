@@ -1,4 +1,4 @@
-package com.cream.helper.obj.vo;
+package com.cream.helper.obj;
 
 import lombok.Getter;
 

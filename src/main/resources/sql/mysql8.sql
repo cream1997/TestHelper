@@ -2,8 +2,8 @@
 CREATE TABLE `t_account`
 (
     `id`          bigint      NOT NULL,
-    `username`    varchar(50) NOT NULL,
-    `password`    varchar(25) NOT NULL,
+    `account_name`    varchar(50) NOT NULL,
+    `password`    varchar(50) NOT NULL,
     `deleted`     tinyint(1) NOT NULL,
     `create_time` datetime    NOT NULL,
     `update_time` datetime    NOT NULL,

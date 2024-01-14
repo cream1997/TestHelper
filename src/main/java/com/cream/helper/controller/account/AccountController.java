@@ -1,7 +1,8 @@
 package com.cream.helper.controller.account;
 
+import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.dto.LoginDTO;
-import com.cream.helper.obj.vo.Ret;
+import com.cream.helper.obj.vo.AccountVO;
 import com.cream.helper.service.impl.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +30,7 @@ public class AccountController {
 
 
     @PostMapping("/login")
-    public Ret<Long> login(@RequestBody LoginDTO loginDTO) {
+    public Ret<AccountVO> login(@RequestBody LoginDTO loginDTO) {
         return accountService.login(loginDTO.getUsername(), loginDTO.getPassword());
     }
 

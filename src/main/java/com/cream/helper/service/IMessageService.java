@@ -1,7 +1,7 @@
 package com.cream.helper.service;
 
 import com.cream.helper.core.net.msg.Message;
-import com.cream.helper.obj.vo.Ret;
+import com.cream.helper.obj.Ret;
 
 import java.util.List;
 

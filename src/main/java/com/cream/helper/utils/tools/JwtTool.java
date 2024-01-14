@@ -19,17 +19,19 @@ public class JwtTool {
     private final long TokeExpiration = Times.ONE_DAY * 30;
 
     private final String AccountIdKey = "accountId";
+    private final String AccountNameKey = "accountName";
 
     /**
      * JWT的token由三部分组成：头、载荷、签名hash
      */
-    public String createToken(long accountId) {
+    public String createToken(long accountId, String accountName) {
         return Jwts.builder()
                 // 设置头
                 .setHeaderParam("alg", "HS256")
                 .setHeaderParam("typ", "JWT")
                 // 设置载荷：自定义信息
                 .claim(AccountIdKey, accountId)
+                .claim(AccountNameKey, accountName)
                 // 载荷：默认信息
                 .setIssuedAt(new Date()) // 设置签发时间
                 .setExpiration(new Date(Times.now() + TokeExpiration)) //设置过期时间
