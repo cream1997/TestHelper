@@ -52,7 +52,9 @@ axiosInstance.interceptors.response.use(response => {
         if (data.data) {
             Tip.error(data.data)
         }
-        return Promise.reject(null)
+        // fixme 这样写，可以中断Promise链，使得在发请求的方法的then就不会再执行了（目前不知道更好的方法，先这样处理）
+        return new Promise(() => {
+        })
     } else {
         // 配置直接返回data数据，这样在接收回调处就不用显示.data了
         return response.data.data;
@@ -74,5 +76,4 @@ function post<T = any, D = any>(url: string, data?: D, config?: AxiosRequestConf
         })
 }
 
-export {axiosInstance as axios};
-export {post}
+export {axiosInstance as axios, post};
