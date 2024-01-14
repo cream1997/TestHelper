@@ -1,8 +1,23 @@
 <script setup lang="ts" name="UserAccount">
 import {ref} from "vue";
+import axios from "@/axios/axios";
+import {useAccountStore} from "@/store/account";
 
 let username = ref()
 let password = ref()
+
+function registerUser() {
+  const accountStore = useAccountStore();
+  axios.post("/registerUser", {
+    accountId: accountStore.accountId,
+    username: username.value,
+    password: username.value
+  }).then(res => {
+    alert(res)
+  })
+
+}
+
 </script>
 
 <template>
@@ -17,7 +32,7 @@ let password = ref()
       <input type="password" id="password" name="password" v-model="password" placeholder="密码"/>
     </label>
     <div class="server-selector">
-      服务器：<select>
+      服务器：<select class="server-selector-option">
       <option>1</option>
       <option>2</option>
       <option>3</option>
@@ -25,7 +40,7 @@ let password = ref()
     </div>
     <div class="button-box">
       <button>登录</button>
-      <button>注册</button>
+      <button @click="registerUser">注册</button>
     </div>
   </form>
 </template>
@@ -46,12 +61,25 @@ let password = ref()
   height: 20px;
 }
 
-.username-label, .password-label {
-  line-height: 30px;
-}
-
 .button-box {
   width: 100%;
   text-align: center;
+}
+
+input {
+  height: 20px;
+}
+
+button {
+  margin-top: 3px;
+  font-size: 15px;
+}
+
+.server-selector {
+  font-size: 18px;
+}
+
+.server-selector-option {
+  font-size: inherit;
 }
 </style>
