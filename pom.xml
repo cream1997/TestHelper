@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.1</version>
+        <version>2.7.18</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.cream</groupId>
@@ -14,7 +14,7 @@
     <name>TestHelper</name>
     <description>TestHelper</description>
     <properties>
-        <java.version>21</java.version>
+        <java.version>8</java.version>
     </properties>
     <dependencies>
         <!--jwt用于实现单点登录-->
@@ -65,7 +65,7 @@
 
         <dependency>
             <groupId>com.alibaba.fastjson2</groupId>
-            <artifactId>fastjson2-extension-spring6</artifactId>
+            <artifactId>fastjson2-extension-spring5</artifactId>
             <version>2.0.44</version>
         </dependency>
 
@@ -77,10 +77,9 @@
 
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.5.5</version>
         </dependency>
-
 
         <dependency>
             <groupId>com.baomidou</groupId>

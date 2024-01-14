@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.context.annotation.Configuration;
@@ -21,8 +22,8 @@ public class ProjectComponentFilter implements BeanDefinitionRegistryPostProcess
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
         for (String beanName : registry.getBeanDefinitionNames()) {
             BeanDefinition beanDefinition = registry.getBeanDefinition(beanName);
-            if (beanDefinition instanceof AnnotatedBeanDefinition annotatedBeanDefinition) {
-                String beanClassName = annotatedBeanDefinition.getBeanClassName();
+            if (beanDefinition instanceof AnnotatedBeanDefinition) {
+                String beanClassName = beanDefinition.getBeanClassName();
                 if (beanClassName == null || beanClassName.isEmpty()) {
                     continue;
                 }
@@ -38,5 +39,10 @@ public class ProjectComponentFilter implements BeanDefinitionRegistryPostProcess
                 }
             }
         }
+    }
+
+    @Override
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        // 这里可以执行其他的 Bean 后处理操作
     }
 }
