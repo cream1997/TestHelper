@@ -6,24 +6,21 @@ import {ElMessage as Tip} from "element-plus";
 import {useAccountStore} from "@/store/account";
 import {checkAccountNotNull} from "@/tools/CheckFormUtil";
 import type Account from "@/interface/Account";
+import Cookies from 'js-cookie'
 
 const router = useRouter();
 
-let username = ref("admin");
+let accountName = ref("admin");
 let password = ref("admin");
 
-const account = defaultAccount();
-if (account) {
-  // todo 默认账号直接登录
-}
-
 function login() {
-  checkAccountNotNull(username.value, password.value);
+  checkAccountNotNull(accountName.value, password.value);
   post("/login", {
-    username: username.value,
+    username: accountName.value,
     password: password.value
   }).then((account: Account) => {
     Tip.success("登录成功");
+    Cookies.set("accountInfo", JSON.stringify(account))
     // 存入accountStore
     const accountStore = useAccountStore();
     accountStore.accountId = account.id;
@@ -35,10 +32,10 @@ function login() {
 }
 
 function register() {
-  checkAccountNotNull(username.value, password.value);
+  checkAccountNotNull(accountName.value, password.value);
   post("/register",
       {
-        username: username.value,
+        username: accountName.value,
         password: password.value
       }
   ).then((res: any) => {
@@ -46,9 +43,14 @@ function register() {
   })
 }
 
-function defaultAccount() {
-  // todo 后续需要修改（可能根据本地存储）
-  return undefined;
+function defaultLogin() {
+  let accountInfo = Cookies.get("accountInfo");
+  if (accountInfo) {
+    const account: Account = JSON.parse(accountInfo);
+    accountName.value = account.accountName
+    password.value = account.password
+    login()
+  }
 }
 
 function setLoginPageStyle() {
@@ -64,6 +66,9 @@ function setLoginPageStyle() {
     document.querySelector("body")
         ?.removeAttribute("style")
   })
+  onMounted(() => {
+    defaultLogin()
+  })
 }
 
 setLoginPageStyle();
@@ -76,7 +81,7 @@ setLoginPageStyle();
     </div>
     <div class="right">
       <h1>测试助手</h1>
-      <input type="text" v-model="username" class="inputItem" placeholder="请输入账号">
+      <input type="text" v-model="accountName" class="inputItem" placeholder="请输入账号">
       <input type="password" v-model="password" class="inputItem" placeholder="请输入密码">
       <a href="#" class="forgetPassword">忘记密码?</a>
       <button class="btn" @click="login">登录</button>
