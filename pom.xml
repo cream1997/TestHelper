@@ -17,6 +17,13 @@
         <java.version>21</java.version>
     </properties>
     <dependencies>
+        <!--jwt用于实现单点登录-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.7.0</version>
+        </dependency>
+
 
         <!--高性能序列化库，https://github.com/protostuff/protostuff-->
         <dependency>
