@@ -52,7 +52,11 @@ public class AccountService {
         }
     }
 
-    public Ret logout(String username) {
+    public Ret<Object> logout(String username) {
         return null;
+    }
+
+    public Ret<Boolean> checkToken(String token) {
+        return Ret.ok(jwtTool.tokenInvalid(token));
     }
 }

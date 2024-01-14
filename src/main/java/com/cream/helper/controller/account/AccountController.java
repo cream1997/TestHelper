@@ -34,8 +34,13 @@ public class AccountController {
         return accountService.login(loginDTO.getUsername(), loginDTO.getPassword());
     }
 
+    @PostMapping("/checkToken")
+    public Ret<Boolean> checkToken(String token) {
+        return accountService.checkToken(token);
+    }
+
     @PostMapping("/logout")
-    public Ret logout(String username) {
+    public Ret<Object> logout(String username) {
         return accountService.logout(username);
     }
 }

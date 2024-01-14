@@ -9,7 +9,7 @@ import type Account from "@/interface/Account";
 import Cookies from 'js-cookie'
 
 const router = useRouter();
-
+const AccountCookieKey = "accountInfo";
 let accountName = ref("admin");
 let password = ref("admin");
 
@@ -20,7 +20,7 @@ function login() {
     password: password.value
   }).then((account: Account) => {
     Tip.success("登录成功");
-    Cookies.set("accountInfo", JSON.stringify(account))
+    Cookies.set(AccountCookieKey, JSON.stringify(account))
     // 存入accountStore
     const accountStore = useAccountStore();
     accountStore.accountId = account.id;
@@ -44,12 +44,21 @@ function register() {
 }
 
 function defaultLogin() {
-  let accountInfo = Cookies.get("accountInfo");
-  if (accountInfo) {
-    const account: Account = JSON.parse(accountInfo);
-    accountName.value = account.accountName
-    password.value = account.password
-    login()
+  let accountCookie = Cookies.get(AccountCookieKey);
+  if (accountCookie) {
+    const account: Account = JSON.parse(accountCookie);
+    // 检查token合法性
+    post("/checkToken", {
+      token: account.token
+    }).then(tokenValid => {
+      if (tokenValid) {
+        accountName.value = account.accountName
+        password.value = account.password
+        login()
+      } else {
+        Cookies.set(AccountCookieKey, "");
+      }
+    })
   }
 }
 
