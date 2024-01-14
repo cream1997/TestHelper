@@ -7,21 +7,21 @@ import MsgDisplay from "@/components/MsgDisplay.vue";
 
 <template>
   <div class="homeBox">
-    <div class="account module">
+    <div class="account module top-component">
       <Account/>
     </div>
-    <div class="quickMenu module">
+    <div class="quickMenu module top-component">
       <QuickMenu/>
     </div>
 
-    <div class="msgDisplay module">
+    <div class="msgDisplay module bottom-component">
       <MsgDisplay/>
     </div>
 
-    <div class="common-req-panel module">
+    <div class="common-req-panel module bottom-component">
       <CommonReq/>
     </div>
-    <div class="test-script-editor module">
+    <div class="test-script-editor module bottom-component">
 
     </div>
   </div>
@@ -31,7 +31,7 @@ import MsgDisplay from "@/components/MsgDisplay.vue";
 .homeBox {
   background-color: #ada8a8;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-wrap: wrap;
 }
@@ -41,6 +41,10 @@ import MsgDisplay from "@/components/MsgDisplay.vue";
   border: 1px solid black;
   box-sizing: border-box;
   padding: 1px;
+}
+
+.top-component {
+  height: 130px;
 }
 
 .account {
@@ -53,14 +57,16 @@ import MsgDisplay from "@/components/MsgDisplay.vue";
   width: calc(100% - 450px);
 }
 
+.bottom-component {
+  height: calc(100vh - 130px);
+}
+
 .msgDisplay {
   width: 450px;
-  height: 750px;
 }
 
 .common-req-panel {
   width: 400px;
-  height: 750px;
 }
 
 
