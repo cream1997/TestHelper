@@ -27,13 +27,26 @@ public class Ret<T> {
         return new Ret<>(data, Status.ERROR, errorInfo);
     }
 
-    private enum Status {
+    public static <T> Ret<T> err(Status status) {
+        return new Ret<>(null, status, status.desc);
+    }
+
+    public enum Status {
         SUCCESS(0),
-        ERROR(1);
+        ERROR(1),
+        NotLoginAccount(2, "未登录Account"),
+        ;
         public final int value;
+        public final String desc;
 
         Status(int value) {
             this.value = value;
+            this.desc = null;
+        }
+
+        Status(int value, String desc) {
+            this.value = value;
+            this.desc = desc;
         }
     }
 }

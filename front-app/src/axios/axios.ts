@@ -60,12 +60,16 @@ axiosInstance.interceptors.response.use(response => {
     const data = response.data;
     if (data.status === "ERROR") {
         Tip.error(data.info)
-        if (data.data) {
-            Tip.error(data.data)
-        }
+        data.data && Tip.error(data.data); // 返回了消息才提示
         // fixme 这样写，可以中断Promise链，使得在发请求的方法的then就不会再执行了（目前不知道更好的方法，先这样处理）
         return new Promise(() => {
         })
+    } else if (data.status === "NotLoginAccount") {
+        // 清空cookie
+        Cookies.set(AccountCookieKey, "")
+        // 跳转到登录页
+        window.location.href = "/"
+        // todo 这里是不是也要中断Promise,待验证
     } else {
         // 配置直接返回data数据，这样在接收回调处就不用显示.data了
         return response.data.data;
