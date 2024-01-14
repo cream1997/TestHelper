@@ -8,6 +8,7 @@ import com.cream.helper.service.IGameLoginService;
 import com.cream.helper.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -25,8 +26,8 @@ public class UserController {
     }
 
     @PostMapping("/registerUser")
-    public Result<String> registerUser(UserDTO userDTO) {
-        return userService.register(userDTO.getUsername(), userDTO.getPassword());
+    public Ret<String> registerUser(@RequestBody UserDTO userDTO) {
+        return userService.register(userDTO.getAccountId(), userDTO.getUsername(), userDTO.getPassword());
     }
 
 

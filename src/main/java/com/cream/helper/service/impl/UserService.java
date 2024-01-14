@@ -38,10 +38,10 @@ public class UserService {
 //        1.查看远端是否已注册
         User remoteUser = gameLoginService.getRemoteUser(username);
         if (remoteUser != null) {
-            return localRegister(password, remoteUser);
+            return localRegister(accountId, password, remoteUser);
         } else {
             // 注册
-            return fullRegister(username, password);
+            return fullRegister(accountId, username, password);
         }
     }
 
