@@ -4,6 +4,7 @@ import {useRouter} from "vue-router";
 import axios from "@/axios/axios";
 import {ElMessage as Tip} from "element-plus";
 import {useAccountStore} from "@/store/account";
+import {checkAccountNotNull} from "@/tools/CheckFormUtil";
 
 const router = useRouter();
 
@@ -15,20 +16,8 @@ if (account) {
   // todo 默认账号直接登录
 }
 
-function accountInvalid() {
-  if (!username.value || !password.value) {
-    // 设置延迟是为了阻止alert影响到按钮的样式变化
-    Tip.error("账号密码不能为空");
-    return true;
-  } else {
-    return false;
-  }
-}
-
 function login() {
-  if (accountInvalid()) {
-    return
-  }
+  checkAccountNotNull(username.value, password.value);
   axios.post("/login", {
     username: username.value,
     password: password.value
@@ -45,9 +34,7 @@ function login() {
 }
 
 function register() {
-  if (accountInvalid()) {
-    return;
-  }
+  checkAccountNotNull(username.value, password.value);
   axios.post("/register",
       {
         username: username.value,

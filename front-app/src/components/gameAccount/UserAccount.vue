@@ -2,11 +2,13 @@
 import {ref} from "vue";
 import axios from "@/axios/axios";
 import {useAccountStore} from "@/store/account";
+import {checkAccountNotNull} from "@/tools/CheckFormUtil";
 
 let username = ref()
 let password = ref()
 
 function registerUser() {
+  checkAccountNotNull(username.value, password.value)
   const accountStore = useAccountStore();
   axios.post("/registerUser", {
     accountId: accountStore.accountId,
