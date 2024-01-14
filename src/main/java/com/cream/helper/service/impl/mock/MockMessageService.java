@@ -7,7 +7,7 @@ import com.cream.helper.core.net.bo.RoleSession;
 import com.cream.helper.core.net.msg.Message;
 import com.cream.helper.core.net.msg.MessagePool;
 import com.cream.helper.core.net.msg.MessageTemplatePool;
-import com.cream.helper.obj.vo.Result;
+import com.cream.helper.obj.vo.Ret;
 import com.cream.helper.service.IMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -32,32 +32,32 @@ public class MockMessageService implements IMessageService {
     }
 
     @Override
-    public Result<String> sendRequest(long rid, Message message) {
+    public Ret<String> sendRequest(long rid, Message message) {
         if (roleSessionManager.isOffLine(rid)) {
-            return Result.fail("角色不在线");
+            return Ret.fail("角色不在线");
         }
         RoleSession roleSession = roleSessionManager.getRoleSession(rid);
         GameClient gameClient = roleSession.getGameClient();
         gameClient.sendMsg(message);
-        return Result.success("发送成功");
+        return Ret.success("发送成功");
     }
 
     @Override
-    public Result<List<Message>> fetchAllReqTemplate() {
-        return Result.success(messageTemplatePool.getAllReqTemplate());
+    public Ret<List<Message>> fetchAllReqTemplate() {
+        return Ret.success(messageTemplatePool.getAllReqTemplate());
     }
 
     @Override
-    public Result<List<Message>> fetchAllResTemplate() {
-        return Result.success(messageTemplatePool.getAllResTemplate());
+    public Ret<List<Message>> fetchAllResTemplate() {
+        return Ret.success(messageTemplatePool.getAllResTemplate());
     }
 
     @Override
-    public Result<List<Message>> fetchAllResMsg(long rid) {
+    public Ret<List<Message>> fetchAllResMsg(long rid) {
         if (roleSessionManager.isOffLine(rid)) {
-            return Result.fail("角色不在线");
+            return Ret.fail("角色不在线");
         }
         List<Message> messages = messagePool.fetchAllResponse(rid);
-        return Result.success(messages);
+        return Ret.success(messages);
     }
 }

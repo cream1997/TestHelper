@@ -3,28 +3,28 @@ package com.cream.helper.obj.vo;
 import lombok.Getter;
 
 @Getter
-public class Result<T> {
+public class Ret<T> {
 
     private final T data;
     private final Status status;
     private final String info;
 
-    private Result(T data, Status status, String info) {
+    private Ret(T data, Status status, String info) {
         this.status = status;
         this.data = data;
         this.info = info;
     }
 
-    public static <T> Result<T> success(T data) {
-        return new Result<>(data, Status.SUCCESS, null);
+    public static <T> Ret<T> success(T data) {
+        return new Ret<>(data, Status.SUCCESS, null);
     }
 
-    public static <T> Result<T> failWithRet(T data, String errorInfo) {
-        return new Result<>(data, Status.ERROR, errorInfo);
+    public static <T> Ret<T> failWithRet(T data, String errorInfo) {
+        return new Ret<>(data, Status.ERROR, errorInfo);
     }
 
-    public static <T> Result<T> fail(String errorInfo) {
-        return new Result<>(null, Status.ERROR, errorInfo);
+    public static <T> Ret<T> fail(String errorInfo) {
+        return new Ret<>(null, Status.ERROR, errorInfo);
     }
 
 

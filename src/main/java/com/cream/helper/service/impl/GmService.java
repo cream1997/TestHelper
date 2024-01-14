@@ -5,7 +5,7 @@ import com.cream.helper.core.net.GameClient;
 import com.cream.helper.core.net.RoleSessionManager;
 import com.cream.helper.core.net.bo.RoleSession;
 import com.cream.helper.obj.dto.ExeGmReq;
-import com.cream.helper.obj.vo.Result;
+import com.cream.helper.obj.vo.Ret;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -22,23 +22,23 @@ public class GmService {
     /**
      * 执行gm命令
      */
-    public Result<String> exeGmCmd(ExeGmReq exeGmReq) {
+    public Ret<String> exeGmCmd(ExeGmReq exeGmReq) {
         long rid = exeGmReq.getRid();
         if (sessionManager.isOffLine(rid)) {
-            return Result.fail("角色不在线");
+            return Ret.fail("角色不在线");
         }
         RoleSession roleSession = sessionManager.getRoleSession(rid);
         GameClient gameClient = roleSession.getGameClient();
 //        todo
 //        gameClient.sendMsg();
-        return Result.success("执行成功");
+        return Ret.success("执行成功");
     }
 
     /**
      * 获取所有GM命令
      */
-    public Result<Collection<GmCmdType>> fetchAllGmCommand() {
+    public Ret<Collection<GmCmdType>> fetchAllGmCommand() {
         Collection<GmCmdType> allGmCmd = GmCmdType.getAllGmCmd();
-        return Result.success(allGmCmd);
+        return Ret.success(allGmCmd);
     }
 }

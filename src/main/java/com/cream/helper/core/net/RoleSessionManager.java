@@ -4,7 +4,7 @@ import com.cream.helper.core.ExecutorManager;
 import com.cream.helper.core.net.bo.RoleSession;
 import com.cream.helper.obj.bo.Role;
 import com.cream.helper.obj.bo.RoleHeartInfo;
-import com.cream.helper.obj.vo.Result;
+import com.cream.helper.obj.vo.Ret;
 import com.cream.helper.utils.Times;
 import org.springframework.stereotype.Service;
 
@@ -53,14 +53,14 @@ public class RoleSessionManager {
         rid2Session.remove(rid);
     }
 
-    public Result<RoleHeartInfo> heart(long rid) {
+    public Ret<RoleHeartInfo> heart(long rid) {
         RoleSession roleSession = rid2Session.get(rid);
         if (roleSession == null) {
             throw new RuntimeException("心跳异常");
         }
         roleSession.setLastHeartTime(Times.now());
         long userId = roleSession.getUserId(), lastHeartTime = roleSession.getLastHeartTime();
-        return Result.success(new RoleHeartInfo(userId, rid, lastHeartTime));
+        return Ret.success(new RoleHeartInfo(userId, rid, lastHeartTime));
     }
 
     public RoleSession getRoleSession(long rid) {

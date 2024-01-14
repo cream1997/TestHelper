@@ -1,7 +1,7 @@
 package com.cream.helper.controller;
 
 import com.cream.helper.core.net.msg.Message;
-import com.cream.helper.obj.vo.Result;
+import com.cream.helper.obj.vo.Ret;
 import com.cream.helper.service.IMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +20,7 @@ public class MessageController {
     }
 
     @PostMapping("/sendRequest")
-    public Result<String> sendRequest(long rid, Message message) {
+    public Ret<String> sendRequest(long rid, Message message) {
         return messageService.sendRequest(rid, message);
     }
 
@@ -29,7 +29,7 @@ public class MessageController {
      * 解释见{@link IMessageService#fetchAllResMsg )}
      */
     @PostMapping("/fetchAllResMsg")
-    public Result<List<Message>> fetchAllResMsg(long rid) {
+    public Ret<List<Message>> fetchAllResMsg(long rid) {
         return messageService.fetchAllResMsg(rid);
     }
 
@@ -37,7 +37,7 @@ public class MessageController {
      * 抓取请求消息模板
      */
     @PostMapping("/fetchAllReqTemplate")
-    public Result<List<Message>> fetchAllReqTemplate() {
+    public Ret<List<Message>> fetchAllReqTemplate() {
         return messageService.fetchAllReqTemplate();
     }
 
@@ -45,7 +45,7 @@ public class MessageController {
      * 抓取相应消息模板
      */
     @PostMapping("/fetchAllResTemplate")
-    public Result<List<Message>> fetchAllResTemplate() {
+    public Ret<List<Message>> fetchAllResTemplate() {
         return messageService.fetchAllResTemplate();
     }
 }

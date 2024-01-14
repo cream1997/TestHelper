@@ -3,20 +3,20 @@ package com.cream.helper.service;
 import com.cream.helper.obj.bo.Role;
 import com.cream.helper.obj.bo.RoleEnterInfo;
 import com.cream.helper.obj.bo.RoleHeartInfo;
-import com.cream.helper.obj.vo.Result;
+import com.cream.helper.obj.vo.Ret;
 
 import java.util.List;
 
 public interface IRoleLoginService {
-    Result<List<Role>> fetchRoleList(long userId);
+    Ret<List<Role>> fetchRoleList(long userId);
 
-    Result<Role> createRole(Role role);
+    Ret<Role> createRole(Role role);
 
-    Result<Role> deleteRole(Role role);
+    Ret<Role> deleteRole(Role role);
 
-    Result<RoleEnterInfo> enterRole(Role role);
+    Ret<RoleEnterInfo> enterRole(Role role);
 
-    Result<Role> exitRole(Role role);
+    Ret<Role> exitRole(Role role);
 
-    Result<RoleHeartInfo> heart(Role role);
+    Ret<RoleHeartInfo> heart(Role role);
 }

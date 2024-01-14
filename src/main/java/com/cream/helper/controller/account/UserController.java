@@ -2,7 +2,7 @@ package com.cream.helper.controller.account;
 
 import com.cream.helper.obj.bo.LoginInfo;
 import com.cream.helper.obj.dto.UserDTO;
-import com.cream.helper.obj.vo.Result;
+import com.cream.helper.obj.vo.Ret;
 import com.cream.helper.obj.vo.ServerItem;
 import com.cream.helper.service.IGameLoginService;
 import com.cream.helper.service.impl.UserService;
@@ -31,12 +31,12 @@ public class UserController {
 
 
     @PostMapping("/userLogin")
-    public Result<LoginInfo> userLogin(String username, String password) {
+    public Ret<LoginInfo> userLogin(String username, String password) {
         return userService.login(username, password);
     }
 
     @PostMapping("/userLogout")
-    public Result<String> userLogout(long id) {
+    public Ret<String> userLogout(long id) {
         return userService.logout(id);
     }
 
@@ -44,7 +44,7 @@ public class UserController {
      * 获取服务器列表
      */
     @PostMapping("/fetchServerList")
-    public Result<List<ServerItem>> fetchServerList() {
+    public Ret<List<ServerItem>> fetchServerList() {
         return gameLoginService.fetchServerList();
     }
 }
