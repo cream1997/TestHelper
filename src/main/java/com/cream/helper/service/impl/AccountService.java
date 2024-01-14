@@ -47,7 +47,7 @@ public class AccountService {
         } else {
             // 生成token
             String token = jwtTool.createToken(account.getId(), account.getAccountName());
-            AccountVO accountVO = new AccountVO(account.getId(), account.getAccountName(), token);
+            AccountVO accountVO = new AccountVO(account.getId(), account.getAccountName(), account.getPassword(), token);
             return Ret.ok(accountVO);
         }
     }
