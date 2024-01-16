@@ -1,9 +1,9 @@
 package com.cream.helper.controller.account;
 
 import com.cream.helper.obj.Ret;
-import com.cream.helper.obj.bo.LoginInfo;
-import com.cream.helper.obj.dto.UserDTO;
-import com.cream.helper.obj.vo.ServerItem;
+import com.cream.helper.obj.domain.bo.LoginInfo;
+import com.cream.helper.obj.domain.dto.UserDTO;
+import com.cream.helper.obj.domain.vo.ServerItem;
 import com.cream.helper.service.IGameLoginService;
 import com.cream.helper.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.cream.helper.obj.dto;
+package com.cream.helper.obj.domain.dto;
 
 
 import lombok.Data;

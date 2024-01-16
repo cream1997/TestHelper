@@ -1,7 +1,7 @@
 package com.cream.helper.mapper.mock;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.cream.helper.obj.bo.Role;
+import com.cream.helper.obj.domain.bo.Role;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

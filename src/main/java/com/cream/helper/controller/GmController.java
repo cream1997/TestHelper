@@ -2,7 +2,7 @@ package com.cream.helper.controller;
 
 import com.cream.helper.core.exe.constant.gm.GmCmdType;
 import com.cream.helper.obj.Ret;
-import com.cream.helper.obj.dto.ExeGmReq;
+import com.cream.helper.obj.domain.dto.ExeGmReq;
 import com.cream.helper.service.impl.GmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

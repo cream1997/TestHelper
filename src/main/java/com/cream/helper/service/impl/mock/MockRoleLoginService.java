@@ -5,9 +5,9 @@ import com.cream.helper.core.net.GameClient;
 import com.cream.helper.core.net.RoleSessionManager;
 import com.cream.helper.mapper.mock.MockRoleMapper;
 import com.cream.helper.obj.Ret;
-import com.cream.helper.obj.bo.Role;
-import com.cream.helper.obj.bo.RoleEnterInfo;
-import com.cream.helper.obj.bo.RoleHeartInfo;
+import com.cream.helper.obj.domain.bo.Role;
+import com.cream.helper.obj.domain.bo.RoleEnterInfo;
+import com.cream.helper.obj.domain.bo.RoleHeartInfo;
 import com.cream.helper.service.IRoleLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 

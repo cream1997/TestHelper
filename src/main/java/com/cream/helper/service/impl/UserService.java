@@ -2,7 +2,7 @@ package com.cream.helper.service.impl;
 
 import com.cream.helper.mapper.LocalUserMapper;
 import com.cream.helper.obj.Ret;
-import com.cream.helper.obj.bo.LoginInfo;
+import com.cream.helper.obj.domain.bo.LoginInfo;
 import com.cream.helper.obj.entity.account.User;
 import com.cream.helper.service.IGameLoginService;
 import com.cream.helper.tools.account.FormCheckTool;

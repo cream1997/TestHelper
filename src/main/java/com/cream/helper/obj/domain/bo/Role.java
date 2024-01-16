@@ -1,4 +1,4 @@
-package com.cream.helper.obj.bo;
+package com.cream.helper.obj.domain.bo;
 
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Getter;
@@ -22,7 +22,7 @@ public class Role {
     @Setter
     @TableField("level")
     private int level;
-    
+
     @TableField("career")
     private final int career;
 

@@ -1,4 +1,4 @@
-package com.cream.helper.obj.bo;
+package com.cream.helper.obj.domain.bo;
 
 
 import lombok.Getter;

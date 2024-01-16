@@ -3,8 +3,8 @@ package com.cream.helper.core.net;
 import com.cream.helper.core.ExecutorManager;
 import com.cream.helper.core.net.bo.RoleSession;
 import com.cream.helper.obj.Ret;
-import com.cream.helper.obj.bo.Role;
-import com.cream.helper.obj.bo.RoleHeartInfo;
+import com.cream.helper.obj.domain.bo.Role;
+import com.cream.helper.obj.domain.bo.RoleHeartInfo;
 import com.cream.helper.utils.Times;
 import org.springframework.stereotype.Service;
 

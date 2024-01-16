@@ -1,9 +1,9 @@
 package com.cream.helper.service;
 
 import com.cream.helper.obj.Ret;
-import com.cream.helper.obj.bo.Role;
-import com.cream.helper.obj.bo.RoleEnterInfo;
-import com.cream.helper.obj.bo.RoleHeartInfo;
+import com.cream.helper.obj.domain.bo.Role;
+import com.cream.helper.obj.domain.bo.RoleEnterInfo;
+import com.cream.helper.obj.domain.bo.RoleHeartInfo;
 
 import java.util.List;
 
