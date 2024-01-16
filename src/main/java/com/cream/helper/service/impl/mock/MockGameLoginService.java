@@ -3,9 +3,9 @@ package com.cream.helper.service.impl.mock;
 import com.cream.helper.annotation.MockComponent;
 import com.cream.helper.mapper.mock.MockRemoteUserMapper;
 import com.cream.helper.obj.Ret;
+import com.cream.helper.obj.domain.vo.ServerVO;
 import com.cream.helper.obj.entity.account.User;
 import com.cream.helper.obj.entity.mock.MockRemoteUser;
-import com.cream.helper.obj.domain.vo.ServerItem;
 import com.cream.helper.service.IGameLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -47,11 +47,11 @@ public class MockGameLoginService implements IGameLoginService {
      * 抓取可用的服务器列表
      */
     @Override
-    public Ret<List<ServerItem>> fetchServerList() {
-        ServerItem dev = new ServerItem("研发服", "192.168.1.1", 6666);
-        ServerItem beta = new ServerItem("beta服", "192.168.2.2", 8888);
-        ServerItem trunk = new ServerItem("稳定服", "192.168.3.3", 6688);
-        List<ServerItem> serverList = new ArrayList<>(Arrays.asList(dev, beta, trunk));
+    public Ret<List<ServerVO>> fetchServerList() {
+        ServerVO dev = new ServerVO("研发服", "192.168.1.1", 6666);
+        ServerVO beta = new ServerVO("beta服", "192.168.2.2", 8888);
+        ServerVO trunk = new ServerVO("稳定服", "192.168.3.3", 6688);
+        List<ServerVO> serverList = new ArrayList<>(Arrays.asList(dev, beta, trunk));
         return Ret.ok(serverList);
     }
 

@@ -5,9 +5,9 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ServerItem {
+public class ServerVO {
 
-    private String serverName;
-    private String ip;
-    private int port;
+    private final String name;
+    private final String ip;
+    private final int port;
 }

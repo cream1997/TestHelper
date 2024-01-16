@@ -3,7 +3,7 @@ package com.cream.helper.controller.account;
 import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.domain.bo.LoginInfo;
 import com.cream.helper.obj.domain.dto.UserDTO;
-import com.cream.helper.obj.domain.vo.ServerItem;
+import com.cream.helper.obj.domain.vo.ServerVO;
 import com.cream.helper.service.IGameLoginService;
 import com.cream.helper.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class UserController {
      * 获取服务器列表
      */
     @PostMapping("/fetchServerList")
-    public Ret<List<ServerItem>> fetchServerList() {
+    public Ret<List<ServerVO>> fetchServerList() {
         return gameLoginService.fetchServerList();
     }
 }

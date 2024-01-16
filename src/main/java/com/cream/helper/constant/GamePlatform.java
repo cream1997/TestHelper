@@ -5,14 +5,15 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public enum GamePlatform {
-    Engine("", 0),
-    Qj5("", 0),
-    MockServer("127.0.0.1", 1111),
+    Engine("", 0, "xx"),
+    Qj5("", 0, "xx"),
+    MockServer("127.0.0.1", 1111, "xx"),
     ;
 
 
     public final String ip;
     public final int port;
+    public final String fetchServerListUrl;
 
     public String getUserLoginUrl() {
         return "http://" + ip + ":" + port + "/user/login";
@@ -22,14 +23,15 @@ public enum GamePlatform {
         return "http://" + ip + ":" + port + "/user/register";
     }
 
-    GamePlatform(String ip, int port) {
+    GamePlatform(String ip, int port, String fetchServerListUrl) {
         this.ip = ip;
         this.port = port;
+        this.fetchServerListUrl = fetchServerListUrl;
     }
 
     public static GamePlatform of(String platformName) {
         for (GamePlatform gamePlatform : GamePlatform.values()) {
-            if (gamePlatform.name().equals(platformName)) {
+            if (gamePlatform.name().equalsIgnoreCase(platformName)) {
                 return gamePlatform;
             }
         }
