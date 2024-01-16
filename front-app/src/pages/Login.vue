@@ -2,7 +2,7 @@
 import {onMounted, onUnmounted, ref} from "vue";
 import {useRouter} from "vue-router";
 import {post} from "@/axios/axios";
-import {ElMessage as Tip} from "element-plus";
+import {Tip} from "@/tools/CommonTools"
 import {useAccountStore} from "@/store/account";
 import {checkAccountNotNull} from "@/tools/CheckFormUtil";
 import type Account from "@/interface/Account";
@@ -21,7 +21,9 @@ function login() {
     password: password.value
   }).then((account: Account) => {
     Tip.success("登录成功");
-    Cookies.set(AccountCookieKey, JSON.stringify(account))
+    Cookies.set(AccountCookieKey, JSON.stringify(account), {
+      expires: 30
+    })
     // 存入accountStore
     const accountStore = useAccountStore();
     accountStore.accountId = account.id;
@@ -149,8 +151,7 @@ h1 {
 
 .inputItem {
   height: 44px;
-  padding: 0;
-  padding-left: 5px;
+  padding: 0 0 0 5px;
   border: none;
   background: none;
   outline: none;
@@ -185,8 +186,7 @@ h1 {
   width: 80%;
   font-size: 18px;
   display: block;
-  margin: auto;
-  margin-top: 10px;
+  margin: 10px auto auto;
   cursor: pointer;
 }
 

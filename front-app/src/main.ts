@@ -3,7 +3,8 @@ import './assets/main.css'
 import {createApp} from 'vue'
 import App from './App.vue'
 import router from "@/router";
-import ElementPlus, {ElMessage as Tip} from "element-plus"
+import {Tip} from "@/tools/CommonTools"
+import ElementPlus from "element-plus"
 import 'element-plus/dist/index.css'
 import {createPinia} from "pinia";
 

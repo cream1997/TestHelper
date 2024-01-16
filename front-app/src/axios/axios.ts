@@ -1,6 +1,6 @@
 import type {AxiosRequestConfig} from "axios";
 import axios from "axios";
-import {ElMessage as Tip} from "element-plus";
+import {Tip} from "@/tools/CommonTools"
 import config from "@/config.json"
 import Cookies from "js-cookie";
 import type Account from "@/interface/Account";
