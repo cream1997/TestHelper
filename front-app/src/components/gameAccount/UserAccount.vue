@@ -1,13 +1,16 @@
 <script setup lang="ts" name="UserAccount">
-import {ref} from "vue";
-import {axios} from "@/axios/axios";
+import {onMounted, reactive, ref} from "vue";
+import {axios, post} from "@/axios/axios";
 import {useAccountStore} from "@/store/account";
 import {checkAccountNotNull} from "@/tools/CheckFormUtil";
 import Cookies from "js-cookie";
 import router from "@/router";
+import type Server from "@/interface/Server";
 
-let username = ref()
-let password = ref()
+const allServer = reactive<Array<Server>>([])
+const selectedServer = ref<Server>();
+let username = ref<string>("")
+let password = ref<string>("")
 
 function registerUser() {
   checkAccountNotNull(username.value, password.value)
@@ -26,6 +29,22 @@ function logoutAccount() {
   router.push("/login")
 }
 
+onMounted(() => {
+  post("/fetchServerList")
+      .then((serverList: Array<Server>) => {
+        allServer.push(...serverList);
+        defaultSelectServer();
+      })
+})
+
+function defaultSelectServer() {
+  allServer.forEach(server => {
+    if (server.name.includes("研发服")) {
+      selectedServer.value = server;
+    }
+  })
+}
+
 </script>
 
 <template>
@@ -42,11 +61,12 @@ function logoutAccount() {
       <input type="password" id="password" name="password" v-model="password" placeholder="密码"/>
     </label>
     <div class="server-selector">
-      服务器：<select class="server-selector-option">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-    </select>
+      服务器：
+      <select class="server-selector-option" v-model="selectedServer">
+        <option v-for="(server,index) in allServer" :value="server" :key="index">
+          {{ server.name }}
+        </option>
+      </select>
     </div>
     <div class="button-box">
       <button class="user-button">登录</button>
