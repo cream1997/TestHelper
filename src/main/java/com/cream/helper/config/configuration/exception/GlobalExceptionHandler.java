@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 @ResponseBody
 public class GlobalExceptionHandler {
-    @ExceptionHandler(CommonException.class)
-    public Ret<String> handleException(CommonException e) {
+    @ExceptionHandler({CommonRunError.class, CommonError.class})
+    public Ret<String> handleException(CommonRunError e) {
         return Ret.err(e.getMessage());
     }
 }
