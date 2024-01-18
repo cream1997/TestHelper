@@ -1,10 +1,10 @@
 package com.cream.helper.service.impl.mock;
 
 import com.cream.helper.annotation.MockComponent;
+import com.cream.helper.config.configuration.exception.CommonError;
 import com.cream.helper.mapper.mock.MockRemoteUserMapper;
 import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.domain.vo.ServerVO;
-import com.cream.helper.obj.entity.account.User;
 import com.cream.helper.obj.entity.mock.MockRemoteUser;
 import com.cream.helper.service.IGameLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,21 +27,32 @@ public class MockGameLoginService implements IGameLoginService {
     }
 
     @Override
-    public User getRemoteUser(String username) {
-        MockRemoteUser mockRemoteUser = mockRemoteUserMapper.getMockRemoteUser(username);
+    public String loginUser(String username, String password) throws CommonError {
+        MockRemoteUser mockRemoteUser = mockRemoteUserMapper.getUser(username);
         if (mockRemoteUser == null) {
-            return null;
+            throw new CommonError("未注册");
         } else {
-            return new User(mockRemoteUser);
+            if (!password.equals(mockRemoteUser.getPassword())) {
+                throw new CommonError("密码错误");
+            }
+            return "OK";
         }
     }
 
     @Override
-    public User registerRemote(String username, String password) {
-        MockRemoteUser mockRemoteUser = new MockRemoteUser(username, password);
-        mockRemoteUserMapper.insert(mockRemoteUser);
-        return new User(mockRemoteUser);
+    public void registerRemote(String username, String password) throws CommonError {
+        try {
+            MockRemoteUser mockRemoteUser = mockRemoteUserMapper.getUser(username);
+            if (mockRemoteUser != null) {
+                throw new CommonError("用户名已注册");
+            }
+            mockRemoteUser = new MockRemoteUser(username, password);
+            mockRemoteUserMapper.insert(mockRemoteUser);
+        } catch (Exception e) {
+            throw new CommonError(e.getMessage());
+        }
     }
+
 
     /**
      * 抓取可用的服务器列表

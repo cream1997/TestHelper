@@ -1,15 +1,15 @@
 package com.cream.helper.service;
 
+import com.cream.helper.config.configuration.exception.CommonError;
 import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.domain.vo.ServerVO;
-import com.cream.helper.obj.entity.account.User;
 
 import java.util.List;
 
 public interface IGameLoginService {
-    User getRemoteUser(String username);
+    String loginUser(String username, String password) throws CommonError;
 
-    User registerRemote(String username, String password);
+    void registerRemote(String username, String password) throws CommonError;
 
     Ret<List<ServerVO>> fetchServerList();
 }

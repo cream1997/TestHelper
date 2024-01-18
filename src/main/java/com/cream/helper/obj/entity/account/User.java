@@ -1,7 +1,6 @@
 package com.cream.helper.obj.entity.account;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.cream.helper.obj.entity.mock.MockRemoteUser;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,9 +9,11 @@ import java.sql.Timestamp;
 @Getter
 @TableName("t_user")
 public class User {
-    @TableId(value = "id")
-    private final Long id;
-    @TableField(value = "username")
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
+    private Long id;
+    @TableField("account_id")
+    private final Long accountId;
+    @TableField("username")
     private final String username;
     @TableField("password")
     private final String password;
@@ -31,13 +32,9 @@ public class User {
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private Timestamp updateTime;
 
-    public User(long id, String username, String password) {
-        this.id = id;
+    public User(Long accountId, String username, String password) {
+        this.accountId = accountId;
         this.username = username;
         this.password = password;
-    }
-
-    public User(MockRemoteUser mockRemoteUser) {
-        this(mockRemoteUser.getId(), mockRemoteUser.getUsername(), mockRemoteUser.getPassword());
     }
 }

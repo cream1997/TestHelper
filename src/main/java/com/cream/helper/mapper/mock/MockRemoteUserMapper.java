@@ -5,5 +5,5 @@ import com.cream.helper.obj.entity.mock.MockRemoteUser;
 import org.apache.ibatis.annotations.Param;
 
 public interface MockRemoteUserMapper extends BaseMapper<MockRemoteUser> {
-    MockRemoteUser getMockRemoteUser(@Param("username") String username);
+    MockRemoteUser getUser(@Param("username") String username);
 }

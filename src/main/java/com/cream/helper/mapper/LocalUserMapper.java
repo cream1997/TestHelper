@@ -7,4 +7,6 @@ import org.apache.ibatis.annotations.Param;
 public interface LocalUserMapper extends BaseMapper<User> {
 
     User getUser(@Param("username") String username);
+
+    void deleteByUsername(@Param("username") String username);
 }

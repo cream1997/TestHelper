@@ -1,7 +1,6 @@
 package com.cream.helper.controller.account;
 
 import com.cream.helper.obj.Ret;
-import com.cream.helper.obj.domain.bo.LoginInfo;
 import com.cream.helper.obj.domain.dto.UserDTO;
 import com.cream.helper.obj.domain.vo.ServerVO;
 import com.cream.helper.service.IGameLoginService;
@@ -32,8 +31,8 @@ public class UserController {
 
 
     @PostMapping("/userLogin")
-    public Ret<LoginInfo> userLogin(String username, String password) {
-        return userService.login(username, password);
+    public String userLogin(long accountId, String username, String password) {
+        return userService.login(accountId, username, password);
     }
 
     @PostMapping("/userLogout")
