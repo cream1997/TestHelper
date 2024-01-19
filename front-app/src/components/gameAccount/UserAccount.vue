@@ -6,7 +6,7 @@ import {checkAccountNotNull} from "@/tools/CheckFormUtil";
 import Cookies from "js-cookie";
 import router from "@/router";
 import type Server from "@/interface/Server";
-import {Tip} from "@/tools/CommonTools";
+import {MsgBox, Tip} from "@/tools/CommonTools";
 import type UserVO from "@/interface/UserVO";
 
 const accountStore = useAccountStore();
@@ -74,16 +74,47 @@ function defaultSelectServer() {
   })
 }
 
+const matchAccount = ref(false);
+
 function selectAccount(event: Event) {
   const target = event.target as HTMLInputElement | HTMLSelectElement
   const username = target.value;
   const matchingUser = userAccounts.find(user => user.username === username); // 使用find以提高效率
   if (matchingUser) {
     password.value = matchingUser.password; // 设置密码输入框的值
+    matchAccount.value = true;
   } else {
     password.value = "";
+    matchAccount.value = false;
   }
 }
+
+function removeAccount() {
+  MsgBox.confirm(
+      '确认操作？',
+      '取消关联该账号',
+      {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }
+  )
+      .then(() => {
+        post("/unBindUser", username.value)
+            .then((okMsg) => {
+              Tip.success(okMsg)
+              userAccounts.splice(userAccounts.findIndex(user => user.username === username.value), 1);
+              username.value = "";
+              password.value = "";
+              matchAccount.value = false;
+            })
+
+      })
+      .catch(() => {
+        Tip.info("取消删除")
+      })
+}
+
 
 </script>
 
@@ -97,6 +128,7 @@ function selectAccount(event: Event) {
       <input type="text" id="name" name="name" v-model="username" @change="selectAccount($event)" placeholder="用户名"
              autocomplete="off"
              list="user-list"/>
+      <button v-if="matchAccount" @click="removeAccount" class="remove-account-btn">删除</button>
       <datalist id="user-list">
         <option v-for="(user,index) in userAccounts" :value="user.username" :key="index"/>
       </datalist>
@@ -157,4 +189,20 @@ input {
 .server-selector-option {
   font-size: inherit;
 }
+
+.remove-account-btn {
+  background-color: #e08080;
+  width: 45px;
+  margin-right: -45px;
+  cursor: pointer;
+}
+
+.remove-account-btn:hover {
+  background-color: #e07070;
+}
+
+.remove-account-btn:active {
+  background-color: rgba(224, 112, 112, 0.4);
+}
+
 </style>

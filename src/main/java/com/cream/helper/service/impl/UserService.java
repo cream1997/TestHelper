@@ -105,4 +105,9 @@ public class UserService {
         }
         return Ret.ok(allUserVO);
     }
+
+    public Ret<String> unBindUser(String username) {
+        localUserMapper.deleteByUsername(username);
+        return Ret.ok("删除成功");
+    }
 }

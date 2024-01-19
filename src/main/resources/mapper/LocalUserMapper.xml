@@ -10,11 +10,13 @@
         SELECT *
         FROM t_user
         WHERE username = #{username}
+          AND deleted = 0
     </select>
     <select id="getUserAccounts" resultType="com.cream.helper.obj.entity.account.User">
         SELECT *
         FROM t_user
         WHERE account_id = #{accountId}
+          AND deleted = 0
         ORDER BY create_time DESC
     </select>
 </mapper>

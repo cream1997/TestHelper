@@ -1,3 +1,3 @@
-import {ElMessage as Tip} from "element-plus";
+import {ElMessage as Tip, ElMessageBox as MsgBox} from "element-plus";
 
-export {Tip};
+export {Tip, MsgBox};

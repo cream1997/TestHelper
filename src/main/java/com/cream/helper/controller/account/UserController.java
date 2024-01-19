@@ -55,4 +55,9 @@ public class UserController {
     public Ret<List<ServerVO>> fetchServerList() {
         return gameLoginService.fetchServerList();
     }
+
+    @PostMapping("/unBindUser")
+    public Ret<String> unBindUser(@RequestBody String username) {
+        return userService.unBindUser(username);
+    }
 }
