@@ -45,7 +45,6 @@ public class UserController {
 
     @PostMapping("/fetchUserAccounts")
     public Ret<List<UserVO>> fetchUserAccounts(@RequestBody long accountId) {
-        log.error(accountId + "");
         return userService.fetchUserAccounts(accountId);
     }
 

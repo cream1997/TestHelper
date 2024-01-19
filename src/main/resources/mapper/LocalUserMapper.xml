@@ -15,5 +15,6 @@
         SELECT *
         FROM t_user
         WHERE account_id = #{accountId}
+        ORDER BY create_time DESC
     </select>
 </mapper>

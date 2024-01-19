@@ -33,6 +33,7 @@ function registerUser() {
   let userVO = getUserVO();
   post("/registerUser", userVO).then((okMsg: string) => {
     Tip.success(okMsg)
+    userAccounts.unshift(userVO)
   })
 }
 
