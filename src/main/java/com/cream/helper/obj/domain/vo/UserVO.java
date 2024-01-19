@@ -1,10 +1,10 @@
-package com.cream.helper.obj.domain.dto;
+package com.cream.helper.obj.domain.vo;
 
 
 import lombok.Data;
 
 @Data
-public class UserDTO {
+public class UserVO {
     /**
      * 平台账号id
      */

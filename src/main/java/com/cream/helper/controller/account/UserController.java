@@ -1,8 +1,8 @@
 package com.cream.helper.controller.account;
 
 import com.cream.helper.obj.Ret;
-import com.cream.helper.obj.domain.dto.UserDTO;
 import com.cream.helper.obj.domain.vo.ServerVO;
+import com.cream.helper.obj.domain.vo.UserVO;
 import com.cream.helper.service.IGameLoginService;
 import com.cream.helper.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +25,8 @@ public class UserController {
     }
 
     @PostMapping("/registerUser")
-    public Ret<String> registerUser(@RequestBody UserDTO userDTO) {
-        return userService.register(userDTO.getAccountId(), userDTO.getUsername(), userDTO.getPassword());
+    public Ret<String> registerUser(@RequestBody UserVO userVO) {
+        return userService.register(userVO.getAccountId(), userVO.getUsername(), userVO.getPassword());
     }
 
 

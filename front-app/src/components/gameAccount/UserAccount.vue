@@ -1,26 +1,34 @@
 <script setup lang="ts" name="UserAccount">
 import {onMounted, reactive, ref} from "vue";
-import {axios, post} from "@/axios/axios";
+import {post} from "@/axios/axios";
 import {useAccountStore} from "@/store/account";
 import {checkAccountNotNull} from "@/tools/CheckFormUtil";
 import Cookies from "js-cookie";
 import router from "@/router";
 import type Server from "@/interface/Server";
+import {Tip} from "@/tools/CommonTools";
+import type UserVO from "@/interface/UserVO";
 
 const allServer = reactive<Array<Server>>([])
 const selectedServer = ref<Server>();
 let username = ref<string>("")
 let password = ref<string>("")
+const accountStore = useAccountStore();
+const accountId = accountStore.accountId;
 
-function registerUser() {
-  checkAccountNotNull(username.value, password.value)
-  const accountStore = useAccountStore();
-  axios.post("/registerUser", {
-    accountId: accountStore.accountId,
+function getUserVO(): UserVO {
+  return {
+    accountId,
     username: username.value,
     password: username.value
-  }).then(res => {
-    alert(res)
+  }
+}
+
+function registerUser() {
+  let userVO = getUserVO();
+  checkAccountNotNull(userVO.username, userVO.password)
+  post("/registerUser", userVO).then((okMsg: string) => {
+    Tip.success(okMsg)
   })
 }
 
@@ -54,7 +62,11 @@ function defaultSelectServer() {
       <button class="logout-account-button" @click="logoutAccount">退出</button>
     </h4>
     <label for="name" class="username-label">
-      <input type="text" id="name" name="name" v-model="username" placeholder="用户名"/>
+      <input type="text" id="name" name="name" v-model="username" placeholder="用户名" autocomplete="off"
+             list="user-list"/>
+      <datalist id="user-list">
+        <option></option>
+      </datalist>
     </label>
 
     <label for="password" class="password-label">
