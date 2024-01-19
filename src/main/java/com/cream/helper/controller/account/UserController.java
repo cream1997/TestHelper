@@ -31,8 +31,8 @@ public class UserController {
 
 
     @PostMapping("/userLogin")
-    public String userLogin(long accountId, String username, String password) {
-        return userService.login(accountId, username, password);
+    public String userLogin(@RequestBody UserVO userVO) {
+        return userService.login(userVO.getAccountId(), userVO.getUsername(), userVO.getPassword());
     }
 
     @PostMapping("/userLogout")
