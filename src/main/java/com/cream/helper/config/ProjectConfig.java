@@ -3,7 +3,6 @@ package com.cream.helper.config;
 
 import com.cream.helper.constant.GamePlatform;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -12,11 +11,14 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "project")
 public class ProjectConfig {
 
+    private GamePlatform gamePlatform;
+
     private boolean useMockComponent;
 
-    private final GamePlatform gamePlatform;
+    private int mockServerPort;
 
-    public ProjectConfig(@Value("${project.game-platform}") String gamePlatform) {
+
+    public void setGamePlatform(String gamePlatform) {
         this.gamePlatform = GamePlatform.of(gamePlatform);
         if (gamePlatform == null) {
             System.exit(1);
