@@ -17,6 +17,13 @@
         <java.version>8</java.version>
     </properties>
     <dependencies>
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.105.Final</version>
+        </dependency>
+
         <!--jwt用于实现单点登录-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
