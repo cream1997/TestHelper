@@ -17,6 +17,7 @@ const accountStore = useAccountStore();
 const accountId = accountStore.accountId;
 
 function getUserVO(): UserVO {
+  checkAccountNotNull(username.value, password.value)
   return {
     accountId,
     username: username.value,
@@ -26,7 +27,6 @@ function getUserVO(): UserVO {
 
 function registerUser() {
   let userVO = getUserVO();
-  checkAccountNotNull(userVO.username, userVO.password)
   post("/registerUser", userVO).then((okMsg: string) => {
     Tip.success(okMsg)
   })
