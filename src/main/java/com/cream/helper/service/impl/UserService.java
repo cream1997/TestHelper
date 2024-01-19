@@ -4,13 +4,17 @@ import com.cream.helper.config.configuration.exception.CommonError;
 import com.cream.helper.config.configuration.exception.CommonRunError;
 import com.cream.helper.mapper.LocalUserMapper;
 import com.cream.helper.obj.Ret;
+import com.cream.helper.obj.domain.vo.UserVO;
 import com.cream.helper.obj.entity.account.User;
 import com.cream.helper.service.IGameLoginService;
 import com.cream.helper.tools.account.FormCheckTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -92,4 +96,13 @@ public class UserService {
     }
 
 
+    public Ret<List<UserVO>> fetchUserAccounts(long accountId) {
+        List<User> users = localUserMapper.getUserAccounts(accountId);
+        List<UserVO> allUserVO = Collections.emptyList();
+        if (users != null) {
+            allUserVO = users.stream().map(UserVO::new)
+                    .collect(Collectors.toList());
+        }
+        return Ret.ok(allUserVO);
+    }
 }

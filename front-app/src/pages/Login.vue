@@ -27,10 +27,7 @@ function login() {
     // 存入accountStore
     const accountStore = useAccountStore();
     accountStore.accountId = account.id;
-    router.push({
-      path: "/home",
-      query: {accountId: account.id}
-    })
+    router.push("/home")
   })
 }
 

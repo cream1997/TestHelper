@@ -5,6 +5,7 @@ import com.cream.helper.obj.domain.vo.ServerVO;
 import com.cream.helper.obj.domain.vo.UserVO;
 import com.cream.helper.service.IGameLoginService;
 import com.cream.helper.service.impl.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 public class UserController {
 
@@ -38,6 +40,13 @@ public class UserController {
     @PostMapping("/userLogout")
     public Ret<String> userLogout(long id) {
         return userService.logout(id);
+    }
+
+
+    @PostMapping("/fetchUserAccounts")
+    public Ret<List<UserVO>> fetchUserAccounts(@RequestBody long accountId) {
+        log.error(accountId + "");
+        return userService.fetchUserAccounts(accountId);
     }
 
     /**

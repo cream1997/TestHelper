@@ -9,12 +9,16 @@ import type Server from "@/interface/Server";
 import {Tip} from "@/tools/CommonTools";
 import type UserVO from "@/interface/UserVO";
 
-const allServer = reactive<Array<Server>>([])
-const selectedServer = ref<Server>();
-let username = ref<string>("")
-let password = ref<string>("")
 const accountStore = useAccountStore();
 const accountId = accountStore.accountId;
+const allServer = reactive<Array<Server>>([])
+const selectedServer = ref<Server>();
+const userAccounts = reactive<Array<UserVO>>([])
+
+
+let username = ref<string>("")
+let password = ref<string>("")
+
 
 function getUserVO(): UserVO {
   checkAccountNotNull(username.value, password.value)
@@ -37,12 +41,28 @@ function logoutAccount() {
   router.push("/login")
 }
 
-onMounted(() => {
+function fetchServerList() {
   post("/fetchServerList")
       .then((serverList: Array<Server>) => {
         allServer.push(...serverList);
         defaultSelectServer();
       })
+}
+
+function fetchUserAccounts() {
+  post("/fetchUserAccounts", accountId)
+      .then((res: Array<UserVO>) => {
+        userAccounts.push(...res);
+      })
+}
+
+onMounted(() => {
+  if (accountId == 0) {
+    router.push("/login");
+    return
+  }
+  fetchServerList();
+  fetchUserAccounts();
 })
 
 function defaultSelectServer() {
@@ -51,6 +71,17 @@ function defaultSelectServer() {
       selectedServer.value = server;
     }
   })
+}
+
+function selectAccount(event: Event) {
+  const target = event.target as HTMLInputElement | HTMLSelectElement
+  const username = target.value;
+  const matchingUser = userAccounts.find(user => user.username === username); // 使用find以提高效率
+  if (matchingUser) {
+    password.value = matchingUser.password; // 设置密码输入框的值
+  } else {
+    password.value = "";
+  }
 }
 
 </script>
@@ -62,10 +93,11 @@ function defaultSelectServer() {
       <button class="logout-account-button" @click="logoutAccount">退出</button>
     </h4>
     <label for="name" class="username-label">
-      <input type="text" id="name" name="name" v-model="username" placeholder="用户名" autocomplete="off"
+      <input type="text" id="name" name="name" v-model="username" @change="selectAccount($event)" placeholder="用户名"
+             autocomplete="off"
              list="user-list"/>
       <datalist id="user-list">
-        <option></option>
+        <option v-for="(user,index) in userAccounts" :value="user.username" :key="index"/>
       </datalist>
     </label>
 

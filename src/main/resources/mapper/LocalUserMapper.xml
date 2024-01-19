@@ -11,4 +11,9 @@
         FROM t_user
         WHERE username = #{username}
     </select>
+    <select id="getUserAccounts" resultType="com.cream.helper.obj.entity.account.User">
+        SELECT *
+        FROM t_user
+        WHERE account_id = #{accountId}
+    </select>
 </mapper>
