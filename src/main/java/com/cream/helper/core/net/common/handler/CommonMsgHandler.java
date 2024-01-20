@@ -9,8 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.ParameterizedType;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * MockServer不考虑线程问题，所有任务到一个线程中执行
@@ -19,7 +19,7 @@ import java.util.Map;
 @Component
 public class CommonMsgHandler extends SimpleChannelInboundHandler<Message<?>> {
 
-    private final Map<Integer, MsgHandler<?>> msgId2Handler = new HashMap<>();
+    private final Map<Integer, MsgHandler<?>> msgId2Handler = new ConcurrentHashMap<>();
 
     public CommonMsgHandler() {
         registerHandler();

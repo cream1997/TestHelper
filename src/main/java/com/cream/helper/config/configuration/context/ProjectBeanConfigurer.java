@@ -33,7 +33,8 @@ public class ProjectBeanConfigurer {
 
     private void check(MsgType msgType) {
         Set<Integer> msgIds = new HashSet<>();
-        for (Message<? extends GeneratedMessageV3> reqMsgTemplate : allReqTemplate) {
+        List<Message<? extends GeneratedMessageV3>> checkList = msgType == MsgType.Req ? allReqTemplate : allResMTemplate;
+        for (Message<? extends GeneratedMessageV3> reqMsgTemplate : checkList) {
             int msgId = reqMsgTemplate.getMsgId();
             if (reqMsgTemplate.getType() != msgType) {
                 log.error("消息类型错误 class:{}, msgId:{}", reqMsgTemplate.getClass(), msgId);
