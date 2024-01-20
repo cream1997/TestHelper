@@ -1,9 +1,9 @@
 package com.cream.helper.service.impl.mock;
 
 import com.cream.helper.annotation.MockComponent;
-import com.cream.helper.core.net.GameClient;
 import com.cream.helper.core.net.RoleSessionManager;
 import com.cream.helper.core.net.bo.RoleSession;
+import com.cream.helper.core.net.client.GameClient;
 import com.cream.helper.core.net.msg.Message;
 import com.cream.helper.core.net.msg.MessagePool;
 import com.cream.helper.core.net.msg.MessageTemplatePool;

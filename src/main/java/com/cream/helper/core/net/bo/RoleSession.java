@@ -1,6 +1,6 @@
 package com.cream.helper.core.net.bo;
 
-import com.cream.helper.core.net.GameClient;
+import com.cream.helper.core.net.client.GameClient;
 import com.cream.helper.utils.Times;
 import lombok.Getter;
 import lombok.Setter;

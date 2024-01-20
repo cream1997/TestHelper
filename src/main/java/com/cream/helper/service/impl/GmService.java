@@ -1,9 +1,9 @@
 package com.cream.helper.service.impl;
 
 import com.cream.helper.core.exe.constant.gm.GmCmdType;
-import com.cream.helper.core.net.GameClient;
 import com.cream.helper.core.net.RoleSessionManager;
 import com.cream.helper.core.net.bo.RoleSession;
+import com.cream.helper.core.net.client.GameClient;
 import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.domain.dto.ExeGmReq;
 import org.springframework.stereotype.Service;

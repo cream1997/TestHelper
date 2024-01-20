@@ -1,8 +1,8 @@
 package com.cream.helper.service.impl.mock;
 
 import com.cream.helper.annotation.MockComponent;
-import com.cream.helper.core.net.GameClient;
 import com.cream.helper.core.net.RoleSessionManager;
+import com.cream.helper.core.net.client.GameClient;
 import com.cream.helper.mapper.mock.MockRoleMapper;
 import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.domain.bo.Role;

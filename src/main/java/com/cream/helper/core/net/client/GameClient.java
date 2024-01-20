@@ -1,4 +1,4 @@
-package com.cream.helper.core.net;
+package com.cream.helper.core.net.client;
 
 import com.cream.helper.core.net.msg.Message;
 
