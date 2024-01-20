@@ -1,8 +1,10 @@
 package com.cream.helper.service.impl.mock;
 
 import com.cream.helper.annotation.MockComponent;
+import com.cream.helper.config.configuration.exception.CommonError;
 import com.cream.helper.core.net.RoleSessionManager;
 import com.cream.helper.core.net.client.GameClient;
+import com.cream.helper.core.net.common.GameNetSetup;
 import com.cream.helper.mapper.mock.MockRoleMapper;
 import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.domain.bo.Role;
@@ -20,10 +22,16 @@ public class MockRoleLoginService implements IRoleLoginService {
 
     private final RoleSessionManager sessionManager;
 
+    private final GameNetSetup gameNetSetup;
+
+
     @Autowired
-    public MockRoleLoginService(MockRoleMapper mockRoleMapper, RoleSessionManager sessionManager) {
+    public MockRoleLoginService(MockRoleMapper mockRoleMapper,
+                                RoleSessionManager sessionManager,
+                                GameNetSetup gameNetSetup) {
         this.mockRoleMapper = mockRoleMapper;
         this.sessionManager = sessionManager;
+        this.gameNetSetup = gameNetSetup;
     }
 
     @Override
@@ -61,7 +69,12 @@ public class MockRoleLoginService implements IRoleLoginService {
         if (!mockRoleMapper.containsRole(role.getId(), role.getUserId())) {
             return Ret.err("角色不存在");
         }
-        GameClient gameClient = new GameClient();
+        GameClient gameClient;
+        try {
+            gameClient = new GameClient(gameNetSetup);
+        } catch (CommonError e) {
+            return Ret.err(e.getMessage());
+        }
         sessionManager.addOnline(role, gameClient);
         return Ret.ok(new RoleEnterInfo(role, null));
     }

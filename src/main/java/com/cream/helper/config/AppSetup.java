@@ -9,14 +9,12 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "project")
-public class ProjectConfig {
+@ConfigurationProperties(prefix = "app-setup")
+public class AppSetup {
 
     private GamePlatform gamePlatform;
 
     private boolean useMockComponent;
-
-    private int mockServerPort;
 
 
     public void setGamePlatform(String gamePlatform) {

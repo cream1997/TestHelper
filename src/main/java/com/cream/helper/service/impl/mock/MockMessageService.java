@@ -39,7 +39,6 @@ public class MockMessageService implements IMessageService {
         }
         RoleSession roleSession = roleSessionManager.getRoleSession(rid);
         GameClient gameClient = roleSession.getGameClient();
-        gameClient.sendMsg(message);
         return Ret.ok("发送成功");
     }
 

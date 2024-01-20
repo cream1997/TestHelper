@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 public enum GamePlatform {
     Engine("", 0, "xx"),
     Qj5("", 0, "xx"),
-    MockServer("127.0.0.1", 1111, "xx"),
+    MockServer("127.0.0.1", 8988, "xx"),
     ;
 
 

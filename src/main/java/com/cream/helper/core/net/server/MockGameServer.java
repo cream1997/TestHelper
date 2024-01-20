@@ -1,9 +1,6 @@
 package com.cream.helper.core.net.server;
 
-import com.cream.helper.config.ProjectConfig;
-import com.cream.helper.core.net.common.codec.MsgDecoder;
-import com.cream.helper.core.net.common.codec.MsgEncoder;
-import com.cream.helper.core.net.common.handler.CommonMsgHandler;
+import com.cream.helper.core.net.common.GameNetSetup;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -26,7 +23,7 @@ public class MockGameServer {
     private static final int WorkerThreads = 1;
 
     @Autowired
-    public MockGameServer(ProjectConfig projectConfig, MsgEncoder msgEncoder, MsgDecoder msgDecoder, CommonMsgHandler commonMsgHandler) {
+    public MockGameServer(GameNetSetup setup) {
         NioEventLoopGroup boss = new NioEventLoopGroup(BossThreads);
         NioEventLoopGroup worker = new NioEventLoopGroup(WorkerThreads);
         Channel serverChannel = null;
@@ -40,12 +37,12 @@ public class MockGameServer {
                         @Override
                         protected void initChannel(SocketChannel ch) {
                             ch.pipeline()
-                                    .addLast(msgEncoder)
-                                    .addLast(msgDecoder)
-                                    .addLast(commonMsgHandler);
+                                    .addLast(setup.getMsgEncoder())
+                                    .addLast(setup.getMsgDecoder())
+                                    .addLast(setup.getCommonMsgHandler());
                         }
                     })
-                    .bind(projectConfig.getMockServerPort())
+                    .bind(setup.getGamePlatform().port)
                     .sync()
                     .channel();
         } catch (Exception e) {

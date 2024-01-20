@@ -8,10 +8,9 @@ spring:
     username: root
     password: Cr@123456
 #项目自定义配置
-project:
+app-setup:
   game-platform: MockServer
   use-mock-component: true
-  mock-server-port: 8988
 
 #持久层框架配置
 mybatis-plus:
