@@ -1,10 +1,10 @@
 package com.cream.helper.config.configuration.context;
 
-import com.cream.helper.core.net.msg.Message;
-import com.cream.helper.core.net.msg.MessageTemplatePool;
-import com.cream.helper.core.net.msg.constant.MsgType;
-import com.cream.helper.core.net.msg.sub.ReqLoginMsg;
-import com.cream.helper.core.net.msg.sub.ResLoginMsg;
+import com.cream.helper.core.net.common.MessageTemplatePool;
+import com.cream.helper.core.net.common.constant.MsgType;
+import com.cream.helper.core.net.common.msg.ReqLoginMsg;
+import com.cream.helper.core.net.common.msg.ResLoginMsg;
+import com.cream.helper.core.net.common.msg.base.Message;
 import com.cream.helper.utils.Util;
 import com.google.protobuf.GeneratedMessageV3;
 import lombok.extern.slf4j.Slf4j;

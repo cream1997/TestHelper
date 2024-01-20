@@ -1,6 +1,6 @@
 package com.cream.helper.service;
 
-import com.cream.helper.core.net.msg.Message;
+import com.cream.helper.core.net.common.msg.base.Message;
 import com.cream.helper.obj.Ret;
 import com.google.protobuf.GeneratedMessageV3;
 

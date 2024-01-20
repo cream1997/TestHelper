@@ -1,7 +1,7 @@
-package com.cream.helper.core.net.msg;
+package com.cream.helper.core.net.common.msg.base;
 
-import com.cream.helper.core.net.msg.constant.MsgMeta;
-import com.cream.helper.core.net.msg.constant.MsgType;
+import com.cream.helper.core.net.common.constant.MsgMeta;
+import com.cream.helper.core.net.common.constant.MsgType;
 import com.google.protobuf.GeneratedMessageV3;
 import lombok.Getter;
 

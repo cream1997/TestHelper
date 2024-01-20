@@ -1,4 +1,4 @@
-package com.cream.helper.core.net.msg.constant;
+package com.cream.helper.core.net.common.constant;
 
 
 import com.cream.helper.utils.Util;

@@ -1,6 +1,6 @@
 package com.cream.helper.core.net.client;
 
-import com.cream.helper.core.net.msg.Message;
+import com.cream.helper.core.net.common.msg.base.Message;
 
 public class GameClient {
 
