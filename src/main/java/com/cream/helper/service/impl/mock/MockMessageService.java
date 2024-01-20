@@ -9,6 +9,7 @@ import com.cream.helper.core.net.msg.MessagePool;
 import com.cream.helper.core.net.msg.MessageTemplatePool;
 import com.cream.helper.obj.Ret;
 import com.cream.helper.service.IMessageService;
+import com.google.protobuf.GeneratedMessageV3;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -43,21 +44,21 @@ public class MockMessageService implements IMessageService {
     }
 
     @Override
-    public Ret<List<Message>> fetchAllReqTemplate() {
+    public Ret<List<Message<? extends GeneratedMessageV3>>> fetchAllReqTemplate() {
         return Ret.ok(messageTemplatePool.getAllReqTemplate());
     }
 
     @Override
-    public Ret<List<Message>> fetchAllResTemplate() {
+    public Ret<List<Message<? extends GeneratedMessageV3>>> fetchAllResTemplate() {
         return Ret.ok(messageTemplatePool.getAllResTemplate());
     }
 
     @Override
-    public Ret<List<Message>> fetchAllResMsg(long rid) {
+    public Ret<List<Message<? extends GeneratedMessageV3>>> fetchAllResMsg(long rid) {
         if (roleSessionManager.isOffLine(rid)) {
             return Ret.err("角色不在线");
         }
-        List<Message> messages = messagePool.fetchAllResponse(rid);
+        List<Message<? extends GeneratedMessageV3>> messages = messagePool.fetchAllResponse(rid);
         return Ret.ok(messages);
     }
 }

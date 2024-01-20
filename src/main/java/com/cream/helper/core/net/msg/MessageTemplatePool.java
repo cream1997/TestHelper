@@ -1,6 +1,7 @@
 package com.cream.helper.core.net.msg;
 
 import com.cream.helper.utils.NullUtil;
+import com.google.protobuf.GeneratedMessageV3;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,11 +11,11 @@ import java.util.List;
  */
 public class MessageTemplatePool {
 
-    private final List<Message> allReqTemplate;
+    private final List<Message<? extends GeneratedMessageV3>> allReqTemplate;
 
-    private final List<Message> allResTemplate;
+    private final List<Message<? extends GeneratedMessageV3>> allResTemplate;
 
-    public MessageTemplatePool(List<Message> allReqTemplate, List<Message> allResTemplate) {
+    public MessageTemplatePool(List<Message<? extends GeneratedMessageV3>> allReqTemplate, List<Message<? extends GeneratedMessageV3>> allResTemplate) {
         if (NullUtil.isAnyEmpty(allResTemplate, allResTemplate)) {
             throw new IllegalArgumentException("传入值为空");
         }
@@ -23,11 +24,11 @@ public class MessageTemplatePool {
     }
 
 
-    public List<Message> getAllReqTemplate() {
+    public List<Message<? extends GeneratedMessageV3>> getAllReqTemplate() {
         return allReqTemplate;
     }
-    
-    public List<Message> getAllResTemplate() {
+
+    public List<Message<? extends GeneratedMessageV3>> getAllResTemplate() {
         return allResTemplate;
     }
 }

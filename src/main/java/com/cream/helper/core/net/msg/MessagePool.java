@@ -1,6 +1,7 @@
 package com.cream.helper.core.net.msg;
 
 import com.cream.helper.utils.NullUtil;
+import com.google.protobuf.GeneratedMessageV3;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -18,21 +19,21 @@ public class MessagePool {
      * 玩家的响应消息队列
      * k:rid
      */
-    private final Map<Long, ArrayBlockingQueue<Message>> rid2ResponseQueue = new ConcurrentHashMap<>();
+    private final Map<Long, ArrayBlockingQueue<Message<? extends GeneratedMessageV3>>> rid2ResponseQueue = new ConcurrentHashMap<>();
 
 
-    public void addResponse(long rid, Message message) {
-        ArrayBlockingQueue<Message> responseQueue = rid2ResponseQueue
+    public void addResponse(long rid, Message<? extends GeneratedMessageV3> message) {
+        ArrayBlockingQueue<Message<? extends GeneratedMessageV3>> responseQueue = rid2ResponseQueue
                 .computeIfAbsent(rid, k -> new ArrayBlockingQueue<>(100));
         responseQueue.add(message);
     }
 
-    public List<Message> fetchAllResponse(long rid) {
-        ArrayBlockingQueue<Message> responseQueue = rid2ResponseQueue.get(rid);
+    public List<Message<? extends GeneratedMessageV3>> fetchAllResponse(long rid) {
+        ArrayBlockingQueue<Message<? extends GeneratedMessageV3>> responseQueue = rid2ResponseQueue.get(rid);
         if (NullUtil.isEmpty(responseQueue)) {
             return Collections.emptyList();
         }
-        List<Message> result = new ArrayList<>();
+        List<Message<? extends GeneratedMessageV3>> result = new ArrayList<>();
         while (!responseQueue.isEmpty()) {
             try {
                 result.add(responseQueue.poll(100, TimeUnit.MILLISECONDS));

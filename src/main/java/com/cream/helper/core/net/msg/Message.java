@@ -23,5 +23,4 @@ public abstract class Message<T extends GeneratedMessageV3> {
     public Message(MsgMeta msgMeta) {
         this(msgMeta.msgId, msgMeta.msgType);
     }
-
 }

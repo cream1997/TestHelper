@@ -3,6 +3,7 @@ package com.cream.helper.controller;
 import com.cream.helper.core.net.msg.Message;
 import com.cream.helper.obj.Ret;
 import com.cream.helper.service.IMessageService;
+import com.google.protobuf.GeneratedMessageV3;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +30,7 @@ public class MessageController {
      * 解释见{@link IMessageService#fetchAllResMsg )}
      */
     @PostMapping("/fetchAllResMsg")
-    public Ret<List<Message>> fetchAllResMsg(long rid) {
+    public Ret<List<Message<? extends GeneratedMessageV3>>> fetchAllResMsg(long rid) {
         return messageService.fetchAllResMsg(rid);
     }
 
@@ -37,7 +38,7 @@ public class MessageController {
      * 抓取请求消息模板
      */
     @PostMapping("/fetchAllReqTemplate")
-    public Ret<List<Message>> fetchAllReqTemplate() {
+    public Ret<List<Message<? extends GeneratedMessageV3>>> fetchAllReqTemplate() {
         return messageService.fetchAllReqTemplate();
     }
 
@@ -45,7 +46,7 @@ public class MessageController {
      * 抓取相应消息模板
      */
     @PostMapping("/fetchAllResTemplate")
-    public Ret<List<Message>> fetchAllResTemplate() {
+    public Ret<List<Message<? extends GeneratedMessageV3>>> fetchAllResTemplate() {
         return messageService.fetchAllResTemplate();
     }
 }

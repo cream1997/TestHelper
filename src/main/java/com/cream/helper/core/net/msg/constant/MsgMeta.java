@@ -1,6 +1,7 @@
 package com.cream.helper.core.net.msg.constant;
 
 
+import com.cream.helper.utils.Util;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashSet;
@@ -31,11 +32,11 @@ public enum MsgMeta {
             int msgId = msgMeta.msgId;
             if (msgMeta.msgType == null) {
                 log.error("消息类型为空 msgId:{}", msgId);
-                System.exit(1);
+                Util.errExit();
             }
             if (msgIds.contains(msgId)) {
                 log.error("消息id重复 msgId:{}", msgId);
-                System.exit(1);
+                Util.errExit();
             }
             msgIds.add(msgId);
         }

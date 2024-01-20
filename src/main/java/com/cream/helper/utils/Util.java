@@ -16,4 +16,12 @@ public class Util {
         }
         return stackTrace.toString();
     }
+
+    public static void errExit() {
+        System.exit(1);
+    }
+
+    public static void normalExit() {
+        System.exit(0);
+    }
 }
