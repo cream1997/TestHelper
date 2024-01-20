@@ -1,6 +1,6 @@
 package com.cream.helper.config.configuration.context;
 
-import com.cream.helper.core.net.common.MessageTemplatePool;
+import com.cream.helper.core.net.common.MsgTemplatePool;
 import com.cream.helper.core.net.common.constant.MsgType;
 import com.cream.helper.core.net.common.msg.ReqLoginMsg;
 import com.cream.helper.core.net.common.msg.ResLoginMsg;
@@ -48,8 +48,8 @@ public class ProjectBeanConfigurer {
     }
 
     @Bean
-    public MessageTemplatePool messageTemplatePool() {
-        return new MessageTemplatePool(allReqTemplate, allResMTemplate);
+    public MsgTemplatePool messageTemplatePool() {
+        return new MsgTemplatePool(allReqTemplate, allResMTemplate);
     }
 
     /**

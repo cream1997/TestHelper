@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 @Component
-public class MessagePool {
+public class MsgPool {
 
     /**
      * 玩家的响应消息队列

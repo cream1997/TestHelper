@@ -4,8 +4,8 @@ import com.cream.helper.annotation.MockComponent;
 import com.cream.helper.core.net.RoleSessionManager;
 import com.cream.helper.core.net.bo.RoleSession;
 import com.cream.helper.core.net.client.GameClient;
-import com.cream.helper.core.net.common.MessagePool;
-import com.cream.helper.core.net.common.MessageTemplatePool;
+import com.cream.helper.core.net.common.MsgPool;
+import com.cream.helper.core.net.common.MsgTemplatePool;
 import com.cream.helper.core.net.common.msg.base.Message;
 import com.cream.helper.obj.Ret;
 import com.cream.helper.service.IMessageService;
@@ -19,17 +19,17 @@ public class MockMessageService implements IMessageService {
 
     private final RoleSessionManager roleSessionManager;
 
-    private final MessageTemplatePool messageTemplatePool;
+    private final MsgTemplatePool msgTemplatePool;
 
-    private final MessagePool messagePool;
+    private final MsgPool msgPool;
 
     @Autowired
     public MockMessageService(RoleSessionManager roleSessionManager,
-                              MessageTemplatePool messageTemplatePool,
-                              MessagePool messagePool) {
+                              MsgTemplatePool msgTemplatePool,
+                              MsgPool msgPool) {
         this.roleSessionManager = roleSessionManager;
-        this.messageTemplatePool = messageTemplatePool;
-        this.messagePool = messagePool;
+        this.msgTemplatePool = msgTemplatePool;
+        this.msgPool = msgPool;
     }
 
     @Override
@@ -45,12 +45,12 @@ public class MockMessageService implements IMessageService {
 
     @Override
     public Ret<List<Message<? extends GeneratedMessageV3>>> fetchAllReqTemplate() {
-        return Ret.ok(messageTemplatePool.getAllReqTemplate());
+        return Ret.ok(msgTemplatePool.getAllReqTemplate());
     }
 
     @Override
     public Ret<List<Message<? extends GeneratedMessageV3>>> fetchAllResTemplate() {
-        return Ret.ok(messageTemplatePool.getAllResTemplate());
+        return Ret.ok(msgTemplatePool.getAllResTemplate());
     }
 
     @Override
@@ -58,7 +58,7 @@ public class MockMessageService implements IMessageService {
         if (roleSessionManager.isOffLine(rid)) {
             return Ret.err("角色不在线");
         }
-        List<Message<? extends GeneratedMessageV3>> messages = messagePool.fetchAllResponse(rid);
+        List<Message<? extends GeneratedMessageV3>> messages = msgPool.fetchAllResponse(rid);
         return Ret.ok(messages);
     }
 }
