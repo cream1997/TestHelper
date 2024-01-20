@@ -16,12 +16,12 @@ public class ProjectBeanConfigurer {
         // fixme mock impl
         // 请求模板
         List<Message> reqMsgTemplate = new ArrayList<>();
-        Message reqMessage = new Message(111, Message.Type.Request);
-        reqMsgTemplate.add(reqMessage);
-        // 响应模板
+//        Message reqMessage = new Message(111, Message.Type.Req);
+//        reqMsgTemplate.add(reqMessage);
+//        // 响应模板
         List<Message> resMsgTemplate = new ArrayList<>();
-        Message resMessage = new Message(222, Message.Type.Response);
-        resMsgTemplate.add(resMessage);
+//        Message resMessage = new Message(222, Message.Type.Res);
+//        resMsgTemplate.add(resMessage);
 
         return new MessageTemplatePool(reqMsgTemplate, resMsgTemplate);
     }

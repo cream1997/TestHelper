@@ -1,0 +1,20 @@
+syntax = "proto3";
+option optimize_for = SPEED; // 加快解析
+option java_outer_classname = "CommonProto"; // 外部类名称
+
+
+message LoginReq {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginRes{
+  repeated Role role = 1;
+}
+
+message Role{
+  int64 rid = 1;
+  string roleName = 2;
+  int32 level = 3;
+  string career = 4;
+}

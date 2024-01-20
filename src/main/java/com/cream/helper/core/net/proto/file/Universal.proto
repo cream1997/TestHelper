@@ -1,9 +1,0 @@
-syntax = "proto3";
-option optimize_for = SPEED; // 加快解析
-option java_outer_classname = "UniversalProto"; // 外部类名称
-
-
-message Test{
-  int64 id = 1;
-  string msg = 2;
-}
