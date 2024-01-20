@@ -1,6 +1,9 @@
 package com.cream.helper.core.net.server;
 
 import com.cream.helper.config.ProjectConfig;
+import com.cream.helper.core.net.common.codec.MsgDecoder;
+import com.cream.helper.core.net.common.codec.MsgEncoder;
+import com.cream.helper.core.net.server.handler.CommonMsgHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -23,7 +26,7 @@ public class MockGameServer {
     private static final int WorkerThreads = 1;
 
     @Autowired
-    public MockGameServer(ProjectConfig projectConfig) {
+    public MockGameServer(ProjectConfig projectConfig, MsgEncoder msgEncoder, MsgDecoder msgDecoder, CommonMsgHandler commonMsgHandler) {
         NioEventLoopGroup boss = new NioEventLoopGroup(BossThreads);
         NioEventLoopGroup worker = new NioEventLoopGroup(WorkerThreads);
         Channel serverChannel = null;
@@ -37,7 +40,9 @@ public class MockGameServer {
                         @Override
                         protected void initChannel(SocketChannel ch) {
                             ch.pipeline()
-                                    .addLast(null);
+                                    .addLast(msgEncoder)
+                                    .addLast(msgDecoder)
+                                    .addLast(commonMsgHandler);
                         }
                     })
                     .bind(projectConfig.getMockServerPort())

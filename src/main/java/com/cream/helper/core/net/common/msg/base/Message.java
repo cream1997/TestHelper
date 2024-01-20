@@ -55,7 +55,7 @@ public abstract class Message<T extends GeneratedMessageV3> {
     public abstract Class<T> getDataClass();
 
     @SuppressWarnings("unchecked")
-    private final T parseData(byte[] dataBytes) {
+    private T parseData(byte[] dataBytes) {
         if (dataBytes == null) {
             return null;
         }
