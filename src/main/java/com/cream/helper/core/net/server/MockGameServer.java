@@ -3,7 +3,7 @@ package com.cream.helper.core.net.server;
 import com.cream.helper.config.ProjectConfig;
 import com.cream.helper.core.net.common.codec.MsgDecoder;
 import com.cream.helper.core.net.common.codec.MsgEncoder;
-import com.cream.helper.core.net.server.handler.CommonMsgHandler;
+import com.cream.helper.core.net.common.handler.CommonMsgHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
