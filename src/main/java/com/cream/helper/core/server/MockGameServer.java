@@ -1,6 +1,8 @@
 package com.cream.helper.core.server;
 
+import com.cream.helper.config.ProjectConfig;
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.ChannelPipeline;
@@ -8,6 +10,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -20,7 +23,8 @@ public class MockGameServer {
     private static final int BossThreads = 1;
     private static final int WorkerThreads = 1;
 
-    public MockGameServer() {
+    @Autowired
+    public MockGameServer(ProjectConfig projectConfig) {
         NioEventLoopGroup boss = new NioEventLoopGroup(BossThreads);
         NioEventLoopGroup worker = new NioEventLoopGroup(WorkerThreads);
         try {
@@ -37,7 +41,8 @@ public class MockGameServer {
                     })
                     .option(ChannelOption.SO_BACKLOG, 128)
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
-            serverBootstrap.bind().sync();
+            ChannelFuture future = serverBootstrap.bind(projectConfig.getMockServerPort()).sync();
+            future.channel().closeFuture().sync();
         } catch (Exception e) {
             log.error("MockGameServer初始化异常", e);
         } finally {
