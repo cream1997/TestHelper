@@ -100,6 +100,7 @@ public class UserService {
                         .build());
         try {
             ResLoginMsg resLoginMsg = gameClient.sendMsg(reqLoginMsg, ResLoginMsg.class);
+            // fixme 登录成功，创建session
             CommonProto.LoginRes data = resLoginMsg.getData();
             List<RoleVO> roleVOS = new ArrayList<>();
             for (CommonProto.Role role : data.getRoleList()) {

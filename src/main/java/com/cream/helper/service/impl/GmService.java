@@ -1,8 +1,8 @@
 package com.cream.helper.service.impl;
 
 import com.cream.helper.core.exe.constant.gm.GmCmdType;
-import com.cream.helper.core.net.RoleSessionManager;
-import com.cream.helper.core.net.bo.RoleSession;
+import com.cream.helper.core.net.UserSessionManager;
+import com.cream.helper.core.net.bo.UserSession;
 import com.cream.helper.core.net.client.GameClient;
 import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.domain.dto.ExeGmReq;
@@ -13,9 +13,9 @@ import java.util.Collection;
 @Service
 public class GmService {
 
-    private final RoleSessionManager sessionManager;
+    private final UserSessionManager sessionManager;
 
-    public GmService(RoleSessionManager sessionManager) {
+    public GmService(UserSessionManager sessionManager) {
         this.sessionManager = sessionManager;
     }
 
@@ -27,8 +27,8 @@ public class GmService {
         if (sessionManager.isOffLine(rid)) {
             return Ret.err("角色不在线");
         }
-        RoleSession roleSession = sessionManager.getRoleSession(rid);
-        GameClient gameClient = roleSession.getGameClient();
+        UserSession userSession = sessionManager.getRoleSession(rid);
+        GameClient gameClient = userSession.getGameClient();
 //        todo
 //        gameClient.sendMsg();
         return Ret.ok("执行成功");

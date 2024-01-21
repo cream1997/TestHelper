@@ -6,19 +6,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-public class RoleSession {
-
-    private final long rid;
+public class UserSession {
 
     private final long userId;
+    private long rid;
 
     @Setter
     private long lastHeartTime;
 
     private final GameClient gameClient;
 
-    public RoleSession(long rid, long userId, GameClient gameClient) {
-        this.rid = rid;
+    public UserSession(long userId, GameClient gameClient) {
         this.userId = userId;
         this.gameClient = gameClient;
         this.lastHeartTime = Times.now();

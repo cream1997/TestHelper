@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 public class RoleController {
 
@@ -20,14 +18,6 @@ public class RoleController {
     @Autowired
     public RoleController(IRoleLoginService roleLoginService) {
         this.roleLoginService = roleLoginService;
-    }
-
-    @PostMapping("/fetchRoleList")
-    public Ret<List<Role>> fetchRoleList(long userId) {
-        if (userId == 0) {
-            return Ret.err("请先登录");
-        }
-        return roleLoginService.fetchRoleList(userId);
     }
 
     @PostMapping("/createRole")

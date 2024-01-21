@@ -1,9 +1,7 @@
 package com.cream.helper.service.impl.mock;
 
 import com.cream.helper.annotation.MockComponent;
-import com.cream.helper.config.configuration.exception.CommonError;
-import com.cream.helper.core.net.RoleSessionManager;
-import com.cream.helper.core.net.client.GameClient;
+import com.cream.helper.core.net.UserSessionManager;
 import com.cream.helper.core.net.common.GameNetSetup;
 import com.cream.helper.mapper.mock.MockRoleMapper;
 import com.cream.helper.obj.Ret;
@@ -13,31 +11,23 @@ import com.cream.helper.obj.domain.bo.RoleHeartInfo;
 import com.cream.helper.service.IRoleLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-
 @MockComponent
 public class MockRoleLoginService implements IRoleLoginService {
 
     private final MockRoleMapper mockRoleMapper;
 
-    private final RoleSessionManager sessionManager;
+    private final UserSessionManager sessionManager;
 
     private final GameNetSetup gameNetSetup;
 
 
     @Autowired
     public MockRoleLoginService(MockRoleMapper mockRoleMapper,
-                                RoleSessionManager sessionManager,
+                                UserSessionManager sessionManager,
                                 GameNetSetup gameNetSetup) {
         this.mockRoleMapper = mockRoleMapper;
         this.sessionManager = sessionManager;
         this.gameNetSetup = gameNetSetup;
-    }
-
-    @Override
-    public Ret<List<Role>> fetchRoleList(long userId) {
-        List<Role> roleList = mockRoleMapper.getRoleList(userId);
-        return Ret.ok(roleList);
     }
 
     @Override
@@ -54,43 +44,22 @@ public class MockRoleLoginService implements IRoleLoginService {
 
     @Override
     public Ret<Role> deleteRole(Role role) {
-        if (role.getId() == null) {
-            return Ret.err("删除失败");
-        }
-        if (mockRoleMapper.deleteRole(role.getId(), role.getUserId())) {
-            return Ret.ok(role);
-        } else {
-            return Ret.err("删除失败");
-        }
+        return null;
     }
 
     @Override
     public Ret<RoleEnterInfo> enterRole(Role role) {
-        if (!mockRoleMapper.containsRole(role.getId(), role.getUserId())) {
-            return Ret.err("角色不存在");
-        }
-        GameClient gameClient;
-        try {
-            gameClient = new GameClient(gameNetSetup);
-        } catch (CommonError e) {
-            return Ret.err(e.getMessage());
-        }
-        sessionManager.addOnline(role, gameClient);
         return Ret.ok(new RoleEnterInfo(role, null));
     }
 
     @Override
     public Ret<Role> exitRole(Role role) {
-        sessionManager.removeOnline(role.getId());
         return Ret.ok(role);
     }
 
 
     @Override
     public Ret<RoleHeartInfo> heart(Role role) {
-        if (!sessionManager.isOffLine(role.getId())) {
-            return Ret.err("角色不在线");
-        }
-        return sessionManager.heart(role.getId());
+        return null;
     }
 }

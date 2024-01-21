@@ -1,8 +1,8 @@
 package com.cream.helper.service.impl.mock;
 
 import com.cream.helper.annotation.MockComponent;
-import com.cream.helper.core.net.RoleSessionManager;
-import com.cream.helper.core.net.bo.RoleSession;
+import com.cream.helper.core.net.UserSessionManager;
+import com.cream.helper.core.net.bo.UserSession;
 import com.cream.helper.core.net.client.GameClient;
 import com.cream.helper.core.net.common.MsgTemplatePool;
 import com.cream.helper.core.net.msg.base.Message;
@@ -15,24 +15,24 @@ import java.util.List;
 @MockComponent
 public class MockMessageService implements IMessageService {
 
-    private final RoleSessionManager roleSessionManager;
+    private final UserSessionManager userSessionManager;
 
     private final MsgTemplatePool msgTemplatePool;
 
     @Autowired
-    public MockMessageService(RoleSessionManager roleSessionManager,
+    public MockMessageService(UserSessionManager userSessionManager,
                               MsgTemplatePool msgTemplatePool) {
-        this.roleSessionManager = roleSessionManager;
+        this.userSessionManager = userSessionManager;
         this.msgTemplatePool = msgTemplatePool;
     }
 
     @Override
     public Ret<String> sendRequest(long rid, Message message) {
-        if (roleSessionManager.isOffLine(rid)) {
+        if (userSessionManager.isOffLine(rid)) {
             return Ret.err("角色不在线");
         }
-        RoleSession roleSession = roleSessionManager.getRoleSession(rid);
-        GameClient gameClient = roleSession.getGameClient();
+        UserSession userSession = userSessionManager.getRoleSession(rid);
+        GameClient gameClient = userSession.getGameClient();
         return Ret.ok("发送成功");
     }
 
@@ -48,7 +48,7 @@ public class MockMessageService implements IMessageService {
 
     @Override
     public Ret<List<Message<?>>> fetchAllResMsg(long rid) {
-        if (roleSessionManager.isOffLine(rid)) {
+        if (userSessionManager.isOffLine(rid)) {
             return Ret.err("角色不在线");
         }
         // todo
