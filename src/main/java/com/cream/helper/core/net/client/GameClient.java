@@ -14,9 +14,16 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.AttributeKey;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
+
 @Slf4j
 public class GameClient {
     private final static int Threads = 1;
+    /**
+     * 取消息加锁，保证取指定消息时，不会被fetchAll抢先
+     */
+    private final ReentrantLock fetchLock = new ReentrantLock();
     private final MsgPool msgPool = new MsgPool();
     private final Channel channel;
 
@@ -24,6 +31,33 @@ public class GameClient {
 
     public GameClient(GameNetSetup setup) throws CommonError {
         this.channel = this.start(setup);
+    }
+
+    public void sendMsg(Message<?> msg) {
+        channel.writeAndFlush(msg);
+    }
+
+    public <T extends Message<?>> T sendMsg(Message<?> msg, Class<T> resClass) throws CommonError {
+        fetchLock.lock();
+        try {
+            channel.writeAndFlush(msg);
+            return msgPool.fetchResMsg(resClass);
+        } finally {
+            fetchLock.unlock();
+        }
+    }
+
+    public List<Message<?>> fetchAllMsg() {
+        fetchLock.lock();
+        try {
+            return msgPool.fetchAllResMsg();
+        } finally {
+            fetchLock.unlock();
+        }
+    }
+
+    public void receiveMsg(Message<?> msg) {
+        msgPool.addResMsg(msg);
     }
 
     private Channel start(GameNetSetup setup) throws CommonError {
@@ -57,9 +91,5 @@ public class GameClient {
             }
         }
         return null;
-    }
-
-    public void receiveMsg(Message<?> msg) {
-        msgPool.addResMsg(msg);
     }
 }

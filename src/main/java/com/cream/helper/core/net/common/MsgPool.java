@@ -10,18 +10,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReentrantLock;
 
 @Slf4j
 public class MsgPool {
 
     private static final int CAPACITY = 500;
     private static final long TIMEOUT_MS = 1500;
-    /**
-     * 取消息加锁，保证取指定消息时，不会被fetchAll抢先
-     */
-    private final ReentrantLock fetchLock = new ReentrantLock();
-
     /**
      * 玩家的响应消息队列, 先进先出的单向队列
      */
@@ -45,41 +39,31 @@ public class MsgPool {
             return Collections.emptyList();
         }
         List<Message<?>> result = new ArrayList<>();
-        fetchLock.lock();
-        try {
-            while (!resMsgQueue.isEmpty()) {
-                Message<?> message = resMsgQueue.poll();
-                if (message == null) {
-                    log.error("取出消息为空，请检查");
-                } else {
-                    result.add(message);
-                }
+        while (!resMsgQueue.isEmpty()) {
+            Message<?> message = resMsgQueue.poll();
+            if (message == null) {
+                log.error("取出消息为空，请检查");
+            } else {
+                result.add(message);
             }
-        } finally {
-            fetchLock.unlock();
         }
         return result;
     }
 
     public <T extends Message<?>> T fetchResMsg(Class<T> msgClass) throws CommonError {
         long startTime = Times.now();
-        fetchLock.lock();
-        try {
-            for (; ; ) {
-                if (Times.now() - startTime > TIMEOUT_MS) {
-                    throw new CommonError("从队列中取出消息超时，请检查");
-                }
-                for (Message<?> message : resMsgQueue) {
-                    if (msgClass.isInstance(message)) {
-                        if (!resMsgQueue.remove(message)) {
-                            log.error("从队列中移除消息失败，请检查");
-                        }
-                        return msgClass.cast(message);
+        for (; ; ) {
+            if (Times.now() - startTime > TIMEOUT_MS) {
+                throw new CommonError("从队列中取出消息超时，请检查");
+            }
+            for (Message<?> message : resMsgQueue) {
+                if (msgClass.isInstance(message)) {
+                    if (!resMsgQueue.remove(message)) {
+                        log.error("从队列中移除消息失败，请检查");
                     }
+                    return msgClass.cast(message);
                 }
             }
-        } finally {
-            fetchLock.unlock();
         }
     }
 }
