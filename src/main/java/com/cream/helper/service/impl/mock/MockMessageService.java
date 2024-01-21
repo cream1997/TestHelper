@@ -4,7 +4,6 @@ import com.cream.helper.annotation.MockComponent;
 import com.cream.helper.core.net.RoleSessionManager;
 import com.cream.helper.core.net.bo.RoleSession;
 import com.cream.helper.core.net.client.GameClient;
-import com.cream.helper.core.net.common.MsgPool;
 import com.cream.helper.core.net.common.MsgTemplatePool;
 import com.cream.helper.core.net.common.msg.base.Message;
 import com.cream.helper.obj.Ret;
@@ -20,15 +19,11 @@ public class MockMessageService implements IMessageService {
 
     private final MsgTemplatePool msgTemplatePool;
 
-    private final MsgPool msgPool;
-
     @Autowired
     public MockMessageService(RoleSessionManager roleSessionManager,
-                              MsgTemplatePool msgTemplatePool,
-                              MsgPool msgPool) {
+                              MsgTemplatePool msgTemplatePool) {
         this.roleSessionManager = roleSessionManager;
         this.msgTemplatePool = msgTemplatePool;
-        this.msgPool = msgPool;
     }
 
     @Override

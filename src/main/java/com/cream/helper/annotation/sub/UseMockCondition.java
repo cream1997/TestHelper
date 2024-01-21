@@ -11,7 +11,7 @@ public class UseMockCondition implements Condition {
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
         Environment environment = context.getEnvironment();
-        Boolean useMock = environment.getProperty("project.use-mock-component", Boolean.class);
+        Boolean useMock = environment.getProperty("app-setup.use-mock-component", Boolean.class);
         if (Boolean.TRUE.equals(useMock)) {
             log.warn("项目开启了mock组件{}", metadata);
             return true;
