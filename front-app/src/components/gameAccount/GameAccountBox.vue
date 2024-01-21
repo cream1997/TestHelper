@@ -1,9 +1,10 @@
 <script setup lang="ts" name="AccountBox">
-import UserAccount from "@/components/gameAccount/UserAccount.vue";
+import RoleAccount from "@/components/gameAccount/RoleAccount.vue";
 </script>
 
 <template>
-  <UserAccount/>
+  <!--  <UserAccount/>-->
+  <RoleAccount/>
 </template>
 
 <style scoped>
