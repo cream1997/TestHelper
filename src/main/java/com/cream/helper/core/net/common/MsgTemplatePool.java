@@ -54,12 +54,12 @@ public class MsgTemplatePool {
         return msgTemplate;
     }
 
-    @SuppressWarnings("rawtypes")
-    public Class<? extends Message> getMsgClass(int msgId) {
+    @SuppressWarnings("unchecked")
+    public Class<? extends Message<?>> getMsgClass(int msgId) {
         Message<?> msgTemplate = getMsgTemplate(msgId);
         if (msgTemplate == null) {
             return null;
         }
-        return msgTemplate.getClass();
+        return (Class<? extends Message<?>>) msgTemplate.getClass();
     }
 }

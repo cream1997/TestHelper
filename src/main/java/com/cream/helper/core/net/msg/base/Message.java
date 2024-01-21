@@ -9,6 +9,7 @@ import com.google.protobuf.Parser;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.lang.reflect.Field;
 import java.util.function.Supplier;
 
 @Slf4j
@@ -26,12 +27,18 @@ public abstract class Message<T extends GeneratedMessageV3> {
         init();
     }
 
+
     /**
      * 留给解码器反射使用
      */
-    private Message(byte[] data) {
-        this.data = parseData(data);
-        init();
+    private void setData(byte[] data) {
+        try {
+            Field dataField = this.getClass().getField("data");
+            dataField.setAccessible(true);
+            dataField.set(this, parseData(data));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

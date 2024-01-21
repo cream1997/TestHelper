@@ -8,6 +8,7 @@ import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.ParameterizedType;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -51,10 +52,13 @@ public class ServerMsgListener extends MsgListener {
 
     @SuppressWarnings("unchecked")
     private int getMsgId(MsgHandler<?> msgHandler) throws Exception {
-        ParameterizedType parameterizedType = (ParameterizedType) ReqLoginMsgHandler.class.getGenericSuperclass();
+        ParameterizedType parameterizedType = (ParameterizedType) msgHandler.getClass().getGenericSuperclass();
         Class<Message<?>> msgClass = (Class<Message<?>>) parameterizedType.getActualTypeArguments()[0];
         try {
-            return msgClass.newInstance().getMsgId();
+            Constructor<Message<?>> constructor = (Constructor<Message<?>>) msgClass.getDeclaredConstructors()[0];
+            constructor.setAccessible(true);
+            Object[] nullParams = new Object[constructor.getParameterCount()];
+            return constructor.newInstance(nullParams).getMsgId();
         } catch (Exception e) {
             log.error("获取msgId异常 msgHandler:{}", msgHandler.getClass());
             throw e;
