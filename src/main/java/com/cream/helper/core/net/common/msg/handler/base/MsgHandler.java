@@ -1,4 +1,4 @@
-package com.cream.helper.core.net.common.handler.base;
+package com.cream.helper.core.net.common.msg.handler.base;
 
 import com.cream.helper.core.net.common.msg.base.Message;
 

@@ -39,7 +39,7 @@ public class MockGameServer {
                             ch.pipeline()
                                     .addLast(setup.getMsgEncoder())
                                     .addLast(setup.getMsgDecoder())
-                                    .addLast(setup.getCommonMsgHandler());
+                                    .addLast(setup.getGlobalMsgHandler());
                         }
                     })
                     .bind(setup.getGamePlatform().port)

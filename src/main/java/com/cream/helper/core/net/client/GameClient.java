@@ -2,6 +2,7 @@ package com.cream.helper.core.net.client;
 
 import com.cream.helper.config.configuration.exception.CommonError;
 import com.cream.helper.core.net.common.GameNetSetup;
+import com.cream.helper.core.net.common.msg.handler.GlobalMsgHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -24,6 +25,7 @@ public class GameClient {
         NioEventLoopGroup worker = new NioEventLoopGroup(Threads);
         Channel channel = null;
         try {
+            GlobalMsgHandler globalMsgHandler = setup.getGlobalMsgHandler();
             channel = new Bootstrap()
                     .group(worker)
                     .channel(NioSocketChannel.class)
@@ -34,7 +36,7 @@ public class GameClient {
                             ch.pipeline()
                                     .addLast(setup.getMsgEncoder())
                                     .addLast(setup.getMsgDecoder())
-                                    .addLast(setup.getCommonMsgHandler());
+                                    .addLast();
                         }
                     })
                     .connect(setup.getGamePlatform().ip, setup.getGamePlatform().port)
