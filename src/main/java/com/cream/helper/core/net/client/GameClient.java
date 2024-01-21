@@ -27,7 +27,7 @@ public class GameClient {
     private final MsgPool msgPool = new MsgPool();
     private final Channel channel;
 
-    public static final AttributeKey<GameClient> ClientRefKey = AttributeKey.valueOf(null);
+    public static final AttributeKey<GameClient> ClientRefKey = AttributeKey.valueOf("clientRefKey");
 
     public GameClient(GameNetSetup setup) throws CommonError {
         this.channel = this.start(setup);
@@ -90,6 +90,6 @@ public class GameClient {
                         .addListener(future -> worker.shutdownGracefully());
             }
         }
-        return null;
+        return channel;
     }
 }

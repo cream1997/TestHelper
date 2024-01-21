@@ -36,7 +36,7 @@ public class MsgTemplatePool {
     private Map<Integer, Message<?>> initMsgId2Template() {
         HashMap<Integer, Message<?>> modifiableMap = new HashMap<>();
         putInMsgTemplate(modifiableMap, allReqTemplate);
-        putInMsgTemplate(modifiableMap, allReqTemplate);
+        putInMsgTemplate(modifiableMap, allResTemplate);
         return Collections.unmodifiableMap(modifiableMap);
     }
 

@@ -41,7 +41,7 @@ function loginUser() {
   const userVO = getUserVO();
   post("/loginUser", userVO)
       .then((res) => {
-
+        console.log(res)
       })
 }
 

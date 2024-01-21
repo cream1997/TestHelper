@@ -9,6 +9,7 @@ import com.google.protobuf.Parser;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.function.Supplier;
 
@@ -33,7 +34,7 @@ public abstract class Message<T extends GeneratedMessageV3> {
      */
     private void setData(byte[] data) {
         try {
-            Field dataField = this.getClass().getField("data");
+            Field dataField = this.getClass().getSuperclass().getDeclaredField("data");
             dataField.setAccessible(true);
             dataField.set(this, parseData(data));
         } catch (Exception e) {
@@ -67,7 +68,9 @@ public abstract class Message<T extends GeneratedMessageV3> {
         Class<T> dataClass = getDataClass();
         T dataDefaultInstance;
         try {
-            dataDefaultInstance = dataClass.newInstance();
+            Constructor<T> constructor = dataClass.getDeclaredConstructor();
+            constructor.setAccessible(true);
+            dataDefaultInstance = constructor.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
