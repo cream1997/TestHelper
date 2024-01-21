@@ -1,8 +1,8 @@
 package com.cream.helper.core.net.handler.sub;
 
+import com.cream.helper.core.net.handler.base.MsgHandler;
 import com.cream.helper.core.net.msg.ReqLoginMsg;
 import com.cream.helper.core.net.msg.base.Message;
-import com.cream.helper.core.net.handler.base.MsgHandler;
 
 public class ReqLoginMsgHandler extends MsgHandler<ReqLoginMsg> {
     @Override
