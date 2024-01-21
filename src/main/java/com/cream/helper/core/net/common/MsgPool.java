@@ -1,7 +1,7 @@
 package com.cream.helper.core.net.common;
 
 import com.cream.helper.config.configuration.exception.CommonError;
-import com.cream.helper.core.net.common.msg.base.Message;
+import com.cream.helper.core.net.msg.base.Message;
 import com.cream.helper.utils.Times;
 import lombok.extern.slf4j.Slf4j;
 

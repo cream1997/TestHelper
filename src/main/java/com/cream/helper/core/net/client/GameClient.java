@@ -3,7 +3,7 @@ package com.cream.helper.core.net.client;
 import com.cream.helper.config.configuration.exception.CommonError;
 import com.cream.helper.core.net.common.GameNetSetup;
 import com.cream.helper.core.net.common.MsgPool;
-import com.cream.helper.core.net.common.msg.base.Message;
+import com.cream.helper.core.net.msg.base.Message;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;

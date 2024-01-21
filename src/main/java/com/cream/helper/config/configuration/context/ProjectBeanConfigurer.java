@@ -2,9 +2,10 @@ package com.cream.helper.config.configuration.context;
 
 import com.cream.helper.core.net.common.MsgTemplatePool;
 import com.cream.helper.core.net.common.constant.MsgType;
-import com.cream.helper.core.net.common.msg.ReqLoginMsg;
-import com.cream.helper.core.net.common.msg.ResLoginMsg;
-import com.cream.helper.core.net.common.msg.base.Message;
+import com.cream.helper.core.net.msg.ReqLoginMsg;
+import com.cream.helper.core.net.msg.ResLoginMsg;
+import com.cream.helper.core.net.msg.base.Message;
+import com.cream.helper.core.net.proto.clazz.CommonProto;
 import com.cream.helper.utils.Util;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -56,13 +57,14 @@ public class ProjectBeanConfigurer {
      * 注册请求消息协议
      */
     private void registerReq() {
-        allReqTemplate.add(new ReqLoginMsg());
+        // todo 模板对象data待修改
+        allReqTemplate.add(new ReqLoginMsg(() -> CommonProto.LoginReq.newBuilder().build()));
     }
 
     /**
      * 注册相应消息协议
      */
     private void registerRes() {
-        allResMTemplate.add(new ResLoginMsg());
+        allResMTemplate.add(new ResLoginMsg(() -> CommonProto.LoginRes.newBuilder().build()));
     }
 }

@@ -4,6 +4,9 @@ import com.cream.helper.config.configuration.exception.CommonError;
 import com.cream.helper.config.configuration.exception.CommonRunError;
 import com.cream.helper.core.net.client.GameClient;
 import com.cream.helper.core.net.common.GameNetSetup;
+import com.cream.helper.core.net.msg.ReqLoginMsg;
+import com.cream.helper.core.net.msg.ResLoginMsg;
+import com.cream.helper.core.net.proto.clazz.CommonProto;
 import com.cream.helper.mapper.LocalUserMapper;
 import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.domain.vo.RoleVO;
@@ -14,6 +17,7 @@ import com.cream.helper.tools.account.FormCheckTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -89,8 +93,23 @@ public class UserService {
         } catch (CommonError e) {
             return Ret.err(e.getMessage());
         }
-        // todo
-        return null;
+        ReqLoginMsg reqLoginMsg = new ReqLoginMsg(() ->
+                CommonProto.LoginReq.newBuilder()
+                        .setUsername(username)
+                        .setPassword(password)
+                        .build());
+        try {
+            ResLoginMsg resLoginMsg = gameClient.sendMsg(reqLoginMsg, ResLoginMsg.class);
+            CommonProto.LoginRes data = resLoginMsg.getData();
+            List<RoleVO> roleVOS = new ArrayList<>();
+            for (CommonProto.Role role : data.getRoleList()) {
+                RoleVO roleVO = new RoleVO(role.getRid(), role.getRoleName(), role.getLevel(), role.getCareer());
+                roleVOS.add(roleVO);
+            }
+            return Ret.ok(roleVOS);
+        } catch (CommonError e) {
+            return Ret.err(e.getMessage());
+        }
     }
 
     private void verifyLocal(long accountId, String username, String password) {

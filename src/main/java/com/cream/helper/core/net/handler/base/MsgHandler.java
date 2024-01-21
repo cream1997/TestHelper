@@ -1,6 +1,6 @@
-package com.cream.helper.core.net.common.msg.handler.base;
+package com.cream.helper.core.net.handler.base;
 
-import com.cream.helper.core.net.common.msg.base.Message;
+import com.cream.helper.core.net.msg.base.Message;
 
 public abstract class MsgHandler<T extends Message<?>> {
     public abstract Message<?> handle(T message);

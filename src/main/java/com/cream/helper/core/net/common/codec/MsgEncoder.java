@@ -1,6 +1,6 @@
 package com.cream.helper.core.net.common.codec;
 
-import com.cream.helper.core.net.common.msg.base.Message;
+import com.cream.helper.core.net.msg.base.Message;
 import com.google.protobuf.GeneratedMessageV3;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

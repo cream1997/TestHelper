@@ -5,7 +5,7 @@ import com.cream.helper.core.net.RoleSessionManager;
 import com.cream.helper.core.net.bo.RoleSession;
 import com.cream.helper.core.net.client.GameClient;
 import com.cream.helper.core.net.common.MsgTemplatePool;
-import com.cream.helper.core.net.common.msg.base.Message;
+import com.cream.helper.core.net.msg.base.Message;
 import com.cream.helper.obj.Ret;
 import com.cream.helper.service.IMessageService;
 import org.springframework.beans.factory.annotation.Autowired;

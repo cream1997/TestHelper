@@ -4,7 +4,6 @@ import com.cream.helper.config.AppSetup;
 import com.cream.helper.constant.GamePlatform;
 import com.cream.helper.core.net.common.codec.MsgDecoder;
 import com.cream.helper.core.net.common.codec.MsgEncoder;
-import com.cream.helper.core.net.common.msg.handler.GlobalMsgHandler;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

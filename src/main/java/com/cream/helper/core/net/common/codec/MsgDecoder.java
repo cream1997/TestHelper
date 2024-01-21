@@ -1,7 +1,7 @@
 package com.cream.helper.core.net.common.codec;
 
 import com.cream.helper.core.net.common.MsgTemplatePool;
-import com.cream.helper.core.net.common.msg.base.Message;
+import com.cream.helper.core.net.msg.base.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
@@ -32,7 +32,8 @@ public class MsgDecoder extends ByteToMessageDecoder {
         if (leftLength > 0) {
             byte[] bytes = new byte[leftLength];
             in.readBytes(bytes);
-            Constructor<? extends Message> constructor = msgClass.getConstructor(byte[].class);
+            Constructor<? extends Message> constructor = msgClass.getDeclaredConstructor(byte[].class);
+            constructor.setAccessible(true);
             message = constructor.newInstance(bytes);
         } else {
             message = msgClass.newInstance();

@@ -1,9 +1,9 @@
-package com.cream.helper.core.net.common.msg.handler;
+package com.cream.helper.core.net.common;
 
 import com.cream.helper.core.net.common.constant.MsgType;
-import com.cream.helper.core.net.common.msg.base.Message;
-import com.cream.helper.core.net.common.msg.listener.ClientMsgListener;
-import com.cream.helper.core.net.common.msg.listener.ServerMsgListener;
+import com.cream.helper.core.net.msg.base.Message;
+import com.cream.helper.core.net.common.listener.ClientMsgListener;
+import com.cream.helper.core.net.common.listener.ServerMsgListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;

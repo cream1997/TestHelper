@@ -1,6 +1,6 @@
 package com.cream.helper.core.net.common;
 
-import com.cream.helper.core.net.common.msg.base.Message;
+import com.cream.helper.core.net.msg.base.Message;
 import com.cream.helper.utils.NullUtil;
 import com.cream.helper.utils.Util;
 import lombok.Getter;

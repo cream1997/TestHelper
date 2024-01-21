@@ -1,4 +1,4 @@
-package com.cream.helper.core.net.common.msg.base;
+package com.cream.helper.core.net.msg.base;
 
 import com.cream.helper.core.net.common.constant.MsgMeta;
 import com.cream.helper.core.net.common.constant.MsgType;
@@ -8,6 +8,8 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Parser;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.function.Supplier;
 
 @Slf4j
 @Getter
@@ -19,22 +21,18 @@ public abstract class Message<T extends GeneratedMessageV3> {
      */
     private final T data;
 
-
-    public Message() {
-        this.data = null;
+    public Message(Supplier<T> dataBuilder) {
+        this.data = dataBuilder == null ? null : dataBuilder.get();
         init();
     }
 
-    public Message(T data) {
-        this.data = data;
-        init();
-    }
-
-    public Message(byte[] data) {
+    /**
+     * 留给解码器反射使用
+     */
+    private Message(byte[] data) {
         this.data = parseData(data);
         init();
     }
-
 
     /**
      * 即使通过元信息已经能够获取msgId和type了，也仍然需要保留这两个字段；
