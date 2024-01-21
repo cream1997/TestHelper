@@ -57,7 +57,7 @@ public class MockMessageService implements IMessageService {
         if (roleSessionManager.isOffLine(rid)) {
             return Ret.err("角色不在线");
         }
-        List<Message<? extends GeneratedMessageV3>> messages = msgPool.fetchAllResponse(rid);
-        return Ret.ok(messages);
+        // todo
+        return Ret.ok(null);
     }
 }
