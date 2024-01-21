@@ -2,8 +2,11 @@ package com.cream.helper.service.impl;
 
 import com.cream.helper.config.configuration.exception.CommonError;
 import com.cream.helper.config.configuration.exception.CommonRunError;
+import com.cream.helper.core.net.client.GameClient;
+import com.cream.helper.core.net.common.GameNetSetup;
 import com.cream.helper.mapper.LocalUserMapper;
 import com.cream.helper.obj.Ret;
+import com.cream.helper.obj.domain.vo.RoleVO;
 import com.cream.helper.obj.domain.vo.UserVO;
 import com.cream.helper.obj.entity.account.User;
 import com.cream.helper.service.IGameLoginService;
@@ -25,10 +28,16 @@ public class UserService {
 
     private final FormCheckTool formCheckTool;
 
+    private final GameNetSetup gameNetSetup;
+
     @Autowired
-    public UserService(LocalUserMapper localUserMapper, IGameLoginService gameLoginService, FormCheckTool formCheckTool) {
+    public UserService(LocalUserMapper localUserMapper,
+                       IGameLoginService gameLoginService,
+                       GameNetSetup gameNetSetup,
+                       FormCheckTool formCheckTool) {
         this.localUserMapper = localUserMapper;
         this.gameLoginService = gameLoginService;
+        this.gameNetSetup = gameNetSetup;
         this.formCheckTool = formCheckTool;
     }
 
@@ -63,7 +72,7 @@ public class UserService {
     }
 
 
-    public String login(long accountId, String username, String password) {
+    public Ret<List<RoleVO>> login(long accountId, String username, String password) {
         // todo check accountId
         formCheckTool.checkNull(username, password);
         String gameLoginToken;
@@ -73,6 +82,18 @@ public class UserService {
             throw new RuntimeException(e);
         }
         // 校验与本地数据的一致性
+        verifyLocal(accountId, username, password);
+        GameClient gameClient;
+        try {
+            gameClient = new GameClient(gameNetSetup);
+        } catch (CommonError e) {
+            return Ret.err(e.getMessage());
+        }
+        // todo
+        return null;
+    }
+
+    private void verifyLocal(long accountId, String username, String password) {
         User localUser = localUserMapper.getUser(username);
         if (localUser == null) {
             // 注册本地
@@ -85,7 +106,6 @@ public class UserService {
                 localRegister(accountId, username, password, true);
             }
         }
-        return gameLoginToken;
     }
 
     /**

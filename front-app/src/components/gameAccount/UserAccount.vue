@@ -30,11 +30,19 @@ function getUserVO(): UserVO {
 }
 
 function registerUser() {
-  let userVO = getUserVO();
+  const userVO = getUserVO();
   post("/registerUser", userVO).then((okMsg: string) => {
     Tip.success(okMsg)
     userAccounts.unshift(userVO)
   })
+}
+
+function loginUser() {
+  const userVO = getUserVO();
+  post("/loginUser", userVO)
+      .then((res) => {
+
+      })
 }
 
 function logoutAccount() {
@@ -146,7 +154,7 @@ function removeAccount() {
       </select>
     </div>
     <div class="button-box">
-      <button class="user-button">登录</button>
+      <button class="user-button" @click="loginUser">登录</button>
       <button class="user-button" @click="registerUser">注册</button>
     </div>
   </form>
