@@ -3,7 +3,6 @@ package com.cream.helper.core.net.common;
 import com.cream.helper.config.configuration.exception.CommonError;
 import com.cream.helper.core.net.common.msg.base.Message;
 import com.cream.helper.utils.Times;
-import com.google.protobuf.GeneratedMessageV3;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -26,10 +25,10 @@ public class MsgPool {
     /**
      * 玩家的响应消息队列, 先进先出的单向队列
      */
-    private final LinkedBlockingQueue<Message<? extends GeneratedMessageV3>> resMsgQueue = new LinkedBlockingQueue<>(CAPACITY);
+    private final LinkedBlockingQueue<Message<?>> resMsgQueue = new LinkedBlockingQueue<>(CAPACITY);
 
 
-    public void addResMsg(Message<? extends GeneratedMessageV3> message) {
+    public void addResMsg(Message<?> message) {
         // 消息添加到队列尾部
         try {
             // 将元素插入队列尾部，等待指定时间，如果队列仍然满，则返回 false。
@@ -41,15 +40,15 @@ public class MsgPool {
         }
     }
 
-    public List<Message<? extends GeneratedMessageV3>> fetchAllResMsg() {
+    public List<Message<?>> fetchAllResMsg() {
         if (resMsgQueue.isEmpty()) {
             return Collections.emptyList();
         }
-        List<Message<? extends GeneratedMessageV3>> result = new ArrayList<>();
+        List<Message<?>> result = new ArrayList<>();
         fetchLock.lock();
         try {
             while (!resMsgQueue.isEmpty()) {
-                Message<? extends GeneratedMessageV3> message = resMsgQueue.poll();
+                Message<?> message = resMsgQueue.poll();
                 if (message == null) {
                     log.error("取出消息为空，请检查");
                 } else {
@@ -70,7 +69,7 @@ public class MsgPool {
                 if (Times.now() - startTime > TIMEOUT_MS) {
                     throw new CommonError("从队列中取出消息超时，请检查");
                 }
-                for (Message<? extends GeneratedMessageV3> message : resMsgQueue) {
+                for (Message<?> message : resMsgQueue) {
                     if (msgClass.isInstance(message)) {
                         if (!resMsgQueue.remove(message)) {
                             log.error("从队列中移除消息失败，请检查");

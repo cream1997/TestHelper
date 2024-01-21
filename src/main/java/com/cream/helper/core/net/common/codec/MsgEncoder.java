@@ -8,9 +8,9 @@ import io.netty.handler.codec.MessageToByteEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MsgEncoder extends MessageToByteEncoder<Message<? extends GeneratedMessageV3>> {
+public class MsgEncoder extends MessageToByteEncoder<Message<?>> {
     @Override
-    protected void encode(ChannelHandlerContext ctx, Message<? extends GeneratedMessageV3> msg, ByteBuf out) throws Exception {
+    protected void encode(ChannelHandlerContext ctx, Message<?> msg, ByteBuf out) throws Exception {
         // 写入消息id
         out.writeInt(msg.getMsgId());
         // 写入消息体

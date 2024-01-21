@@ -6,7 +6,6 @@ import com.cream.helper.core.net.common.msg.ReqLoginMsg;
 import com.cream.helper.core.net.common.msg.ResLoginMsg;
 import com.cream.helper.core.net.common.msg.base.Message;
 import com.cream.helper.utils.Util;
-import com.google.protobuf.GeneratedMessageV3;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,9 +19,9 @@ import java.util.Set;
 @Configuration
 public class ProjectBeanConfigurer {
 
-    private final List<Message<? extends GeneratedMessageV3>> allReqTemplate = new ArrayList<>();
+    private final List<Message<?>> allReqTemplate = new ArrayList<>();
 
-    private final List<Message<? extends GeneratedMessageV3>> allResMTemplate = new ArrayList<>();
+    private final List<Message<?>> allResMTemplate = new ArrayList<>();
 
     public ProjectBeanConfigurer() {
         registerReq();
@@ -33,8 +32,8 @@ public class ProjectBeanConfigurer {
 
     private void check(MsgType msgType) {
         Set<Integer> msgIds = new HashSet<>();
-        List<Message<? extends GeneratedMessageV3>> checkList = msgType == MsgType.Req ? allReqTemplate : allResMTemplate;
-        for (Message<? extends GeneratedMessageV3> reqMsgTemplate : checkList) {
+        List<Message<?>> checkList = msgType == MsgType.Req ? allReqTemplate : allResMTemplate;
+        for (Message<?> reqMsgTemplate : checkList) {
             int msgId = reqMsgTemplate.getMsgId();
             if (reqMsgTemplate.getType() != msgType) {
                 log.error("消息类型错误 class:{}, msgId:{}", reqMsgTemplate.getClass(), msgId);

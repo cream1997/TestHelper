@@ -31,9 +31,9 @@ public class GlobalMsgHandler extends SimpleChannelInboundHandler<Message<?>> {
     protected void channelRead0(ChannelHandlerContext ctx, Message<?> msg) {
         MsgType type = msg.getType();
         if (type == MsgType.Req) {
-            serverMsgListener.readMsg(ctx, msg);
+            serverMsgListener.receiveMsg(ctx, msg);
         } else if (type == MsgType.Res) {
-            clientMsgListener.readMsg(ctx, msg);
+            clientMsgListener.receiveMsg(ctx, msg);
         } else {
             log.error("消息类型错误 type:{}", type);
         }

@@ -16,17 +16,17 @@ public interface IMessageService {
     /**
      * 抓取所有请求消息模板
      */
-    Ret<List<Message<? extends GeneratedMessageV3>>> fetchAllReqTemplate();
+    Ret<List<Message<?>>> fetchAllReqTemplate();
 
     /**
      * 抓取所有响应消息模板
      */
-    Ret<List<Message<? extends GeneratedMessageV3>>> fetchAllResTemplate();
+    Ret<List<Message<?>>> fetchAllResTemplate();
 
     /**
      * 抓取响应消息（消息内容）
      * 因为Http的请求响应逻辑是一个请求对应一个响应，而真正游戏的网络模式是Tcp长连接，
      * 不能一个请求对应一个回来处理，采用循环主动拉取的方式获取所有响应消息，模拟长连接
      */
-    Ret<List<Message<? extends GeneratedMessageV3>>> fetchAllResMsg(long rid);
+    Ret<List<Message<?>>> fetchAllResMsg(long rid);
 }

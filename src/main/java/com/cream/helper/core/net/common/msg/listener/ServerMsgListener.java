@@ -3,6 +3,7 @@ package com.cream.helper.core.net.common.msg.listener;
 import com.cream.helper.core.net.common.msg.base.Message;
 import com.cream.helper.core.net.common.msg.handler.base.MsgHandler;
 import com.cream.helper.core.net.common.msg.handler.sub.ReqLoginMsgHandler;
+import com.cream.helper.core.net.common.msg.listener.base.MsgListener;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -22,7 +23,7 @@ public class ServerMsgListener extends MsgListener {
     }
 
     @Override
-    public void readMsg(ChannelHandlerContext ctx, Message<?> msg) {
+    public void receiveMsg(ChannelHandlerContext ctx, Message<?> msg) {
         MsgHandler<?> msgHandler = allServerMsgHandler.get(msg.getMsgId());
         if (msgHandler == null) {
             log.error("未定义消息处理器, msgId:{}", msg.getMsgId());
