@@ -6,7 +6,7 @@ import router from "@/router";
 import {Tip} from "@/tools/CommonTools"
 import ElementPlus from "element-plus"
 import 'element-plus/dist/index.css'
-import {zhCn} from "element-plus/es/locale";
+import {zhCn} from "element-plus/es/locales";
 import {createPinia} from "pinia";
 
 const app = createApp(App)
