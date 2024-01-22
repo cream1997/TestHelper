@@ -57,14 +57,15 @@ const shortcuts = [
 </script>
 
 <template>
-  <el-date-picker
-      v-model="time"
-      type="datetime"
-      placeholder="选择日期时间"
-      :editable="false"
-      :shortcuts="shortcuts"
-      :disabled-date="dateDisable"
-      @change="setTime"
-      @visible-change="triggerPanel"
+  <el-date-picker style="width: 155px"
+                  v-model="time"
+                  type="datetime"
+                  placeholder="选择日期时间"
+                  :editable="false"
+                  :clearable="false"
+                  :shortcuts="shortcuts"
+                  :disabled-date="dateDisable"
+                  @change="setTime"
+                  @visible-change="triggerPanel"
   />
 </template>
