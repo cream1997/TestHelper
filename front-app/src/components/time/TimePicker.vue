@@ -1,21 +1,36 @@
 <script setup lang="ts" name="TimePicker">
-import {ref, watch} from "vue";
+import {onMounted, ref, watch} from "vue";
 import {ONE_DAY, ONE_HOUR, ONE_MINUTE} from "@/constant/TimeConst";
 
-let outerTime = Date.now();
 
 let props = defineProps(["serverTime", "setTime"]);
-const time = ref<number>(props.serverTime)
-watch(props, () => {
-  time.value = props.serverTime;
+let time = ref<number>()
+
+
+let stopWatchServerTime;
+
+
+function startWatchServerTime() {
+  stopWatchServerTime && stopWatchServerTime();
+  stopWatchServerTime = watch(props, () => {
+    time.value = props.serverTime;
+  }, {immediate: true})
+}
+
+onMounted(() => {
+  startWatchServerTime();
 })
 
-setInterval(() => {
-  time.value = new Date(time.value + 1000).getTime()
-}, 1000)
+function triggerPanel(open: boolean) {
+  if (open) {
+    stopWatchServerTime && stopWatchServerTime();
+  } else {
+    startWatchServerTime();
+  }
+}
 
 function dateDisable(date: Date): boolean {
-  return date.getTime() <= outerTime;
+  return date.getTime() <= props.serverTime;
 }
 
 const shortcuts = [
@@ -46,8 +61,10 @@ const shortcuts = [
       v-model="time"
       type="datetime"
       placeholder="选择日期时间"
+      :editable="false"
       :shortcuts="shortcuts"
       :disabled-date="dateDisable"
       @change="setTime"
+      @visible-change="triggerPanel"
   />
 </template>

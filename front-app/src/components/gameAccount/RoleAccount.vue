@@ -2,10 +2,13 @@
 import {ref} from "vue";
 import TimePicker from "@/components/time/TimePicker.vue";
 
-const serverTime = ref<number>(Date.now())
+const serverTime = ref<number>(Date.now());
+
+setInterval(() => {
+  serverTime.value = new Date(serverTime.value + 1000).getTime()
+}, 1000)
 
 function setTime(time: number) {
-  console.log("修改时间为" + new Date(time))
 }
 </script>
 
