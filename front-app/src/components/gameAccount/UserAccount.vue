@@ -42,7 +42,8 @@ function loginUser() {
   const userVO = getUserVO();
   post("/loginUser", userVO)
       .then((loginUserInfo: LoginUserInfoVO) => {
-        console.log(loginUserInfo)
+        accountStore.uid = loginUserInfo.uid;
+        accountStore.roleItems.push(...loginUserInfo.roleItems)
       })
 }
 

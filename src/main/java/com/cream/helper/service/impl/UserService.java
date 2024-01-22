@@ -3,6 +3,7 @@ package com.cream.helper.service.impl;
 import com.cream.helper.config.configuration.exception.CommonError;
 import com.cream.helper.config.configuration.exception.CommonRunError;
 import com.cream.helper.core.net.UserSessionManager;
+import com.cream.helper.core.net.bo.UserSession;
 import com.cream.helper.core.net.client.GameClient;
 import com.cream.helper.core.net.common.GameNetSetup;
 import com.cream.helper.core.net.msg.ReqLoginMsg;
@@ -102,9 +103,11 @@ public class UserService {
                         .build());
         try {
             ResLoginMsg resLoginMsg = gameClient.sendMsg(reqLoginMsg, ResLoginMsg.class);
-            // fixme 登录成功，创建session
+
             CommonProto.LoginRes data = resLoginMsg.getData();
             long uid = data.getUid();
+            // 登录成功，创建session
+            userSessionManager.addSession(new UserSession(uid, gameClient));
             List<RoleItemVO> roleItemVOS = new ArrayList<>();
             for (CommonProto.Role role : data.getRoleList()) {
                 RoleItemVO roleItemVO = new RoleItemVO(role.getRid(), role.getRoleName(), role.getLevel(), role.getCareer());

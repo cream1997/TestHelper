@@ -17,17 +17,15 @@ public class AccountService {
 
     private final AccountMapper accountMapper;
     private final JwtTool jwtTool;
-    private final FormCheckUtil formCheckUtil;
 
     @Autowired
-    public AccountService(AccountMapper accountMapper, JwtTool jwtTool, FormCheckUtil formCheckUtil) {
+    public AccountService(AccountMapper accountMapper, JwtTool jwtTool) {
         this.accountMapper = accountMapper;
         this.jwtTool = jwtTool;
-        this.formCheckUtil = formCheckUtil;
     }
 
     public Ret<String> register(String username, String password) {
-        formCheckUtil.checkNull(username, password);
+        FormCheckUtil.checkNull(username, password);
         Account account = accountMapper.getAccount(username);
         if (account != null) {
             return Ret.err(null, "账号已被注册");
@@ -37,7 +35,7 @@ public class AccountService {
     }
 
     public Ret<AccountVO> login(String username, String password) {
-        formCheckUtil.checkNull(username, password);
+        FormCheckUtil.checkNull(username, password);
         Account account = accountMapper.getAccount(username);
         if (account == null) {
             return Ret.err("账号不存在");
