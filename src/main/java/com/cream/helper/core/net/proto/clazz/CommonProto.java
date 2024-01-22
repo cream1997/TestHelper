@@ -807,29 +807,36 @@ public final class CommonProto {
             com.google.protobuf.MessageOrBuilder {
 
         /**
-         * <code>repeated .Role role = 1;</code>
+         * <code>int64 uid = 1;</code>
+         *
+         * @return The uid.
+         */
+        long getUid();
+
+        /**
+         * <code>repeated .Role role = 2;</code>
          */
         java.util.List<CommonProto.Role>
         getRoleList();
 
         /**
-         * <code>repeated .Role role = 1;</code>
+         * <code>repeated .Role role = 2;</code>
          */
         CommonProto.Role getRole(int index);
 
         /**
-         * <code>repeated .Role role = 1;</code>
+         * <code>repeated .Role role = 2;</code>
          */
         int getRoleCount();
 
         /**
-         * <code>repeated .Role role = 1;</code>
+         * <code>repeated .Role role = 2;</code>
          */
         java.util.List<? extends CommonProto.RoleOrBuilder>
         getRoleOrBuilderList();
 
         /**
-         * <code>repeated .Role role = 1;</code>
+         * <code>repeated .Role role = 2;</code>
          */
         CommonProto.RoleOrBuilder getRoleOrBuilder(
                 int index);
@@ -885,7 +892,12 @@ public final class CommonProto {
                         case 0:
                             done = true;
                             break;
-                        case 10: {
+                        case 8: {
+
+                            uid_ = input.readInt64();
+                            break;
+                        }
+                        case 18: {
                             if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                                 role_ = new java.util.ArrayList<CommonProto.Role>();
                                 mutable_bitField0_ |= 0x00000001;
@@ -932,11 +944,24 @@ public final class CommonProto {
                             CommonProto.LoginRes.class, CommonProto.LoginRes.Builder.class);
         }
 
-        public static final int ROLE_FIELD_NUMBER = 1;
+        public static final int UID_FIELD_NUMBER = 1;
+        private long uid_;
+
+        /**
+         * <code>int64 uid = 1;</code>
+         *
+         * @return The uid.
+         */
+        @java.lang.Override
+        public long getUid() {
+            return uid_;
+        }
+
+        public static final int ROLE_FIELD_NUMBER = 2;
         private java.util.List<CommonProto.Role> role_;
 
         /**
-         * <code>repeated .Role role = 1;</code>
+         * <code>repeated .Role role = 2;</code>
          */
         @java.lang.Override
         public java.util.List<CommonProto.Role> getRoleList() {
@@ -944,7 +969,7 @@ public final class CommonProto {
         }
 
         /**
-         * <code>repeated .Role role = 1;</code>
+         * <code>repeated .Role role = 2;</code>
          */
         @java.lang.Override
         public java.util.List<? extends CommonProto.RoleOrBuilder>
@@ -953,7 +978,7 @@ public final class CommonProto {
         }
 
         /**
-         * <code>repeated .Role role = 1;</code>
+         * <code>repeated .Role role = 2;</code>
          */
         @java.lang.Override
         public int getRoleCount() {
@@ -961,7 +986,7 @@ public final class CommonProto {
         }
 
         /**
-         * <code>repeated .Role role = 1;</code>
+         * <code>repeated .Role role = 2;</code>
          */
         @java.lang.Override
         public CommonProto.Role getRole(int index) {
@@ -969,7 +994,7 @@ public final class CommonProto {
         }
 
         /**
-         * <code>repeated .Role role = 1;</code>
+         * <code>repeated .Role role = 2;</code>
          */
         @java.lang.Override
         public CommonProto.RoleOrBuilder getRoleOrBuilder(
@@ -992,8 +1017,11 @@ public final class CommonProto {
         @java.lang.Override
         public void writeTo(com.google.protobuf.CodedOutputStream output)
                 throws java.io.IOException {
+            if (uid_ != 0L) {
+                output.writeInt64(1, uid_);
+            }
             for (int i = 0; i < role_.size(); i++) {
-                output.writeMessage(1, role_.get(i));
+                output.writeMessage(2, role_.get(i));
             }
             unknownFields.writeTo(output);
         }
@@ -1004,9 +1032,13 @@ public final class CommonProto {
             if (size != -1) return size;
 
             size = 0;
+            if (uid_ != 0L) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(1, uid_);
+            }
             for (int i = 0; i < role_.size(); i++) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(1, role_.get(i));
+                        .computeMessageSize(2, role_.get(i));
             }
             size += unknownFields.getSerializedSize();
             memoizedSize = size;
@@ -1023,6 +1055,8 @@ public final class CommonProto {
             }
             CommonProto.LoginRes other = (CommonProto.LoginRes) obj;
 
+            if (getUid()
+                    != other.getUid()) return false;
             if (!getRoleList()
                     .equals(other.getRoleList())) return false;
             if (!unknownFields.equals(other.unknownFields)) return false;
@@ -1036,6 +1070,9 @@ public final class CommonProto {
             }
             int hash = 41;
             hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + UID_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                    getUid());
             if (getRoleCount() > 0) {
                 hash = (37 * hash) + ROLE_FIELD_NUMBER;
                 hash = (53 * hash) + getRoleList().hashCode();
@@ -1193,6 +1230,8 @@ public final class CommonProto {
             @java.lang.Override
             public Builder clear() {
                 super.clear();
+                uid_ = 0L;
+
                 if (roleBuilder_ == null) {
                     role_ = java.util.Collections.emptyList();
                     bitField0_ = (bitField0_ & ~0x00000001);
@@ -1226,6 +1265,7 @@ public final class CommonProto {
             public CommonProto.LoginRes buildPartial() {
                 CommonProto.LoginRes result = new CommonProto.LoginRes(this);
                 int from_bitField0_ = bitField0_;
+                result.uid_ = uid_;
                 if (roleBuilder_ == null) {
                     if (((bitField0_ & 0x00000001) != 0)) {
                         role_ = java.util.Collections.unmodifiableList(role_);
@@ -1289,6 +1329,9 @@ public final class CommonProto {
 
             public Builder mergeFrom(CommonProto.LoginRes other) {
                 if (other == CommonProto.LoginRes.getDefaultInstance()) return this;
+                if (other.getUid() != 0L) {
+                    setUid(other.getUid());
+                }
                 if (roleBuilder_ == null) {
                     if (!other.role_.isEmpty()) {
                         if (role_.isEmpty()) {
@@ -1346,6 +1389,43 @@ public final class CommonProto {
 
             private int bitField0_;
 
+            private long uid_;
+
+            /**
+             * <code>int64 uid = 1;</code>
+             *
+             * @return The uid.
+             */
+            @java.lang.Override
+            public long getUid() {
+                return uid_;
+            }
+
+            /**
+             * <code>int64 uid = 1;</code>
+             *
+             * @param value The uid to set.
+             * @return This builder for chaining.
+             */
+            public Builder setUid(long value) {
+
+                uid_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>int64 uid = 1;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearUid() {
+
+                uid_ = 0L;
+                onChanged();
+                return this;
+            }
+
             private java.util.List<CommonProto.Role> role_ =
                     java.util.Collections.emptyList();
 
@@ -1360,7 +1440,7 @@ public final class CommonProto {
                     CommonProto.Role, CommonProto.Role.Builder, CommonProto.RoleOrBuilder> roleBuilder_;
 
             /**
-             * <code>repeated .Role role = 1;</code>
+             * <code>repeated .Role role = 2;</code>
              */
             public java.util.List<CommonProto.Role> getRoleList() {
                 if (roleBuilder_ == null) {
@@ -1371,7 +1451,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>repeated .Role role = 1;</code>
+             * <code>repeated .Role role = 2;</code>
              */
             public int getRoleCount() {
                 if (roleBuilder_ == null) {
@@ -1382,7 +1462,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>repeated .Role role = 1;</code>
+             * <code>repeated .Role role = 2;</code>
              */
             public CommonProto.Role getRole(int index) {
                 if (roleBuilder_ == null) {
@@ -1393,7 +1473,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>repeated .Role role = 1;</code>
+             * <code>repeated .Role role = 2;</code>
              */
             public Builder setRole(
                     int index, CommonProto.Role value) {
@@ -1411,7 +1491,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>repeated .Role role = 1;</code>
+             * <code>repeated .Role role = 2;</code>
              */
             public Builder setRole(
                     int index, CommonProto.Role.Builder builderForValue) {
@@ -1426,7 +1506,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>repeated .Role role = 1;</code>
+             * <code>repeated .Role role = 2;</code>
              */
             public Builder addRole(CommonProto.Role value) {
                 if (roleBuilder_ == null) {
@@ -1443,7 +1523,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>repeated .Role role = 1;</code>
+             * <code>repeated .Role role = 2;</code>
              */
             public Builder addRole(
                     int index, CommonProto.Role value) {
@@ -1461,7 +1541,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>repeated .Role role = 1;</code>
+             * <code>repeated .Role role = 2;</code>
              */
             public Builder addRole(
                     CommonProto.Role.Builder builderForValue) {
@@ -1476,7 +1556,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>repeated .Role role = 1;</code>
+             * <code>repeated .Role role = 2;</code>
              */
             public Builder addRole(
                     int index, CommonProto.Role.Builder builderForValue) {
@@ -1491,7 +1571,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>repeated .Role role = 1;</code>
+             * <code>repeated .Role role = 2;</code>
              */
             public Builder addAllRole(
                     java.lang.Iterable<? extends CommonProto.Role> values) {
@@ -1507,7 +1587,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>repeated .Role role = 1;</code>
+             * <code>repeated .Role role = 2;</code>
              */
             public Builder clearRole() {
                 if (roleBuilder_ == null) {
@@ -1521,7 +1601,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>repeated .Role role = 1;</code>
+             * <code>repeated .Role role = 2;</code>
              */
             public Builder removeRole(int index) {
                 if (roleBuilder_ == null) {
@@ -1535,7 +1615,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>repeated .Role role = 1;</code>
+             * <code>repeated .Role role = 2;</code>
              */
             public CommonProto.Role.Builder getRoleBuilder(
                     int index) {
@@ -1543,7 +1623,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>repeated .Role role = 1;</code>
+             * <code>repeated .Role role = 2;</code>
              */
             public CommonProto.RoleOrBuilder getRoleOrBuilder(
                     int index) {
@@ -1555,7 +1635,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>repeated .Role role = 1;</code>
+             * <code>repeated .Role role = 2;</code>
              */
             public java.util.List<? extends CommonProto.RoleOrBuilder>
             getRoleOrBuilderList() {
@@ -1567,7 +1647,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>repeated .Role role = 1;</code>
+             * <code>repeated .Role role = 2;</code>
              */
             public CommonProto.Role.Builder addRoleBuilder() {
                 return getRoleFieldBuilder().addBuilder(
@@ -1575,7 +1655,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>repeated .Role role = 1;</code>
+             * <code>repeated .Role role = 2;</code>
              */
             public CommonProto.Role.Builder addRoleBuilder(
                     int index) {
@@ -1584,7 +1664,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>repeated .Role role = 1;</code>
+             * <code>repeated .Role role = 2;</code>
              */
             public java.util.List<CommonProto.Role.Builder>
             getRoleBuilderList() {
@@ -2633,10 +2713,11 @@ public final class CommonProto {
     static {
         java.lang.String[] descriptorData = {
                 "\n\021file/Common.proto\".\n\010LoginReq\022\020\n\010usern" +
-                        "ame\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"\037\n\010LoginRes\022" +
-                        "\023\n\004role\030\001 \003(\0132\005.Role\"D\n\004Role\022\013\n\003rid\030\001 \001(" +
-                        "\003\022\020\n\010roleName\030\002 \001(\t\022\r\n\005level\030\003 \001(\005\022\016\n\006ca" +
-                        "reer\030\004 \001(\tB\017B\013CommonProtoH\001b\006proto3"
+                        "ame\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\",\n\010LoginRes\022" +
+                        "\013\n\003uid\030\001 \001(\003\022\023\n\004role\030\002 \003(\0132\005.Role\"D\n\004Rol" +
+                        "e\022\013\n\003rid\030\001 \001(\003\022\020\n\010roleName\030\002 \001(\t\022\r\n\005leve" +
+                        "l\030\003 \001(\005\022\016\n\006career\030\004 \001(\tB\017B\013CommonProtoH\001" +
+                        "b\006proto3"
         };
         descriptor = com.google.protobuf.Descriptors.FileDescriptor
                 .internalBuildGeneratedFileFrom(descriptorData,
@@ -2653,7 +2734,7 @@ public final class CommonProto {
         internal_static_LoginRes_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_LoginRes_descriptor,
-                new java.lang.String[]{"Role",});
+                new java.lang.String[]{"Uid", "Role",});
         internal_static_Role_descriptor =
                 getDescriptor().getMessageTypes().get(2);
         internal_static_Role_fieldAccessorTable = new

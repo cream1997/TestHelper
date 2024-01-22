@@ -1,5 +1,6 @@
 package com.cream.helper.core.net.handler.sub;
 
+import cn.hutool.core.util.IdUtil;
 import com.cream.helper.core.net.handler.base.MsgHandler;
 import com.cream.helper.core.net.msg.ReqLoginMsg;
 import com.cream.helper.core.net.msg.ResLoginMsg;
@@ -21,6 +22,7 @@ public class ReqLoginMsgHandler extends MsgHandler<ReqLoginMsg> {
                 .setLevel(55)
                 .setCareer("战士").build();
         CommonProto.LoginRes loginRes = CommonProto.LoginRes.newBuilder()
+                .setUid(IdUtil.getSnowflakeNextId())
                 .addRole(role1)
                 .addRole(role2)
                 .build();

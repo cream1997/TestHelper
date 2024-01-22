@@ -10,7 +10,8 @@ import com.cream.helper.core.net.msg.ResLoginMsg;
 import com.cream.helper.core.net.proto.clazz.CommonProto;
 import com.cream.helper.mapper.LocalUserMapper;
 import com.cream.helper.obj.Ret;
-import com.cream.helper.obj.domain.vo.RoleListItemVO;
+import com.cream.helper.obj.domain.vo.LoginUserInfoVO;
+import com.cream.helper.obj.domain.vo.RoleItemVO;
 import com.cream.helper.obj.domain.vo.UserVO;
 import com.cream.helper.obj.entity.account.User;
 import com.cream.helper.service.IGameLoginService;
@@ -77,7 +78,7 @@ public class UserService {
     }
 
 
-    public Ret<List<RoleListItemVO>> login(long accountId, String username, String password) {
+    public Ret<LoginUserInfoVO> login(long accountId, String username, String password) {
         // todo check accountId
         FormCheckUtil.checkNull(username, password);
         String gameLoginToken;
@@ -103,12 +104,13 @@ public class UserService {
             ResLoginMsg resLoginMsg = gameClient.sendMsg(reqLoginMsg, ResLoginMsg.class);
             // fixme 登录成功，创建session
             CommonProto.LoginRes data = resLoginMsg.getData();
-            List<RoleListItemVO> roleListItemVOS = new ArrayList<>();
+            long uid = data.getUid();
+            List<RoleItemVO> roleItemVOS = new ArrayList<>();
             for (CommonProto.Role role : data.getRoleList()) {
-                RoleListItemVO roleListItemVO = new RoleListItemVO(role.getRid(), role.getRoleName(), role.getLevel(), role.getCareer());
-                roleListItemVOS.add(roleListItemVO);
+                RoleItemVO roleItemVO = new RoleItemVO(role.getRid(), role.getRoleName(), role.getLevel(), role.getCareer());
+                roleItemVOS.add(roleItemVO);
             }
-            return Ret.ok(roleListItemVOS);
+            return Ret.ok(new LoginUserInfoVO(uid, roleItemVOS));
         } catch (CommonError e) {
             return Ret.err(e.getMessage());
         }

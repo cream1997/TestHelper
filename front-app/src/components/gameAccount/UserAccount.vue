@@ -8,7 +8,7 @@ import router from "@/router";
 import type Server from "@/interface/Server";
 import {MsgBox, Tip} from "@/tools/CommonTools";
 import type UserVO from "@/interface/UserVO";
-import type RoleListItemVO from "@/interface/RoleListItemVO";
+import type LoginUserInfoVO from "@/interface/LoginUserInfoVO";
 
 const accountStore = useAccountStore();
 const accountId = accountStore.accountId;
@@ -41,8 +41,8 @@ function registerUser() {
 function loginUser() {
   const userVO = getUserVO();
   post("/loginUser", userVO)
-      .then((roleListItemVOS: Array<RoleListItemVO>) => {
-        console.log(roleListItemVOS)
+      .then((loginUserInfo: LoginUserInfoVO) => {
+        console.log(loginUserInfo)
       })
 }
 
