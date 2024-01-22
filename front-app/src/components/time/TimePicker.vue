@@ -1,10 +1,15 @@
 <script setup lang="ts" name="TimePicker">
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import {ONE_DAY, ONE_HOUR, ONE_MINUTE} from "@/constant/TimeConst";
 
 let outerTime = Date.now();
 
-const time = ref<number>(outerTime)
+let props = defineProps(["serverTime", "setTime"]);
+const time = ref<number>(props.serverTime)
+watch(props, () => {
+  time.value = props.serverTime;
+})
+
 setInterval(() => {
   time.value = new Date(time.value + 1000).getTime()
 }, 1000)
@@ -34,7 +39,6 @@ const shortcuts = [
     },
   },
 ];
-
 </script>
 
 <template>
@@ -44,9 +48,6 @@ const shortcuts = [
       placeholder="选择日期时间"
       :shortcuts="shortcuts"
       :disabled-date="dateDisable"
+      @change="setTime"
   />
 </template>
-
-<style scoped>
-
-</style>
