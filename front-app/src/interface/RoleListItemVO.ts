@@ -1,4 +1,4 @@
-export default interface RoleVO {
+export default interface RoleListItemVO {
     rid: number,
     roleName: string,
     level: number,

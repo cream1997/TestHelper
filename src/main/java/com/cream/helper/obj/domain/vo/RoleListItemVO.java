@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class RoleVO {
+public class RoleListItemVO {
     private final long rid;
     private final String roleName;
     private final int level;

@@ -2,6 +2,7 @@ package com.cream.helper.service.impl;
 
 import com.cream.helper.config.configuration.exception.CommonError;
 import com.cream.helper.config.configuration.exception.CommonRunError;
+import com.cream.helper.core.net.UserSessionManager;
 import com.cream.helper.core.net.client.GameClient;
 import com.cream.helper.core.net.common.GameNetSetup;
 import com.cream.helper.core.net.msg.ReqLoginMsg;
@@ -9,11 +10,11 @@ import com.cream.helper.core.net.msg.ResLoginMsg;
 import com.cream.helper.core.net.proto.clazz.CommonProto;
 import com.cream.helper.mapper.LocalUserMapper;
 import com.cream.helper.obj.Ret;
-import com.cream.helper.obj.domain.vo.RoleVO;
+import com.cream.helper.obj.domain.vo.RoleListItemVO;
 import com.cream.helper.obj.domain.vo.UserVO;
 import com.cream.helper.obj.entity.account.User;
 import com.cream.helper.service.IGameLoginService;
-import com.cream.helper.tools.account.FormCheckTool;
+import com.cream.helper.utils.FormCheckUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,19 +31,19 @@ public class UserService {
 
     private final IGameLoginService gameLoginService;
 
-    private final FormCheckTool formCheckTool;
-
     private final GameNetSetup gameNetSetup;
+
+    private final UserSessionManager userSessionManager;
 
     @Autowired
     public UserService(LocalUserMapper localUserMapper,
                        IGameLoginService gameLoginService,
                        GameNetSetup gameNetSetup,
-                       FormCheckTool formCheckTool) {
+                       UserSessionManager userSessionManager) {
         this.localUserMapper = localUserMapper;
         this.gameLoginService = gameLoginService;
         this.gameNetSetup = gameNetSetup;
-        this.formCheckTool = formCheckTool;
+        this.userSessionManager = userSessionManager;
     }
 
     /**
@@ -53,7 +54,7 @@ public class UserService {
             // fixme
             return Ret.err("未登录测试平台");
         }
-        formCheckTool.checkNull(username, pwd);
+        FormCheckUtil.checkNull(username, pwd);
         // 查看远端是否已注册
         try {
             gameLoginService.registerRemote(username, pwd);
@@ -76,9 +77,9 @@ public class UserService {
     }
 
 
-    public Ret<List<RoleVO>> login(long accountId, String username, String password) {
+    public Ret<List<RoleListItemVO>> login(long accountId, String username, String password) {
         // todo check accountId
-        formCheckTool.checkNull(username, password);
+        FormCheckUtil.checkNull(username, password);
         String gameLoginToken;
         try {
             gameLoginToken = gameLoginService.loginUser(username, password);
@@ -102,12 +103,12 @@ public class UserService {
             ResLoginMsg resLoginMsg = gameClient.sendMsg(reqLoginMsg, ResLoginMsg.class);
             // fixme 登录成功，创建session
             CommonProto.LoginRes data = resLoginMsg.getData();
-            List<RoleVO> roleVOS = new ArrayList<>();
+            List<RoleListItemVO> roleListItemVOS = new ArrayList<>();
             for (CommonProto.Role role : data.getRoleList()) {
-                RoleVO roleVO = new RoleVO(role.getRid(), role.getRoleName(), role.getLevel(), role.getCareer());
-                roleVOS.add(roleVO);
+                RoleListItemVO roleListItemVO = new RoleListItemVO(role.getRid(), role.getRoleName(), role.getLevel(), role.getCareer());
+                roleListItemVOS.add(roleListItemVO);
             }
-            return Ret.ok(roleVOS);
+            return Ret.ok(roleListItemVOS);
         } catch (CommonError e) {
             return Ret.err(e.getMessage());
         }

@@ -1,7 +1,7 @@
 package com.cream.helper.controller.account;
 
 import com.cream.helper.obj.Ret;
-import com.cream.helper.obj.domain.vo.RoleVO;
+import com.cream.helper.obj.domain.vo.RoleListItemVO;
 import com.cream.helper.obj.domain.vo.ServerVO;
 import com.cream.helper.obj.domain.vo.UserVO;
 import com.cream.helper.service.IGameLoginService;
@@ -34,7 +34,7 @@ public class UserController {
 
 
     @PostMapping("/loginUser")
-    public Ret<List<RoleVO>> loginUser(@RequestBody UserVO userVO) {
+    public Ret<List<RoleListItemVO>> loginUser(@RequestBody UserVO userVO) {
         return userService.login(userVO.getAccountId(), userVO.getUsername(), userVO.getPassword());
     }
 
