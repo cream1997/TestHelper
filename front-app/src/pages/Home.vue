@@ -37,7 +37,7 @@ onUnmounted(() => {
       <CommonReq/>
     </div>
     <div class="test-script-editor module bottom-component">
-
+      组合式工具
     </div>
   </div>
 </template>
