@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import type AccountInfo from "@/interface/AccountInfo";
 import {useAccountStore} from "@/store/account";
-import {MsgBox} from "@/tools/CommonTools";
+import type RoleItemVO from "@/interface/RoleItemVO";
+import {MsgBox, Tip} from "@/tools/CommonTools";
+import type {Action} from "element-plus";
+import {post} from "@/axios/axios";
 
 const accountInfo: AccountInfo = useAccountStore();
 let roleItems = accountInfo.roleItems;
@@ -12,15 +15,40 @@ function toCreateRolePage() {
 
 }
 
-MsgBox.confirm("确定删除角色？").then(() => {
-})
+function loginRole(roleItem: RoleItemVO) {
+  post("/enterRole").then((res) => {
+    
+  })
+
+}
+
+function operateRole(roleItem: RoleItemVO) {
+  MsgBox.confirm(
+      '登入或删除角色？',
+      '请确认你的操作~~',
+      {
+        distinguishCancelAndClose: true,
+        confirmButtonText: '登入角色',
+        cancelButtonText: '删除角色',
+      }
+  )
+      .then(() => {
+        Tip.success('登录角色')
+        loginRole(roleItem)
+      })
+      .catch((action: Action) => {
+        if (action == "cancel") {
+          Tip.error("删除角色")
+        }
+      })
+}
 
 </script>
 
 <template>
   <div class="title">登录/创建/删除角色</div>
   <div class="role-item-parent-box">
-    <span class="role-item-box" v-for="roleItem in roleItems" :key="roleItem.rid">
+    <span class="role-item-box" v-for="roleItem in roleItems" :key="roleItem.rid" @click="operateRole(roleItem)">
       <span class="role-desc">名称：{{ roleItem.roleName }}</span>
       <span class="role-desc">职业：{{ roleItem.career }}</span>
       <span class="role-desc">等级：{{ roleItem.level }}</span>

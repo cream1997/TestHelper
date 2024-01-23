@@ -110,7 +110,7 @@ public class UserService {
             userSessionManager.addSession(new UserSession(uid, gameClient));
             List<RoleItemVO> roleItemVOS = new ArrayList<>();
             for (CommonProto.Role role : data.getRoleList()) {
-                RoleItemVO roleItemVO = new RoleItemVO(role.getRid(), role.getRoleName(), role.getLevel(), role.getCareer());
+                RoleItemVO roleItemVO = new RoleItemVO(uid, role.getRid(), role.getRoleName(), role.getLevel(), role.getCareer());
                 roleItemVOS.add(roleItemVO);
             }
             return Ret.ok(new LoginUserInfoVO(uid, roleItemVOS));

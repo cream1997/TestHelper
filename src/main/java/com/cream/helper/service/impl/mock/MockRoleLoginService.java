@@ -8,6 +8,7 @@ import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.domain.bo.Role;
 import com.cream.helper.obj.domain.bo.RoleEnterInfo;
 import com.cream.helper.obj.domain.bo.RoleHeartInfo;
+import com.cream.helper.obj.domain.vo.RoleItemVO;
 import com.cream.helper.service.IRoleLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -48,7 +49,7 @@ public class MockRoleLoginService implements IRoleLoginService {
     }
 
     @Override
-    public Ret<RoleEnterInfo> enterRole(Role role) {
+    public Ret<RoleEnterInfo> enterRole(RoleItemVO role) {
         return Ret.ok(new RoleEnterInfo(role, null));
     }
 

@@ -1,15 +1,16 @@
 package com.cream.helper.obj.domain.bo;
 
 
+import com.cream.helper.obj.domain.vo.RoleItemVO;
 import lombok.Getter;
 
 @Getter
 public class RoleEnterInfo {
-    private final Role role;
+    private final RoleItemVO roleItem;
     private final Object ext;
 
-    public RoleEnterInfo(Role role, Object ext) {
-        this.role = role;
+    public RoleEnterInfo(RoleItemVO roleItem, Object ext) {
+        this.roleItem = roleItem;
         this.ext = ext;
     }
 }
