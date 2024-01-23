@@ -4,10 +4,10 @@ import {ONE_DAY, ONE_HOUR, ONE_MINUTE} from "@/constant/TimeConst";
 
 
 let props = defineProps(["serverTime", "setTime"]);
-let time = ref<number>()
+let time = ref<number>(0)
 
 
-let stopWatchServerTime;
+let stopWatchServerTime: any;
 
 
 function startWatchServerTime() {
@@ -37,7 +37,6 @@ const shortcuts = [
   {
     text: '一分钟后',
     value: () => {
-      console.log(time)
       return new Date(time.value + ONE_MINUTE)
     },
   },

@@ -3,6 +3,21 @@ import Account from "@/components/gameAccount/GameAccountBox.vue";
 import QuickMenu from "@/components/QuickMenu.vue";
 import CommonReq from "@/components/commonReq/CommonReq.vue";
 import MsgDisplay from "@/components/MsgDisplay.vue";
+import {onUnmounted} from "vue";
+import {useAccountStore} from "@/store/account";
+import UserState from "@/interface/UserState";
+
+const accountInfo = useAccountStore();
+
+onUnmounted(() => {
+  accountInfo.$patch({
+    accountId: 0,
+    userState: UserState.UnLoginUser,
+    uid: 0,
+    role: null,
+    roleItems: []
+  })
+})
 </script>
 
 <template>

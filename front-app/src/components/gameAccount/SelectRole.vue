@@ -5,6 +5,7 @@ import type RoleItemVO from "@/interface/RoleItemVO";
 import {MsgBox, Tip} from "@/tools/CommonTools";
 import type {Action} from "element-plus";
 import {post} from "@/axios/axios";
+import UserState from "@/interface/UserState";
 
 const accountInfo: AccountInfo = useAccountStore();
 let roleItems = accountInfo.roleItems;
@@ -16,10 +17,11 @@ function toCreateRolePage() {
 }
 
 function loginRole(roleItem: RoleItemVO) {
-  post("/enterRole").then((res) => {
-    
-  })
-
+  post("/enterRole", roleItem)
+      .then((res) => {
+        accountInfo.role = roleItem;
+        accountInfo.userState = UserState.enterRole;
+      })
 }
 
 function operateRole(roleItem: RoleItemVO) {

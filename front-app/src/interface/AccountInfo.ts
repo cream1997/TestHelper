@@ -1,8 +1,10 @@
 import type RoleItemVO from "@/interface/RoleItemVO";
+import type UserState from "@/interface/UserState";
 
 export default interface AccountInfo {
     accountId: number,
+    userState: UserState,
     uid: number,
-    rid: number
-    roleItems: Array<RoleItemVO>
+    roleItems: Array<RoleItemVO>,
+    role: RoleItemVO | null
 }

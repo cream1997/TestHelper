@@ -9,6 +9,7 @@ import type Server from "@/interface/Server";
 import {MsgBox, Tip} from "@/tools/CommonTools";
 import type UserVO from "@/interface/UserVO";
 import type LoginUserInfoVO from "@/interface/LoginUserInfoVO";
+import UserState from "@/interface/UserState";
 
 const accountStore = useAccountStore();
 const accountId = accountStore.accountId;
@@ -44,6 +45,7 @@ function loginUser() {
       .then((loginUserInfo: LoginUserInfoVO) => {
         accountStore.uid = loginUserInfo.uid;
         accountStore.roleItems.push(...loginUserInfo.roleItems)
+        accountStore.userState = UserState.SelectRole
       })
 }
 
