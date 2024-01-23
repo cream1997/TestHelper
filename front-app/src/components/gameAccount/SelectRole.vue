@@ -18,7 +18,7 @@ MsgBox.confirm("确定删除角色？").then(() => {
 </script>
 
 <template>
-  <div class="title">选择/创建/删除角色</div>
+  <div class="title">登录/创建/删除角色</div>
   <div class="role-item-parent-box">
     <span class="role-item-box" v-for="roleItem in roleItems" :key="roleItem.rid">
       <span class="role-desc">名称：{{ roleItem.roleName }}</span>

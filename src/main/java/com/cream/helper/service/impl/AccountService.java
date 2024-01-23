@@ -5,7 +5,7 @@ import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.domain.vo.AccountVO;
 import com.cream.helper.obj.entity.account.Account;
 import com.cream.helper.tools.JwtTool;
-import com.cream.helper.utils.FormCheckUtil;
+import com.cream.helper.utils.NullUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ public class AccountService {
     }
 
     public Ret<String> register(String username, String password) {
-        FormCheckUtil.checkNull(username, password);
+        NullUtil.checkNull(username, password);
         Account account = accountMapper.getAccount(username);
         if (account != null) {
             return Ret.err(null, "账号已被注册");
@@ -35,7 +35,7 @@ public class AccountService {
     }
 
     public Ret<AccountVO> login(String username, String password) {
-        FormCheckUtil.checkNull(username, password);
+        NullUtil.checkNull(username, password);
         Account account = accountMapper.getAccount(username);
         if (account == null) {
             return Ret.err("账号不存在");

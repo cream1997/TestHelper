@@ -8,7 +8,7 @@ CREATE TABLE `t_account`
     `create_time`  datetime    NOT NULL,
     `update_time`  datetime    NOT NULL,
     PRIMARY KEY (`id`),
-    UNIQUE KEY `account_un` (`username`)
+    UNIQUE KEY `account_un` (`account_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 -- 用户表
 CREATE TABLE `t_user`

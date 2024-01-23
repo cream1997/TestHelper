@@ -16,7 +16,7 @@ import com.cream.helper.obj.domain.vo.RoleItemVO;
 import com.cream.helper.obj.domain.vo.UserVO;
 import com.cream.helper.obj.entity.account.User;
 import com.cream.helper.service.IGameLoginService;
-import com.cream.helper.utils.FormCheckUtil;
+import com.cream.helper.utils.NullUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +56,7 @@ public class UserService {
             // fixme
             return Ret.err("未登录测试平台");
         }
-        FormCheckUtil.checkNull(username, pwd);
+        NullUtil.checkNull(username, pwd);
         // 查看远端是否已注册
         try {
             gameLoginService.registerRemote(username, pwd);
@@ -81,7 +81,7 @@ public class UserService {
 
     public Ret<LoginUserInfoVO> login(long accountId, String username, String password) {
         // todo check accountId
-        FormCheckUtil.checkNull(username, password);
+        NullUtil.checkNull(username, password);
         String gameLoginToken;
         try {
             gameLoginToken = gameLoginService.loginUser(username, password);
