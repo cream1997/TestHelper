@@ -2,10 +2,22 @@
 import TimePicker from "@/components/time/TimePicker.vue";
 import type AccountInfo from "@/interface/AccountInfo";
 import {useAccountStore} from "@/store/account";
-import {onUnmounted} from "vue";
+import {onUnmounted, ref, watch} from "vue";
 
 const accountInfo: AccountInfo = useAccountStore();
-
+const delayColor = ref({
+  color: 'red',
+})
+const delay = ref(30)
+watch(delay, (newVal) => {
+  if (newVal <= 50) {
+    delayColor.value.color = "green"
+  } else if (newVal <= 100) {
+    delayColor.value.color = "yellow"
+  } else {
+    delayColor.value.color = "red"
+  }
+}, {immediate: true})
 
 const interval = setInterval(() => {
   // 服务器传回来的time是string（fastjson为了避免long值精度丢失做了处理）
@@ -23,14 +35,15 @@ onUnmounted(() => {
 
 <template>
   <div class="title">
-    <span class="server-time">
+    <span>
       <TimePicker :server-time="parseInt(accountInfo.serverTime)" :set-time="setTime"/>
     </span>
     <span class="position-span">
-      {{ accountInfo.position.mapName }}
-      {{ accountInfo.position.line }}线
-      {{ accountInfo.position.xy.x }}:{{ accountInfo.position.xy.y }}</span>
-    <span class="delay-span">100ms</span>
+      <span class="mapName-span">{{ accountInfo.position.mapName }}</span>
+      <span class="mapLine-span">{{ accountInfo.position.line }}线</span>
+      <span class="xy-span">{{ accountInfo.position.xy.x }}:{{ accountInfo.position.xy.y }}</span>
+    </span>
+    <span class="delay-span" :style="delayColor">{{ delay }}ms</span>
     <button class="btn">切换</button>
     <button class="btn">退出</button>
   </div>
@@ -53,16 +66,32 @@ onUnmounted(() => {
 .position-span {
   padding: 0 1px;
   display: inline-block;
-  width: 150px;
+  width: 145px;
 }
 
 .delay-span {
   padding: 0 1px;
   display: inline-block;
-  width: 50px
+  width: 55px
 }
 
-.server-time {
+.mapName-span {
+  font-weight: bold;
+  padding-left: 2px;
+}
 
+.mapLine-span {
+  font-weight: bold;
+  padding: 0 2px;
+}
+
+.xy-span {
+  padding: 0 2px;
+  font-size: 14px;
+}
+
+.delay-span {
+  color: #5eda5e;
+  padding: 0 1px;
 }
 </style>
