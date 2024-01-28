@@ -42,6 +42,26 @@ function clearConsole() {
   msgList.splice(0, msgList.length)
 }
 
+const reqTypeShowColor = {
+  color: "green"
+}
+const resTypeColor = {
+  color: "rgba(173,173,100,0.5)"
+}
+
+const computeMsgTypeColor = function (msgType: number) {
+  if (msgType == 1) {
+    return resTypeColor;
+  } else {
+    return resTypeColor;
+  }
+}
+
+function getMsgShowTime(msgVo: MsgVO) {
+  let timeStr = msgVo.type == 1 ? msgVo.sendTime : msgVo.receiveTime;
+  return new Date(parseInt(timeStr));
+}
+
 </script>
 
 <template>
@@ -54,10 +74,10 @@ function clearConsole() {
   <div class="middle">
     <ol class="msg-list-class">
       <li v-for="msg in msgList" :key="msg.no" @click="lookData(msg)">
-        <span class="msgType-span">{{ msg.type == 1 ? "请求" : "响应" }}</span>
+        <span class="msgType-span" :style="computeMsgTypeColor(msg.type)">{{ msg.type == 1 ? "请求" : "响应" }}</span>
         <span class="msgName-span">{{ msg.msgName }}</span>
         <span class="msgId-span">{{ msg.msgId }}</span>
-        <span class="msgTime-span">{{ msg.type == 1 ? msg.sendTime : msg.receiveTime }}</span>
+        <span class="msgTime-span">{{ getMsgShowTime(msg).toLocaleTimeString() }}</span>
       </li>
     </ol>
   </div>
@@ -79,6 +99,7 @@ function clearConsole() {
   border-top: 1px black dotted;
   text-align: center;
   height: 30px;
+  color: rgba(169, 169, 106, 0.45);
 }
 
 .msg-list-class {
@@ -107,5 +128,27 @@ function clearConsole() {
 
 .clear-btn, .setup-btn {
   text-align: right;
+}
+
+.msgType-span {
+  font-size: small;
+  font-weight: bold;
+  padding: 0 2px;
+}
+
+.msgName-span {
+  padding: 0 4px;
+}
+
+.msgId-span {
+  font-size: small;
+}
+
+.msgId-span:before {
+  content: '(';
+}
+
+.msgId-span:after {
+  content: ')';
 }
 </style>
