@@ -10,7 +10,7 @@ const msgList = reactive<Array<MsgVO>>([])
 
 
 function lookData(msg: MsgVO) {
-  
+
 }
 
 let heartInterval: number;
@@ -23,7 +23,7 @@ watch(accountInfo, (newVal, oldValue) => {
 })
 
 function heartBeat() {
-  post("/fetchAllResMsg", {uid: accountInfo.uid})
+  post("/heartBeat", {uid: accountInfo.uid})
       .then((msgVOS: Array<MsgVO>) => {
         msgList.push(...msgVOS)
       })

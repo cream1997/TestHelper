@@ -27,11 +27,11 @@ public class MessageController {
 
 
     /**
-     * 解释见{@link IMessageService#fetchAllResMsg )}
+     * 解释见{@link IMessageService#heartBeat )}
      */
-    @PostMapping("/fetchAllResMsg")
-    public Ret<List<MsgVO>> fetchAllResMsg(long uid) {
-        return messageService.fetchAllResMsg(uid);
+    @PostMapping("/heartBeat")
+    public Ret<List<MsgVO>> heartBeat(long uid) {
+        return messageService.heartBeat(uid);
     }
 
     /**

@@ -28,5 +28,5 @@ public interface IMessageService {
      * 因为Http的请求响应逻辑是一个请求对应一个响应，而真正游戏的网络模式是Tcp长连接，
      * 不能一个请求对应一个回来处理，采用循环主动拉取的方式获取所有响应消息，模拟长连接
      */
-    Ret<List<MsgVO>> fetchAllResMsg(long rid);
+    Ret<List<MsgVO>> heartBeat(long rid);
 }

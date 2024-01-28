@@ -51,7 +51,7 @@ public class MockMessageService implements IMessageService {
     }
 
     @Override
-    public Ret<List<MsgVO>> fetchAllResMsg(long uid) {
+    public Ret<List<MsgVO>> heartBeat(long uid) {
         if (sessionManager.isOffLine(uid)) {
             return Ret.err("角色不在线");
         }
