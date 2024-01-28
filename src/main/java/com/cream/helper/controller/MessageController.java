@@ -6,6 +6,7 @@ import com.cream.helper.obj.domain.vo.MsgVO;
 import com.cream.helper.service.IMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class MessageController {
      * 解释见{@link IMessageService#heartBeat )}
      */
     @PostMapping("/heartBeat")
-    public Ret<List<MsgVO>> heartBeat(long uid) {
+    public Ret<List<MsgVO>> heartBeat(@RequestBody long uid) {
         return messageService.heartBeat(uid);
     }
 
