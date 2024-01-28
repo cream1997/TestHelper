@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class MsgPool {
@@ -21,8 +22,10 @@ public class MsgPool {
      */
     private final LinkedBlockingQueue<Message<?>> resMsgQueue = new LinkedBlockingQueue<>(CAPACITY);
 
+    private final AtomicInteger msgSerialNum = new AtomicInteger(0);
 
     public void addResMsg(Message<?> message) {
+        message.setSerialNum(msgSerialNum.incrementAndGet());
         // 消息添加到队列尾部
         try {
             // 将元素插入队列尾部，等待指定时间，如果队列仍然满，则返回 false。
@@ -50,20 +53,21 @@ public class MsgPool {
         return result;
     }
 
-    public <T extends Message<?>> T fetchResMsg(Class<T> msgClass) throws CommonError {
+    public <T extends Message<?>> T fetchResMsg(Class<T> msgClass, int msgSerialNum) throws CommonError {
         long startTime = Times.now();
         for (; ; ) {
             if (Times.now() - startTime > TIMEOUT_MS) {
                 throw new CommonError("从队列中取出消息超时，请检查");
             }
             for (Message<?> message : resMsgQueue) {
-                if (msgClass.isInstance(message)) {
-                    if (!resMsgQueue.remove(message)) {
-                        log.error("从队列中移除消息失败，请检查");
-                    }
+                if (msgClass.isInstance(message) && message.getSerialNum() > msgSerialNum) {
                     return msgClass.cast(message);
                 }
             }
         }
+    }
+
+    public int getMsgSerialNum() {
+        return msgSerialNum.get();
     }
 }

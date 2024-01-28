@@ -4,6 +4,7 @@ import com.cream.helper.config.configuration.exception.CommonError;
 import com.cream.helper.core.net.common.GameNetSetup;
 import com.cream.helper.core.net.common.MsgPool;
 import com.cream.helper.core.net.msg.base.Message;
+import com.cream.helper.utils.Times;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -39,9 +40,10 @@ public class GameClient {
 
     public <T extends Message<?>> T sendMsg(Message<?> msg, Class<T> resClass) throws CommonError {
         fetchLock.lock();
+        int msgSerialNum = msgPool.getMsgSerialNum();
         try {
             channel.writeAndFlush(msg);
-            return msgPool.fetchResMsg(resClass);
+            return msgPool.fetchResMsg(resClass, msgSerialNum);
         } finally {
             fetchLock.unlock();
         }
@@ -57,6 +59,7 @@ public class GameClient {
     }
 
     public void receiveMsg(Message<?> msg) {
+        msg.setReceiveTime(Times.now());
         msgPool.addResMsg(msg);
     }
 

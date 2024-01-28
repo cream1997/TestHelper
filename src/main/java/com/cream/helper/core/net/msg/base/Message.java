@@ -2,11 +2,13 @@ package com.cream.helper.core.net.msg.base;
 
 import com.cream.helper.core.net.common.constant.MsgMeta;
 import com.cream.helper.core.net.common.constant.MsgType;
+import com.cream.helper.utils.Times;
 import com.cream.helper.utils.Util;
 import com.google.protobuf.GeneratedMessageV3;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Parser;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Constructor;
@@ -22,6 +24,12 @@ public abstract class Message<T extends GeneratedMessageV3> {
      * 消息体（内容）
      */
     private final T data;
+
+    private final long sendTime = Times.now();
+    @Setter
+    private long receiveTime;
+    @Setter
+    private int serialNum;
 
     public Message(Supplier<T> dataBuilder) {
         this.data = dataBuilder == null ? null : dataBuilder.get();
