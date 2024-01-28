@@ -4,6 +4,7 @@ import com.cream.helper.config.configuration.exception.CommonRunError;
 import com.cream.helper.core.ExecutorManager;
 import com.cream.helper.core.net.bo.UserSession;
 import com.cream.helper.utils.Times;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -13,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 管理RoleSession
  */
+@Slf4j
 @Service
 public class UserSessionManager {
 
@@ -52,6 +54,7 @@ public class UserSessionManager {
         UserSession session = uid2Session.remove(uid);
         if (session != null) {
             session.getGameClient().close();
+            log.info("成功退出");
         } else {
             throw new CommonRunError("退出时找不到session uid:" + uid);
         }
