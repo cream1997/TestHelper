@@ -14,6 +14,9 @@ public enum MsgMeta {
     LoginRes(2, MsgType.Res),
     EnterRoleReq(3, MsgType.Req),
     EnterRoleRes(4, MsgType.Res),
+    HeartReq(5, MsgType.Req),
+    HeartRes(6, MsgType.Res),
+    MockMsgOne(7, MsgType.Res),
     ;
 
 

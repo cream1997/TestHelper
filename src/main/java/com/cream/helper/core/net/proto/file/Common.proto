@@ -44,3 +44,12 @@ message XY {
   int32 x = 1;
   int32 y = 2;
 }
+
+message Heart{
+  int64 time = 1;
+}
+
+message MockMsgOne{
+  string desc = 1;
+  int32 desc2 = 2;
+}
