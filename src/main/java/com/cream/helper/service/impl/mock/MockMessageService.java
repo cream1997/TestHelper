@@ -6,7 +6,7 @@ import com.cream.helper.core.net.bo.UserSession;
 import com.cream.helper.core.net.client.GameClient;
 import com.cream.helper.core.net.common.MsgTemplatePool;
 import com.cream.helper.core.net.msg.base.Message;
-import com.cream.helper.core.net.msg.res.ResHeartMsg;
+import com.cream.helper.core.net.msg.req.ReqHeartMsg;
 import com.cream.helper.core.net.proto.clazz.CommonProto;
 import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.domain.vo.MsgVO;
@@ -62,7 +62,7 @@ public class MockMessageService implements IMessageService {
         // 心跳保活
         session.setLastHeartTime(Times.now());
         GameClient gameClient = session.getGameClient();
-        gameClient.sendMsg(new ResHeartMsg(() ->
+        gameClient.sendMsg(new ReqHeartMsg(() ->
                 CommonProto.Heart.newBuilder()
                         .setTime(Times.now())
                         .build()));
