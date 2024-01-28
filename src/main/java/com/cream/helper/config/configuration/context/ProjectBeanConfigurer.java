@@ -1,11 +1,12 @@
 package com.cream.helper.config.configuration.context;
 
+import com.cream.helper.constant.AppConst;
 import com.cream.helper.core.net.common.MsgTemplatePool;
 import com.cream.helper.core.net.common.constant.MsgType;
 import com.cream.helper.core.net.msg.base.Message;
-import com.cream.helper.core.net.msg.req.ReqLoginMsg;
-import com.cream.helper.core.net.msg.res.ResLoginMsg;
-import com.cream.helper.core.net.proto.clazz.CommonProto;
+import com.cream.helper.core.net.msg.base.MessageWithoutData;
+import com.cream.helper.utils.ClassUtil;
+import com.cream.helper.utils.MsgReflectUtil;
 import com.cream.helper.utils.Util;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -25,10 +26,27 @@ public class ProjectBeanConfigurer {
     private final List<Message<?>> allResMTemplate = new ArrayList<>();
 
     public ProjectBeanConfigurer() {
-        registerReq();
-        registerRes();
+        registerMsgTemplate();
         check(MsgType.Req);
         check(MsgType.Res);
+    }
+
+    @SuppressWarnings("all")
+    private void registerMsgTemplate() {
+        List<Class<? extends Message>> allMsgClass = ClassUtil.findClasses(AppConst.MOCK_MSG_PKG, Message.class);
+        for (Class<? extends Message> msgClass : allMsgClass) {
+            Message<?> message = MsgReflectUtil.newMsgInstance((Class<? extends Message<?>>) msgClass);
+            if (msgClass != MessageWithoutData.class) {
+                // todo 消息体赋默认值
+
+            }
+            MsgType msgType = message.getMsgMeta().msgType;
+            if (msgType == MsgType.Req) {
+                allReqTemplate.add(message);
+            } else if (msgType == MsgType.Res) {
+                allResMTemplate.add(message);
+            }
+        }
     }
 
     private void check(MsgType msgType) {
@@ -51,20 +69,5 @@ public class ProjectBeanConfigurer {
     @Bean
     public MsgTemplatePool messageTemplatePool() {
         return new MsgTemplatePool(allReqTemplate, allResMTemplate);
-    }
-
-    /**
-     * 注册请求消息协议
-     */
-    private void registerReq() {
-        // todo 模板对象data待修改
-        allReqTemplate.add(new ReqLoginMsg(() -> CommonProto.LoginReq.newBuilder().build()));
-    }
-
-    /**
-     * 注册相应消息协议
-     */
-    private void registerRes() {
-        allResMTemplate.add(new ResLoginMsg(() -> CommonProto.LoginRes.newBuilder().build()));
     }
 }
