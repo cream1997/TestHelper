@@ -2,6 +2,7 @@ package com.cream.helper.controller;
 
 import com.cream.helper.core.net.msg.base.Message;
 import com.cream.helper.obj.Ret;
+import com.cream.helper.obj.domain.vo.MsgVO;
 import com.cream.helper.service.IMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,8 +21,8 @@ public class MessageController {
     }
 
     @PostMapping("/sendRequest")
-    public Ret<String> sendRequest(long rid, Message message) {
-        return messageService.sendRequest(rid, message);
+    public Ret<String> sendRequest(long rid, MsgVO msgVO) {
+        return messageService.sendRequest(rid, msgVO);
     }
 
 
@@ -29,8 +30,8 @@ public class MessageController {
      * 解释见{@link IMessageService#fetchAllResMsg )}
      */
     @PostMapping("/fetchAllResMsg")
-    public Ret<List<Message<?>>> fetchAllResMsg(long rid) {
-        return messageService.fetchAllResMsg(rid);
+    public Ret<List<MsgVO>> fetchAllResMsg(long uid) {
+        return messageService.fetchAllResMsg(uid);
     }
 
     /**

@@ -7,31 +7,35 @@ import com.cream.helper.core.net.client.GameClient;
 import com.cream.helper.core.net.common.MsgTemplatePool;
 import com.cream.helper.core.net.msg.base.Message;
 import com.cream.helper.obj.Ret;
+import com.cream.helper.obj.domain.vo.MsgVO;
 import com.cream.helper.service.IMessageService;
+import com.cream.helper.utils.NullUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @MockComponent
 public class MockMessageService implements IMessageService {
 
-    private final UserSessionManager userSessionManager;
+    private final UserSessionManager sessionManager;
 
     private final MsgTemplatePool msgTemplatePool;
 
     @Autowired
-    public MockMessageService(UserSessionManager userSessionManager,
+    public MockMessageService(UserSessionManager sessionManager,
                               MsgTemplatePool msgTemplatePool) {
-        this.userSessionManager = userSessionManager;
+        this.sessionManager = sessionManager;
         this.msgTemplatePool = msgTemplatePool;
     }
 
     @Override
-    public Ret<String> sendRequest(long rid, Message message) {
-        if (userSessionManager.isOffLine(rid)) {
+    public Ret<String> sendRequest(long rid, MsgVO msgVO) {
+        if (sessionManager.isOffLine(rid)) {
             return Ret.err("角色不在线");
         }
-        UserSession userSession = userSessionManager.getSession(rid);
+        UserSession userSession = sessionManager.getSession(rid);
         GameClient gameClient = userSession.getGameClient();
         return Ret.ok("发送成功");
     }
@@ -47,11 +51,20 @@ public class MockMessageService implements IMessageService {
     }
 
     @Override
-    public Ret<List<Message<?>>> fetchAllResMsg(long rid) {
-        if (userSessionManager.isOffLine(rid)) {
+    public Ret<List<MsgVO>> fetchAllResMsg(long uid) {
+        if (sessionManager.isOffLine(uid)) {
             return Ret.err("角色不在线");
         }
-        // todo
-        return Ret.ok(null);
+        UserSession session = sessionManager.getSession(uid);
+        GameClient gameClient = session.getGameClient();
+        List<Message<?>> messages = gameClient.fetchAllMsg();
+        if (NullUtil.isEmpty(messages)) {
+            return Ret.ok(Collections.emptyList());
+        }
+        List<MsgVO> msgVOS = new ArrayList<>();
+        for (Message<?> message : messages) {
+            msgVOS.add(new MsgVO(message));
+        }
+        return Ret.ok(msgVOS);
     }
 }

@@ -1,5 +1,37 @@
 <script setup lang="ts" name="MsgDisplay">
+import {useAccountStore} from "@/store/account";
+import type AccountInfo from "@/interface/AccountInfo";
+import {onMounted, reactive, watch} from "vue";
+import {post} from "@/axios/axios";
+import type MsgVO from "@/interface/vo/MsgVO";
 
+const accountInfo: AccountInfo = useAccountStore();
+const msgList = reactive<Array<MsgVO>>([])
+
+
+function lookData(msg: MsgVO) {
+  
+}
+
+let heartInterval: number;
+watch(accountInfo, (newVal, oldValue) => {
+  if (!oldValue.role && newVal.role) {
+    heartInterval = setInterval(() => {
+      heartBeat()
+    }, 1000);
+  }
+})
+
+function heartBeat() {
+  post("/fetchAllResMsg", {uid: accountInfo.uid})
+      .then((msgVOS: Array<MsgVO>) => {
+        msgList.push(...msgVOS)
+      })
+}
+
+onMounted(() => {
+  heartInterval && clearInterval(heartInterval);
+})
 </script>
 
 <template>
@@ -11,10 +43,12 @@
   </p>
   <div class="middle">
     <ol class="msg-list-class">
-      <li>消息1</li>
-      <li>消息2</li>
-      <li>消息3</li>
-      <li>消息4</li>
+      <li v-for="msg in msgList" :key="msg.no" @click="lookData(msg)">
+        <span>{{ msg.type == 1 ? "请求" : "响应" }}</span>
+        <span>{{ msg.msgName }}</span>
+        <span>{{ msg.msgId }}</span>
+        <span>{{ msg.type == 1 ? msg.sendTime : msg.receiveTime }}</span>
+      </li>
     </ol>
   </div>
   <div class="footer">回到顶部</div>
