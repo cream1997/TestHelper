@@ -73,7 +73,7 @@ function getMsgShowTime(msgVo: MsgVO) {
   </p>
   <div class="middle">
     <ol class="msg-list-class">
-      <li v-for="msg in msgList" :key="msg.no" @click="lookData(msg)">
+      <li class="msg-class" v-for="msg in msgList" :key="msg.no" @click="lookData(msg)">
         <span class="msgType-span" :style="computeMsgTypeColor(msg.type)">{{ msg.type == 1 ? "请求" : "响应" }}</span>
         <span class="msgName-span">{{ msg.msgName }}</span>
         <span class="msgId-span">{{ msg.msgId }}</span>
@@ -106,6 +106,10 @@ function getMsgShowTime(msgVo: MsgVO) {
   padding: 0;
   margin: 0;
   overflow: auto;
+}
+
+.msg-class {
+  height: 5%;
 }
 
 .title-text {

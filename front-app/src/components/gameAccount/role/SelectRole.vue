@@ -46,7 +46,6 @@ function operateRole(roleItem: RoleItemVO) {
       })
       .catch((action: Action) => {
         if (action == "cancel") {
-          Tip.error("删除角色")
           post("deleteRole", roleItem)
               .then((deletedRole: RoleItemVO) => {
                 roleItems.splice(roleItems.indexOf(deletedRole), 1);
