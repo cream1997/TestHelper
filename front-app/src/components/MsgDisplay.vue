@@ -99,7 +99,6 @@ function getMsgShowTime(msgVo: MsgVO) {
   border-top: 1px black dotted;
   text-align: center;
   height: 30px;
-  color: rgba(169, 169, 106, 0.45);
 }
 
 .msg-list-class {
