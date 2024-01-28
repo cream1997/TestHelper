@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 import type AccountInfo from "@/interface/AccountInfo";
-import type RoleItemVO from "@/interface/RoleItemVO";
+import type RoleItemVO from "@/interface/vo/RoleItemVO";
 import UserState from "@/interface/UserState";
 
 export const useAccountStore = defineStore("account", {
@@ -11,6 +11,8 @@ export const useAccountStore = defineStore("account", {
             userState: UserState.UnLoginUser,
             role: null as RoleItemVO | null,
             roleItems: [] as RoleItemVO[],
+            serverTime: 0 as number,
+            position: null as any,
         }
     },
 })

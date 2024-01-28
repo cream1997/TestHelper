@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import type AccountInfo from "@/interface/AccountInfo";
 import {useAccountStore} from "@/store/account";
-import type RoleItemVO from "@/interface/RoleItemVO";
+import type RoleItemVO from "@/interface/vo/RoleItemVO";
 import {MsgBox, Tip} from "@/tools/CommonTools";
 import type {Action} from "element-plus";
 import {post} from "@/axios/axios";
 import UserState from "@/interface/UserState";
+import type RoleEnterVO from "@/interface/vo/RoleEnterVO";
 
 const accountInfo: AccountInfo = useAccountStore();
 let roleItems = accountInfo.roleItems;
@@ -21,8 +22,10 @@ function toCreateRolePage() {
 
 function loginRole(roleItem: RoleItemVO) {
   post("/enterRole", roleItem)
-      .then((res) => {
-        accountInfo.role = roleItem;
+      .then((roleEnterVO: RoleEnterVO) => {
+        accountInfo.role = roleEnterVO.roleItem;
+        accountInfo.serverTime = roleEnterVO.serverTime;
+        accountInfo.position = roleEnterVO.position;
         accountInfo.userState = UserState.enterRole;
       })
 }

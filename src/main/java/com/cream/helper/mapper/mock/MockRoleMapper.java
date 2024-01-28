@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface MockRoleMapper extends BaseMapper<Role> {
+
+    Role getRole(@Param("id") long id);
+
     boolean containsName(@Param("name") String name);
 
     List<Role> getRoleList(@Param("userId") long userId);

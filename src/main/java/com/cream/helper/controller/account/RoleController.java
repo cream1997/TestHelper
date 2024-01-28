@@ -2,8 +2,8 @@ package com.cream.helper.controller.account;
 
 import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.domain.bo.Role;
-import com.cream.helper.obj.domain.bo.RoleEnterInfo;
 import com.cream.helper.obj.domain.bo.RoleHeartInfo;
+import com.cream.helper.obj.domain.vo.RoleEnterVO;
 import com.cream.helper.obj.domain.vo.RoleItemVO;
 import com.cream.helper.service.IRoleLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class RoleController {
     }
 
     @PostMapping("/enterRole")
-    public Ret<RoleEnterInfo> enterRole(@RequestBody RoleItemVO roleItem) {
+    public Ret<RoleEnterVO> enterRole(@RequestBody RoleItemVO roleItem) {
         if (roleItem.getUid() == 0) {
             return Ret.err("请先登录");
         }

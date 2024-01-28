@@ -1,9 +1,9 @@
 package com.cream.helper.core.net.handler.sub;
 
 import com.cream.helper.core.net.handler.base.MsgHandler;
-import com.cream.helper.core.net.msg.ReqLoginMsg;
-import com.cream.helper.core.net.msg.ResLoginMsg;
 import com.cream.helper.core.net.msg.base.Message;
+import com.cream.helper.core.net.msg.req.ReqLoginMsg;
+import com.cream.helper.core.net.msg.res.ResLoginMsg;
 import com.cream.helper.core.net.proto.clazz.CommonProto;
 import com.cream.helper.mapper.LocalUserMapper;
 import com.cream.helper.mapper.mock.MockRoleMapper;
@@ -28,8 +28,8 @@ public class ReqLoginMsgHandler extends MsgHandler<ReqLoginMsg> {
     }
 
     @Override
-    public Message<?> handle(ReqLoginMsg message) {
-        CommonProto.LoginReq data = message.getData();
+    public Message<?> handle(ReqLoginMsg msg) {
+        CommonProto.LoginReq data = msg.getData();
         String username = data.getUsername();
         User user = localUserMapper.getUser(username);
         if (user == null) {

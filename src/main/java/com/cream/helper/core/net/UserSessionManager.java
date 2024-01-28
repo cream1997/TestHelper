@@ -49,10 +49,7 @@ public class UserSessionManager {
     }
 
 
-    /**
-     * fixme
-     */
-    public UserSession getRoleSession(long rid) {
-        return uid2Session.get(rid);
+    public UserSession getSession(long uid) {
+        return uid2Session.get(uid);
     }
 }

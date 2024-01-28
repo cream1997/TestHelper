@@ -14,8 +14,33 @@ message LoginRes{
 }
 
 message Role{
-  int64 rid = 1;
-  string roleName = 2;
-  int32 level = 3;
-  string career = 4;
+  int64 uid = 1;
+  int64 rid = 2;
+  string roleName = 3;
+  int32 level = 4;
+  string career = 5;
+}
+
+message EnterRoleReq{
+  int64 uid = 1;
+  int64 rid = 2;
+}
+
+message EnterRoleRes{
+  int64 uid = 1;
+  Role role = 2;
+  int64 serverTime = 3;
+  Position position = 4;
+}
+
+message Position{
+  string mapName = 1;
+  int32 mapLine = 2;
+  XY xy = 3;
+}
+
+// 坐标
+message XY {
+  int32 x = 1;
+  int32 y = 2;
 }

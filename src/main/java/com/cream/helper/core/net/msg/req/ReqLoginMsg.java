@@ -1,4 +1,4 @@
-package com.cream.helper.core.net.msg;
+package com.cream.helper.core.net.msg.req;
 
 import com.cream.helper.core.net.common.constant.MsgMeta;
 import com.cream.helper.core.net.msg.base.Message;
@@ -6,18 +6,19 @@ import com.cream.helper.core.net.proto.clazz.CommonProto;
 
 import java.util.function.Supplier;
 
-public class ResLoginMsg extends Message<CommonProto.LoginRes> {
-    public ResLoginMsg(Supplier<CommonProto.LoginRes> dataBuilder) {
+public class ReqLoginMsg extends Message<CommonProto.LoginReq> {
+
+    public ReqLoginMsg(Supplier<CommonProto.LoginReq> dataBuilder) {
         super(dataBuilder);
     }
 
     @Override
     public MsgMeta getMsgMeta() {
-        return MsgMeta.LoginRes;
+        return MsgMeta.LoginReq;
     }
 
     @Override
-    public Class<CommonProto.LoginRes> getDataClass() {
-        return CommonProto.LoginRes.class;
+    public Class<CommonProto.LoginReq> getDataClass() {
+        return CommonProto.LoginReq.class;
     }
 }

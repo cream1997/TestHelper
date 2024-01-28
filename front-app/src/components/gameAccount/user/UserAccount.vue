@@ -7,8 +7,8 @@ import Cookies from "js-cookie";
 import router from "@/router";
 import type Server from "@/interface/Server";
 import {MsgBox, Tip} from "@/tools/CommonTools";
-import type UserVO from "@/interface/UserVO";
-import type LoginUserInfoVO from "@/interface/LoginUserInfoVO";
+import type UserVO from "@/interface/vo/UserVO";
+import type LoginUserInfoVO from "@/interface/vo/LoginUserInfoVO";
 import UserState from "@/interface/UserState";
 
 const accountStore = useAccountStore();

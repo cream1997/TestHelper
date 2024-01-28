@@ -1,11 +1,12 @@
 <script setup lang="ts" name="RoleAccount">
-import {ref} from "vue";
 import TimePicker from "@/components/time/TimePicker.vue";
+import type AccountInfo from "@/interface/AccountInfo";
+import {useAccountStore} from "@/store/account";
 
-const serverTime = ref<number>(Date.now());
+const accountInfo: AccountInfo = useAccountStore();
 
 setInterval(() => {
-  serverTime.value = new Date(serverTime.value + 1000).getTime()
+  accountInfo.serverTime = new Date(accountInfo.serverTime + 1000).getTime()
 }, 1000)
 
 function setTime(time: number) {
@@ -15,14 +16,21 @@ function setTime(time: number) {
 <template>
   <div class="title">
     <span class="server-time">
-      <TimePicker :server-time="serverTime" :set-time="setTime"/>
+      <TimePicker :server-time="accountInfo.serverTime" :set-time="setTime"/>
     </span>
-    <span class="position-span">勇者大陆 1线 128:83</span>
+    <span class="position-span">
+      {{ accountInfo.position.mapName }}
+      {{ accountInfo.position.line }}
+      {{ accountInfo.position.xy.x }}:{{ accountInfo.position.xy.y }}</span>
     <span class="delay-span">100ms</span>
     <button class="btn">切换</button>
     <button class="btn">退出</button>
   </div>
-  <div>角色名称： 职业：等级:</div>
+  <div>
+    角色名称：{{ accountInfo.role?.roleName }}
+    职业：{{ accountInfo.role?.career }}
+    等级:{{ accountInfo.role?.level }}
+  </div>
   <div>血量：</div>
   <div>经验：</div>
   <div>状态:</div>

@@ -11,7 +11,10 @@ import java.util.Set;
 public enum MsgMeta {
 
     LoginReq(1, MsgType.Req),
-    LoginRes(2, MsgType.Res);
+    LoginRes(2, MsgType.Res),
+    EnterRoleReq(3, MsgType.Req),
+    EnterRoleRes(4, MsgType.Res),
+    ;
 
 
     public final int msgId;

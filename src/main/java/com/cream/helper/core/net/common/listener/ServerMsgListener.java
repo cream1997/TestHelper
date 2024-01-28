@@ -2,7 +2,6 @@ package com.cream.helper.core.net.common.listener;
 
 import com.cream.helper.core.net.common.listener.base.MsgListener;
 import com.cream.helper.core.net.handler.base.MsgHandler;
-import com.cream.helper.core.net.handler.sub.ReqLoginMsgHandler;
 import com.cream.helper.core.net.msg.base.Message;
 import com.cream.helper.utils.MsgReflectUtil;
 import io.netty.channel.ChannelHandlerContext;
@@ -40,21 +39,16 @@ public class ServerMsgListener extends MsgListener {
     /**
      * 目前不采用反射读取，简单一点
      */
+    @SuppressWarnings("rawtypes")
     private void registerHandler() {
-        addHandler(ReqLoginMsgHandler.class);
-    }
-
-    private <T extends MsgHandler<?>> T getMsgHandler(Class<T> clazz) {
-        return appContext.getBean(clazz);
-    }
-
-    private <T extends MsgHandler<?>> void addHandler(Class<T> clazz) {
-        try {
-            T msgHandler = getMsgHandler(clazz);
-            int msgId = MsgReflectUtil.getMsgId(msgHandler);
-            allServerMsgHandler.put(msgId, msgHandler);
-        } catch (Exception e) {
-            log.error("注册处理器发生异常", e);
+        Map<String, MsgHandler> allMsgHandler = appContext.getBeansOfType(MsgHandler.class);
+        for (MsgHandler msgHandler : allMsgHandler.values()) {
+            try {
+                int msgId = MsgReflectUtil.getMsgId(msgHandler);
+                allServerMsgHandler.put(msgId, msgHandler);
+            } catch (Exception e) {
+                log.error("注册处理器发生异常", e);
+            }
         }
     }
 }

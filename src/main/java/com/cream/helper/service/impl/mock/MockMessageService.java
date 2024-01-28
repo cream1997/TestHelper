@@ -31,7 +31,7 @@ public class MockMessageService implements IMessageService {
         if (userSessionManager.isOffLine(rid)) {
             return Ret.err("角色不在线");
         }
-        UserSession userSession = userSessionManager.getRoleSession(rid);
+        UserSession userSession = userSessionManager.getSession(rid);
         GameClient gameClient = userSession.getGameClient();
         return Ret.ok("发送成功");
     }

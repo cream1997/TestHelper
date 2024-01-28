@@ -27,7 +27,7 @@ public class GmService {
         if (sessionManager.isOffLine(rid)) {
             return Ret.err("角色不在线");
         }
-        UserSession userSession = sessionManager.getRoleSession(rid);
+        UserSession userSession = sessionManager.getSession(rid);
         GameClient gameClient = userSession.getGameClient();
 //        todo
 //        gameClient.sendMsg();

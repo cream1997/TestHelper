@@ -20,4 +20,10 @@
         where id = #{id}
           and user_id = #{userId}
     </select>
+    <select id="getRole" resultType="com.cream.helper.obj.domain.bo.Role">
+        select *
+        from t_mock_role
+        where id = #{id}
+          and deleted = 0;
+    </select>
 </mapper>

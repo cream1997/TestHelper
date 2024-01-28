@@ -1745,21 +1745,28 @@ public final class CommonProto {
             com.google.protobuf.MessageOrBuilder {
 
         /**
-         * <code>int64 rid = 1;</code>
+         * <code>int64 uid = 1;</code>
+         *
+         * @return The uid.
+         */
+        long getUid();
+
+        /**
+         * <code>int64 rid = 2;</code>
          *
          * @return The rid.
          */
         long getRid();
 
         /**
-         * <code>string roleName = 2;</code>
+         * <code>string roleName = 3;</code>
          *
          * @return The roleName.
          */
         java.lang.String getRoleName();
 
         /**
-         * <code>string roleName = 2;</code>
+         * <code>string roleName = 3;</code>
          *
          * @return The bytes for roleName.
          */
@@ -1767,21 +1774,21 @@ public final class CommonProto {
         getRoleNameBytes();
 
         /**
-         * <code>int32 level = 3;</code>
+         * <code>int32 level = 4;</code>
          *
          * @return The level.
          */
         int getLevel();
 
         /**
-         * <code>string career = 4;</code>
+         * <code>string career = 5;</code>
          *
          * @return The career.
          */
         java.lang.String getCareer();
 
         /**
-         * <code>string career = 4;</code>
+         * <code>string career = 5;</code>
          *
          * @return The bytes for career.
          */
@@ -1841,21 +1848,26 @@ public final class CommonProto {
                             break;
                         case 8: {
 
+                            uid_ = input.readInt64();
+                            break;
+                        }
+                        case 16: {
+
                             rid_ = input.readInt64();
                             break;
                         }
-                        case 18: {
+                        case 26: {
                             java.lang.String s = input.readStringRequireUtf8();
 
                             roleName_ = s;
                             break;
                         }
-                        case 24: {
+                        case 32: {
 
                             level_ = input.readInt32();
                             break;
                         }
-                        case 34: {
+                        case 42: {
                             java.lang.String s = input.readStringRequireUtf8();
 
                             career_ = s;
@@ -1896,11 +1908,24 @@ public final class CommonProto {
                             CommonProto.Role.class, CommonProto.Role.Builder.class);
         }
 
-        public static final int RID_FIELD_NUMBER = 1;
+        public static final int UID_FIELD_NUMBER = 1;
+        private long uid_;
+
+        /**
+         * <code>int64 uid = 1;</code>
+         *
+         * @return The uid.
+         */
+        @java.lang.Override
+        public long getUid() {
+            return uid_;
+        }
+
+        public static final int RID_FIELD_NUMBER = 2;
         private long rid_;
 
         /**
-         * <code>int64 rid = 1;</code>
+         * <code>int64 rid = 2;</code>
          *
          * @return The rid.
          */
@@ -1909,11 +1934,11 @@ public final class CommonProto {
             return rid_;
         }
 
-        public static final int ROLENAME_FIELD_NUMBER = 2;
+        public static final int ROLENAME_FIELD_NUMBER = 3;
         private volatile java.lang.Object roleName_;
 
         /**
-         * <code>string roleName = 2;</code>
+         * <code>string roleName = 3;</code>
          *
          * @return The roleName.
          */
@@ -1932,7 +1957,7 @@ public final class CommonProto {
         }
 
         /**
-         * <code>string roleName = 2;</code>
+         * <code>string roleName = 3;</code>
          *
          * @return The bytes for roleName.
          */
@@ -1951,11 +1976,11 @@ public final class CommonProto {
             }
         }
 
-        public static final int LEVEL_FIELD_NUMBER = 3;
+        public static final int LEVEL_FIELD_NUMBER = 4;
         private int level_;
 
         /**
-         * <code>int32 level = 3;</code>
+         * <code>int32 level = 4;</code>
          *
          * @return The level.
          */
@@ -1964,11 +1989,11 @@ public final class CommonProto {
             return level_;
         }
 
-        public static final int CAREER_FIELD_NUMBER = 4;
+        public static final int CAREER_FIELD_NUMBER = 5;
         private volatile java.lang.Object career_;
 
         /**
-         * <code>string career = 4;</code>
+         * <code>string career = 5;</code>
          *
          * @return The career.
          */
@@ -1987,7 +2012,7 @@ public final class CommonProto {
         }
 
         /**
-         * <code>string career = 4;</code>
+         * <code>string career = 5;</code>
          *
          * @return The bytes for career.
          */
@@ -2021,17 +2046,20 @@ public final class CommonProto {
         @java.lang.Override
         public void writeTo(com.google.protobuf.CodedOutputStream output)
                 throws java.io.IOException {
+            if (uid_ != 0L) {
+                output.writeInt64(1, uid_);
+            }
             if (rid_ != 0L) {
-                output.writeInt64(1, rid_);
+                output.writeInt64(2, rid_);
             }
             if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(roleName_)) {
-                com.google.protobuf.GeneratedMessageV3.writeString(output, 2, roleName_);
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 3, roleName_);
             }
             if (level_ != 0) {
-                output.writeInt32(3, level_);
+                output.writeInt32(4, level_);
             }
             if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(career_)) {
-                com.google.protobuf.GeneratedMessageV3.writeString(output, 4, career_);
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 5, career_);
             }
             unknownFields.writeTo(output);
         }
@@ -2042,19 +2070,23 @@ public final class CommonProto {
             if (size != -1) return size;
 
             size = 0;
+            if (uid_ != 0L) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(1, uid_);
+            }
             if (rid_ != 0L) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeInt64Size(1, rid_);
+                        .computeInt64Size(2, rid_);
             }
             if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(roleName_)) {
-                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, roleName_);
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, roleName_);
             }
             if (level_ != 0) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeInt32Size(3, level_);
+                        .computeInt32Size(4, level_);
             }
             if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(career_)) {
-                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, career_);
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, career_);
             }
             size += unknownFields.getSerializedSize();
             memoizedSize = size;
@@ -2071,6 +2103,8 @@ public final class CommonProto {
             }
             CommonProto.Role other = (CommonProto.Role) obj;
 
+            if (getUid()
+                    != other.getUid()) return false;
             if (getRid()
                     != other.getRid()) return false;
             if (!getRoleName()
@@ -2090,6 +2124,9 @@ public final class CommonProto {
             }
             int hash = 41;
             hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + UID_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                    getUid());
             hash = (37 * hash) + RID_FIELD_NUMBER;
             hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
                     getRid());
@@ -2251,6 +2288,8 @@ public final class CommonProto {
             @java.lang.Override
             public Builder clear() {
                 super.clear();
+                uid_ = 0L;
+
                 rid_ = 0L;
 
                 roleName_ = "";
@@ -2285,6 +2324,7 @@ public final class CommonProto {
             @java.lang.Override
             public CommonProto.Role buildPartial() {
                 CommonProto.Role result = new CommonProto.Role(this);
+                result.uid_ = uid_;
                 result.rid_ = rid_;
                 result.roleName_ = roleName_;
                 result.level_ = level_;
@@ -2343,6 +2383,9 @@ public final class CommonProto {
 
             public Builder mergeFrom(CommonProto.Role other) {
                 if (other == CommonProto.Role.getDefaultInstance()) return this;
+                if (other.getUid() != 0L) {
+                    setUid(other.getUid());
+                }
                 if (other.getRid() != 0L) {
                     setRid(other.getRid());
                 }
@@ -2386,10 +2429,47 @@ public final class CommonProto {
                 return this;
             }
 
+            private long uid_;
+
+            /**
+             * <code>int64 uid = 1;</code>
+             *
+             * @return The uid.
+             */
+            @java.lang.Override
+            public long getUid() {
+                return uid_;
+            }
+
+            /**
+             * <code>int64 uid = 1;</code>
+             *
+             * @param value The uid to set.
+             * @return This builder for chaining.
+             */
+            public Builder setUid(long value) {
+
+                uid_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>int64 uid = 1;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearUid() {
+
+                uid_ = 0L;
+                onChanged();
+                return this;
+            }
+
             private long rid_;
 
             /**
-             * <code>int64 rid = 1;</code>
+             * <code>int64 rid = 2;</code>
              *
              * @return The rid.
              */
@@ -2399,7 +2479,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>int64 rid = 1;</code>
+             * <code>int64 rid = 2;</code>
              *
              * @param value The rid to set.
              * @return This builder for chaining.
@@ -2412,7 +2492,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>int64 rid = 1;</code>
+             * <code>int64 rid = 2;</code>
              *
              * @return This builder for chaining.
              */
@@ -2426,7 +2506,7 @@ public final class CommonProto {
             private java.lang.Object roleName_ = "";
 
             /**
-             * <code>string roleName = 2;</code>
+             * <code>string roleName = 3;</code>
              *
              * @return The roleName.
              */
@@ -2444,7 +2524,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>string roleName = 2;</code>
+             * <code>string roleName = 3;</code>
              *
              * @return The bytes for roleName.
              */
@@ -2463,7 +2543,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>string roleName = 2;</code>
+             * <code>string roleName = 3;</code>
              *
              * @param value The roleName to set.
              * @return This builder for chaining.
@@ -2480,7 +2560,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>string roleName = 2;</code>
+             * <code>string roleName = 3;</code>
              *
              * @return This builder for chaining.
              */
@@ -2492,7 +2572,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>string roleName = 2;</code>
+             * <code>string roleName = 3;</code>
              *
              * @param value The bytes for roleName to set.
              * @return This builder for chaining.
@@ -2512,7 +2592,7 @@ public final class CommonProto {
             private int level_;
 
             /**
-             * <code>int32 level = 3;</code>
+             * <code>int32 level = 4;</code>
              *
              * @return The level.
              */
@@ -2522,7 +2602,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>int32 level = 3;</code>
+             * <code>int32 level = 4;</code>
              *
              * @param value The level to set.
              * @return This builder for chaining.
@@ -2535,7 +2615,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>int32 level = 3;</code>
+             * <code>int32 level = 4;</code>
              *
              * @return This builder for chaining.
              */
@@ -2549,7 +2629,7 @@ public final class CommonProto {
             private java.lang.Object career_ = "";
 
             /**
-             * <code>string career = 4;</code>
+             * <code>string career = 5;</code>
              *
              * @return The career.
              */
@@ -2567,7 +2647,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>string career = 4;</code>
+             * <code>string career = 5;</code>
              *
              * @return The bytes for career.
              */
@@ -2586,7 +2666,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>string career = 4;</code>
+             * <code>string career = 5;</code>
              *
              * @param value The career to set.
              * @return This builder for chaining.
@@ -2603,7 +2683,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>string career = 4;</code>
+             * <code>string career = 5;</code>
              *
              * @return This builder for chaining.
              */
@@ -2615,7 +2695,7 @@ public final class CommonProto {
             }
 
             /**
-             * <code>string career = 4;</code>
+             * <code>string career = 5;</code>
              *
              * @param value The bytes for career to set.
              * @return This builder for chaining.
@@ -2686,6 +2766,3219 @@ public final class CommonProto {
 
     }
 
+    public interface EnterRoleReqOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:EnterRoleReq)
+            com.google.protobuf.MessageOrBuilder {
+
+        /**
+         * <code>int64 uid = 1;</code>
+         *
+         * @return The uid.
+         */
+        long getUid();
+
+        /**
+         * <code>int64 rid = 2;</code>
+         *
+         * @return The rid.
+         */
+        long getRid();
+    }
+
+    /**
+     * Protobuf type {@code EnterRoleReq}
+     */
+    public static final class EnterRoleReq extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:EnterRoleReq)
+            EnterRoleReqOrBuilder {
+        private static final long serialVersionUID = 0L;
+
+        // Use EnterRoleReq.newBuilder() to construct.
+        private EnterRoleReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
+        }
+
+        private EnterRoleReq() {
+        }
+
+        @java.lang.Override
+        @SuppressWarnings({"unused"})
+        protected java.lang.Object newInstance(
+                UnusedPrivateParameter unused) {
+            return new EnterRoleReq();
+        }
+
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
+        }
+
+        private EnterRoleReq(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
+            }
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        case 8: {
+
+                            uid_ = input.readInt64();
+                            break;
+                        }
+                        case 16: {
+
+                            rid_ = input.readInt64();
+                            break;
+                        }
+                        default: {
+                            if (!parseUnknownField(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (com.google.protobuf.UninitializedMessageException e) {
+                throw e.asInvalidProtocolBufferException().setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
+        }
+
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return CommonProto.internal_static_EnterRoleReq_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return CommonProto.internal_static_EnterRoleReq_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            CommonProto.EnterRoleReq.class, CommonProto.EnterRoleReq.Builder.class);
+        }
+
+        public static final int UID_FIELD_NUMBER = 1;
+        private long uid_;
+
+        /**
+         * <code>int64 uid = 1;</code>
+         *
+         * @return The uid.
+         */
+        @java.lang.Override
+        public long getUid() {
+            return uid_;
+        }
+
+        public static final int RID_FIELD_NUMBER = 2;
+        private long rid_;
+
+        /**
+         * <code>int64 rid = 2;</code>
+         *
+         * @return The rid.
+         */
+        @java.lang.Override
+        public long getRid() {
+            return rid_;
+        }
+
+        private byte memoizedIsInitialized = -1;
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        @java.lang.Override
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (uid_ != 0L) {
+                output.writeInt64(1, uid_);
+            }
+            if (rid_ != 0L) {
+                output.writeInt64(2, rid_);
+            }
+            unknownFields.writeTo(output);
+        }
+
+        @java.lang.Override
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (uid_ != 0L) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(1, uid_);
+            }
+            if (rid_ != 0L) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(2, rid_);
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof CommonProto.EnterRoleReq)) {
+                return super.equals(obj);
+            }
+            CommonProto.EnterRoleReq other = (CommonProto.EnterRoleReq) obj;
+
+            if (getUid()
+                    != other.getUid()) return false;
+            if (getRid()
+                    != other.getRid()) return false;
+            if (!unknownFields.equals(other.unknownFields)) return false;
+            return true;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + UID_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                    getUid());
+            hash = (37 * hash) + RID_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                    getRid());
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static CommonProto.EnterRoleReq parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static CommonProto.EnterRoleReq parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static CommonProto.EnterRoleReq parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static CommonProto.EnterRoleReq parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static CommonProto.EnterRoleReq parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static CommonProto.EnterRoleReq parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static CommonProto.EnterRoleReq parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static CommonProto.EnterRoleReq parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static CommonProto.EnterRoleReq parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static CommonProto.EnterRoleReq parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static CommonProto.EnterRoleReq parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static CommonProto.EnterRoleReq parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        @java.lang.Override
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(CommonProto.EnterRoleReq prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        @java.lang.Override
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * Protobuf type {@code EnterRoleReq}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:EnterRoleReq)
+                CommonProto.EnterRoleReqOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return CommonProto.internal_static_EnterRoleReq_descriptor;
+            }
+
+            @java.lang.Override
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return CommonProto.internal_static_EnterRoleReq_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                CommonProto.EnterRoleReq.class, CommonProto.EnterRoleReq.Builder.class);
+            }
+
+            // Construct using CommonProto.EnterRoleReq.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            @java.lang.Override
+            public Builder clear() {
+                super.clear();
+                uid_ = 0L;
+
+                rid_ = 0L;
+
+                return this;
+            }
+
+            @java.lang.Override
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return CommonProto.internal_static_EnterRoleReq_descriptor;
+            }
+
+            @java.lang.Override
+            public CommonProto.EnterRoleReq getDefaultInstanceForType() {
+                return CommonProto.EnterRoleReq.getDefaultInstance();
+            }
+
+            @java.lang.Override
+            public CommonProto.EnterRoleReq build() {
+                CommonProto.EnterRoleReq result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            @java.lang.Override
+            public CommonProto.EnterRoleReq buildPartial() {
+                CommonProto.EnterRoleReq result = new CommonProto.EnterRoleReq(this);
+                result.uid_ = uid_;
+                result.rid_ = rid_;
+                onBuilt();
+                return result;
+            }
+
+            @java.lang.Override
+            public Builder clone() {
+                return super.clone();
+            }
+
+            @java.lang.Override
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.setField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return super.clearField(field);
+            }
+
+            @java.lang.Override
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return super.clearOneof(oneof);
+            }
+
+            @java.lang.Override
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return super.setRepeatedField(field, index, value);
+            }
+
+            @java.lang.Override
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.addRepeatedField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof CommonProto.EnterRoleReq) {
+                    return mergeFrom((CommonProto.EnterRoleReq) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(CommonProto.EnterRoleReq other) {
+                if (other == CommonProto.EnterRoleReq.getDefaultInstance()) return this;
+                if (other.getUid() != 0L) {
+                    setUid(other.getUid());
+                }
+                if (other.getRid() != 0L) {
+                    setRid(other.getRid());
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            @java.lang.Override
+            public final boolean isInitialized() {
+                return true;
+            }
+
+            @java.lang.Override
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                CommonProto.EnterRoleReq parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (CommonProto.EnterRoleReq) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private long uid_;
+
+            /**
+             * <code>int64 uid = 1;</code>
+             *
+             * @return The uid.
+             */
+            @java.lang.Override
+            public long getUid() {
+                return uid_;
+            }
+
+            /**
+             * <code>int64 uid = 1;</code>
+             *
+             * @param value The uid to set.
+             * @return This builder for chaining.
+             */
+            public Builder setUid(long value) {
+
+                uid_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>int64 uid = 1;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearUid() {
+
+                uid_ = 0L;
+                onChanged();
+                return this;
+            }
+
+            private long rid_;
+
+            /**
+             * <code>int64 rid = 2;</code>
+             *
+             * @return The rid.
+             */
+            @java.lang.Override
+            public long getRid() {
+                return rid_;
+            }
+
+            /**
+             * <code>int64 rid = 2;</code>
+             *
+             * @param value The rid to set.
+             * @return This builder for chaining.
+             */
+            public Builder setRid(long value) {
+
+                rid_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>int64 rid = 2;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearRid() {
+
+                rid_ = 0L;
+                onChanged();
+                return this;
+            }
+
+            @java.lang.Override
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFields(unknownFields);
+            }
+
+            @java.lang.Override
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
+
+
+            // @@protoc_insertion_point(builder_scope:EnterRoleReq)
+        }
+
+        // @@protoc_insertion_point(class_scope:EnterRoleReq)
+        private static final CommonProto.EnterRoleReq DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new CommonProto.EnterRoleReq();
+        }
+
+        public static CommonProto.EnterRoleReq getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        private static final com.google.protobuf.Parser<EnterRoleReq>
+                PARSER = new com.google.protobuf.AbstractParser<EnterRoleReq>() {
+            @java.lang.Override
+            public EnterRoleReq parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new EnterRoleReq(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<EnterRoleReq> parser() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<EnterRoleReq> getParserForType() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public CommonProto.EnterRoleReq getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
+    }
+
+    public interface EnterRoleResOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:EnterRoleRes)
+            com.google.protobuf.MessageOrBuilder {
+
+        /**
+         * <code>int64 uid = 1;</code>
+         *
+         * @return The uid.
+         */
+        long getUid();
+
+        /**
+         * <code>.Role role = 2;</code>
+         *
+         * @return Whether the role field is set.
+         */
+        boolean hasRole();
+
+        /**
+         * <code>.Role role = 2;</code>
+         *
+         * @return The role.
+         */
+        CommonProto.Role getRole();
+
+        /**
+         * <code>.Role role = 2;</code>
+         */
+        CommonProto.RoleOrBuilder getRoleOrBuilder();
+
+        /**
+         * <code>int64 serverTime = 3;</code>
+         *
+         * @return The serverTime.
+         */
+        long getServerTime();
+
+        /**
+         * <code>.Position position = 4;</code>
+         *
+         * @return Whether the position field is set.
+         */
+        boolean hasPosition();
+
+        /**
+         * <code>.Position position = 4;</code>
+         *
+         * @return The position.
+         */
+        CommonProto.Position getPosition();
+
+        /**
+         * <code>.Position position = 4;</code>
+         */
+        CommonProto.PositionOrBuilder getPositionOrBuilder();
+    }
+
+    /**
+     * Protobuf type {@code EnterRoleRes}
+     */
+    public static final class EnterRoleRes extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:EnterRoleRes)
+            EnterRoleResOrBuilder {
+        private static final long serialVersionUID = 0L;
+
+        // Use EnterRoleRes.newBuilder() to construct.
+        private EnterRoleRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
+        }
+
+        private EnterRoleRes() {
+        }
+
+        @java.lang.Override
+        @SuppressWarnings({"unused"})
+        protected java.lang.Object newInstance(
+                UnusedPrivateParameter unused) {
+            return new EnterRoleRes();
+        }
+
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
+        }
+
+        private EnterRoleRes(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
+            }
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        case 8: {
+
+                            uid_ = input.readInt64();
+                            break;
+                        }
+                        case 18: {
+                            CommonProto.Role.Builder subBuilder = null;
+                            if (role_ != null) {
+                                subBuilder = role_.toBuilder();
+                            }
+                            role_ = input.readMessage(CommonProto.Role.parser(), extensionRegistry);
+                            if (subBuilder != null) {
+                                subBuilder.mergeFrom(role_);
+                                role_ = subBuilder.buildPartial();
+                            }
+
+                            break;
+                        }
+                        case 24: {
+
+                            serverTime_ = input.readInt64();
+                            break;
+                        }
+                        case 34: {
+                            CommonProto.Position.Builder subBuilder = null;
+                            if (position_ != null) {
+                                subBuilder = position_.toBuilder();
+                            }
+                            position_ = input.readMessage(CommonProto.Position.parser(), extensionRegistry);
+                            if (subBuilder != null) {
+                                subBuilder.mergeFrom(position_);
+                                position_ = subBuilder.buildPartial();
+                            }
+
+                            break;
+                        }
+                        default: {
+                            if (!parseUnknownField(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (com.google.protobuf.UninitializedMessageException e) {
+                throw e.asInvalidProtocolBufferException().setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
+        }
+
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return CommonProto.internal_static_EnterRoleRes_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return CommonProto.internal_static_EnterRoleRes_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            CommonProto.EnterRoleRes.class, CommonProto.EnterRoleRes.Builder.class);
+        }
+
+        public static final int UID_FIELD_NUMBER = 1;
+        private long uid_;
+
+        /**
+         * <code>int64 uid = 1;</code>
+         *
+         * @return The uid.
+         */
+        @java.lang.Override
+        public long getUid() {
+            return uid_;
+        }
+
+        public static final int ROLE_FIELD_NUMBER = 2;
+        private CommonProto.Role role_;
+
+        /**
+         * <code>.Role role = 2;</code>
+         *
+         * @return Whether the role field is set.
+         */
+        @java.lang.Override
+        public boolean hasRole() {
+            return role_ != null;
+        }
+
+        /**
+         * <code>.Role role = 2;</code>
+         *
+         * @return The role.
+         */
+        @java.lang.Override
+        public CommonProto.Role getRole() {
+            return role_ == null ? CommonProto.Role.getDefaultInstance() : role_;
+        }
+
+        /**
+         * <code>.Role role = 2;</code>
+         */
+        @java.lang.Override
+        public CommonProto.RoleOrBuilder getRoleOrBuilder() {
+            return getRole();
+        }
+
+        public static final int SERVERTIME_FIELD_NUMBER = 3;
+        private long serverTime_;
+
+        /**
+         * <code>int64 serverTime = 3;</code>
+         *
+         * @return The serverTime.
+         */
+        @java.lang.Override
+        public long getServerTime() {
+            return serverTime_;
+        }
+
+        public static final int POSITION_FIELD_NUMBER = 4;
+        private CommonProto.Position position_;
+
+        /**
+         * <code>.Position position = 4;</code>
+         *
+         * @return Whether the position field is set.
+         */
+        @java.lang.Override
+        public boolean hasPosition() {
+            return position_ != null;
+        }
+
+        /**
+         * <code>.Position position = 4;</code>
+         *
+         * @return The position.
+         */
+        @java.lang.Override
+        public CommonProto.Position getPosition() {
+            return position_ == null ? CommonProto.Position.getDefaultInstance() : position_;
+        }
+
+        /**
+         * <code>.Position position = 4;</code>
+         */
+        @java.lang.Override
+        public CommonProto.PositionOrBuilder getPositionOrBuilder() {
+            return getPosition();
+        }
+
+        private byte memoizedIsInitialized = -1;
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        @java.lang.Override
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (uid_ != 0L) {
+                output.writeInt64(1, uid_);
+            }
+            if (role_ != null) {
+                output.writeMessage(2, getRole());
+            }
+            if (serverTime_ != 0L) {
+                output.writeInt64(3, serverTime_);
+            }
+            if (position_ != null) {
+                output.writeMessage(4, getPosition());
+            }
+            unknownFields.writeTo(output);
+        }
+
+        @java.lang.Override
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (uid_ != 0L) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(1, uid_);
+            }
+            if (role_ != null) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeMessageSize(2, getRole());
+            }
+            if (serverTime_ != 0L) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt64Size(3, serverTime_);
+            }
+            if (position_ != null) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeMessageSize(4, getPosition());
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof CommonProto.EnterRoleRes)) {
+                return super.equals(obj);
+            }
+            CommonProto.EnterRoleRes other = (CommonProto.EnterRoleRes) obj;
+
+            if (getUid()
+                    != other.getUid()) return false;
+            if (hasRole() != other.hasRole()) return false;
+            if (hasRole()) {
+                if (!getRole()
+                        .equals(other.getRole())) return false;
+            }
+            if (getServerTime()
+                    != other.getServerTime()) return false;
+            if (hasPosition() != other.hasPosition()) return false;
+            if (hasPosition()) {
+                if (!getPosition()
+                        .equals(other.getPosition())) return false;
+            }
+            if (!unknownFields.equals(other.unknownFields)) return false;
+            return true;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + UID_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                    getUid());
+            if (hasRole()) {
+                hash = (37 * hash) + ROLE_FIELD_NUMBER;
+                hash = (53 * hash) + getRole().hashCode();
+            }
+            hash = (37 * hash) + SERVERTIME_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                    getServerTime());
+            if (hasPosition()) {
+                hash = (37 * hash) + POSITION_FIELD_NUMBER;
+                hash = (53 * hash) + getPosition().hashCode();
+            }
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static CommonProto.EnterRoleRes parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static CommonProto.EnterRoleRes parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static CommonProto.EnterRoleRes parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static CommonProto.EnterRoleRes parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static CommonProto.EnterRoleRes parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static CommonProto.EnterRoleRes parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static CommonProto.EnterRoleRes parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static CommonProto.EnterRoleRes parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static CommonProto.EnterRoleRes parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static CommonProto.EnterRoleRes parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static CommonProto.EnterRoleRes parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static CommonProto.EnterRoleRes parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        @java.lang.Override
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(CommonProto.EnterRoleRes prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        @java.lang.Override
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * Protobuf type {@code EnterRoleRes}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:EnterRoleRes)
+                CommonProto.EnterRoleResOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return CommonProto.internal_static_EnterRoleRes_descriptor;
+            }
+
+            @java.lang.Override
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return CommonProto.internal_static_EnterRoleRes_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                CommonProto.EnterRoleRes.class, CommonProto.EnterRoleRes.Builder.class);
+            }
+
+            // Construct using CommonProto.EnterRoleRes.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            @java.lang.Override
+            public Builder clear() {
+                super.clear();
+                uid_ = 0L;
+
+                if (roleBuilder_ == null) {
+                    role_ = null;
+                } else {
+                    role_ = null;
+                    roleBuilder_ = null;
+                }
+                serverTime_ = 0L;
+
+                if (positionBuilder_ == null) {
+                    position_ = null;
+                } else {
+                    position_ = null;
+                    positionBuilder_ = null;
+                }
+                return this;
+            }
+
+            @java.lang.Override
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return CommonProto.internal_static_EnterRoleRes_descriptor;
+            }
+
+            @java.lang.Override
+            public CommonProto.EnterRoleRes getDefaultInstanceForType() {
+                return CommonProto.EnterRoleRes.getDefaultInstance();
+            }
+
+            @java.lang.Override
+            public CommonProto.EnterRoleRes build() {
+                CommonProto.EnterRoleRes result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            @java.lang.Override
+            public CommonProto.EnterRoleRes buildPartial() {
+                CommonProto.EnterRoleRes result = new CommonProto.EnterRoleRes(this);
+                result.uid_ = uid_;
+                if (roleBuilder_ == null) {
+                    result.role_ = role_;
+                } else {
+                    result.role_ = roleBuilder_.build();
+                }
+                result.serverTime_ = serverTime_;
+                if (positionBuilder_ == null) {
+                    result.position_ = position_;
+                } else {
+                    result.position_ = positionBuilder_.build();
+                }
+                onBuilt();
+                return result;
+            }
+
+            @java.lang.Override
+            public Builder clone() {
+                return super.clone();
+            }
+
+            @java.lang.Override
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.setField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return super.clearField(field);
+            }
+
+            @java.lang.Override
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return super.clearOneof(oneof);
+            }
+
+            @java.lang.Override
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return super.setRepeatedField(field, index, value);
+            }
+
+            @java.lang.Override
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.addRepeatedField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof CommonProto.EnterRoleRes) {
+                    return mergeFrom((CommonProto.EnterRoleRes) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(CommonProto.EnterRoleRes other) {
+                if (other == CommonProto.EnterRoleRes.getDefaultInstance()) return this;
+                if (other.getUid() != 0L) {
+                    setUid(other.getUid());
+                }
+                if (other.hasRole()) {
+                    mergeRole(other.getRole());
+                }
+                if (other.getServerTime() != 0L) {
+                    setServerTime(other.getServerTime());
+                }
+                if (other.hasPosition()) {
+                    mergePosition(other.getPosition());
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            @java.lang.Override
+            public final boolean isInitialized() {
+                return true;
+            }
+
+            @java.lang.Override
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                CommonProto.EnterRoleRes parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (CommonProto.EnterRoleRes) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private long uid_;
+
+            /**
+             * <code>int64 uid = 1;</code>
+             *
+             * @return The uid.
+             */
+            @java.lang.Override
+            public long getUid() {
+                return uid_;
+            }
+
+            /**
+             * <code>int64 uid = 1;</code>
+             *
+             * @param value The uid to set.
+             * @return This builder for chaining.
+             */
+            public Builder setUid(long value) {
+
+                uid_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>int64 uid = 1;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearUid() {
+
+                uid_ = 0L;
+                onChanged();
+                return this;
+            }
+
+            private CommonProto.Role role_;
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    CommonProto.Role, CommonProto.Role.Builder, CommonProto.RoleOrBuilder> roleBuilder_;
+
+            /**
+             * <code>.Role role = 2;</code>
+             *
+             * @return Whether the role field is set.
+             */
+            public boolean hasRole() {
+                return roleBuilder_ != null || role_ != null;
+            }
+
+            /**
+             * <code>.Role role = 2;</code>
+             *
+             * @return The role.
+             */
+            public CommonProto.Role getRole() {
+                if (roleBuilder_ == null) {
+                    return role_ == null ? CommonProto.Role.getDefaultInstance() : role_;
+                } else {
+                    return roleBuilder_.getMessage();
+                }
+            }
+
+            /**
+             * <code>.Role role = 2;</code>
+             */
+            public Builder setRole(CommonProto.Role value) {
+                if (roleBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    role_ = value;
+                    onChanged();
+                } else {
+                    roleBuilder_.setMessage(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.Role role = 2;</code>
+             */
+            public Builder setRole(
+                    CommonProto.Role.Builder builderForValue) {
+                if (roleBuilder_ == null) {
+                    role_ = builderForValue.build();
+                    onChanged();
+                } else {
+                    roleBuilder_.setMessage(builderForValue.build());
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.Role role = 2;</code>
+             */
+            public Builder mergeRole(CommonProto.Role value) {
+                if (roleBuilder_ == null) {
+                    if (role_ != null) {
+                        role_ =
+                                CommonProto.Role.newBuilder(role_).mergeFrom(value).buildPartial();
+                    } else {
+                        role_ = value;
+                    }
+                    onChanged();
+                } else {
+                    roleBuilder_.mergeFrom(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.Role role = 2;</code>
+             */
+            public Builder clearRole() {
+                if (roleBuilder_ == null) {
+                    role_ = null;
+                    onChanged();
+                } else {
+                    role_ = null;
+                    roleBuilder_ = null;
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.Role role = 2;</code>
+             */
+            public CommonProto.Role.Builder getRoleBuilder() {
+
+                onChanged();
+                return getRoleFieldBuilder().getBuilder();
+            }
+
+            /**
+             * <code>.Role role = 2;</code>
+             */
+            public CommonProto.RoleOrBuilder getRoleOrBuilder() {
+                if (roleBuilder_ != null) {
+                    return roleBuilder_.getMessageOrBuilder();
+                } else {
+                    return role_ == null ?
+                            CommonProto.Role.getDefaultInstance() : role_;
+                }
+            }
+
+            /**
+             * <code>.Role role = 2;</code>
+             */
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    CommonProto.Role, CommonProto.Role.Builder, CommonProto.RoleOrBuilder>
+            getRoleFieldBuilder() {
+                if (roleBuilder_ == null) {
+                    roleBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                            CommonProto.Role, CommonProto.Role.Builder, CommonProto.RoleOrBuilder>(
+                            getRole(),
+                            getParentForChildren(),
+                            isClean());
+                    role_ = null;
+                }
+                return roleBuilder_;
+            }
+
+            private long serverTime_;
+
+            /**
+             * <code>int64 serverTime = 3;</code>
+             *
+             * @return The serverTime.
+             */
+            @java.lang.Override
+            public long getServerTime() {
+                return serverTime_;
+            }
+
+            /**
+             * <code>int64 serverTime = 3;</code>
+             *
+             * @param value The serverTime to set.
+             * @return This builder for chaining.
+             */
+            public Builder setServerTime(long value) {
+
+                serverTime_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>int64 serverTime = 3;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearServerTime() {
+
+                serverTime_ = 0L;
+                onChanged();
+                return this;
+            }
+
+            private CommonProto.Position position_;
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    CommonProto.Position, CommonProto.Position.Builder, CommonProto.PositionOrBuilder> positionBuilder_;
+
+            /**
+             * <code>.Position position = 4;</code>
+             *
+             * @return Whether the position field is set.
+             */
+            public boolean hasPosition() {
+                return positionBuilder_ != null || position_ != null;
+            }
+
+            /**
+             * <code>.Position position = 4;</code>
+             *
+             * @return The position.
+             */
+            public CommonProto.Position getPosition() {
+                if (positionBuilder_ == null) {
+                    return position_ == null ? CommonProto.Position.getDefaultInstance() : position_;
+                } else {
+                    return positionBuilder_.getMessage();
+                }
+            }
+
+            /**
+             * <code>.Position position = 4;</code>
+             */
+            public Builder setPosition(CommonProto.Position value) {
+                if (positionBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    position_ = value;
+                    onChanged();
+                } else {
+                    positionBuilder_.setMessage(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.Position position = 4;</code>
+             */
+            public Builder setPosition(
+                    CommonProto.Position.Builder builderForValue) {
+                if (positionBuilder_ == null) {
+                    position_ = builderForValue.build();
+                    onChanged();
+                } else {
+                    positionBuilder_.setMessage(builderForValue.build());
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.Position position = 4;</code>
+             */
+            public Builder mergePosition(CommonProto.Position value) {
+                if (positionBuilder_ == null) {
+                    if (position_ != null) {
+                        position_ =
+                                CommonProto.Position.newBuilder(position_).mergeFrom(value).buildPartial();
+                    } else {
+                        position_ = value;
+                    }
+                    onChanged();
+                } else {
+                    positionBuilder_.mergeFrom(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.Position position = 4;</code>
+             */
+            public Builder clearPosition() {
+                if (positionBuilder_ == null) {
+                    position_ = null;
+                    onChanged();
+                } else {
+                    position_ = null;
+                    positionBuilder_ = null;
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.Position position = 4;</code>
+             */
+            public CommonProto.Position.Builder getPositionBuilder() {
+
+                onChanged();
+                return getPositionFieldBuilder().getBuilder();
+            }
+
+            /**
+             * <code>.Position position = 4;</code>
+             */
+            public CommonProto.PositionOrBuilder getPositionOrBuilder() {
+                if (positionBuilder_ != null) {
+                    return positionBuilder_.getMessageOrBuilder();
+                } else {
+                    return position_ == null ?
+                            CommonProto.Position.getDefaultInstance() : position_;
+                }
+            }
+
+            /**
+             * <code>.Position position = 4;</code>
+             */
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    CommonProto.Position, CommonProto.Position.Builder, CommonProto.PositionOrBuilder>
+            getPositionFieldBuilder() {
+                if (positionBuilder_ == null) {
+                    positionBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                            CommonProto.Position, CommonProto.Position.Builder, CommonProto.PositionOrBuilder>(
+                            getPosition(),
+                            getParentForChildren(),
+                            isClean());
+                    position_ = null;
+                }
+                return positionBuilder_;
+            }
+
+            @java.lang.Override
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFields(unknownFields);
+            }
+
+            @java.lang.Override
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
+
+
+            // @@protoc_insertion_point(builder_scope:EnterRoleRes)
+        }
+
+        // @@protoc_insertion_point(class_scope:EnterRoleRes)
+        private static final CommonProto.EnterRoleRes DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new CommonProto.EnterRoleRes();
+        }
+
+        public static CommonProto.EnterRoleRes getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        private static final com.google.protobuf.Parser<EnterRoleRes>
+                PARSER = new com.google.protobuf.AbstractParser<EnterRoleRes>() {
+            @java.lang.Override
+            public EnterRoleRes parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new EnterRoleRes(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<EnterRoleRes> parser() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<EnterRoleRes> getParserForType() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public CommonProto.EnterRoleRes getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
+    }
+
+    public interface PositionOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:Position)
+            com.google.protobuf.MessageOrBuilder {
+
+        /**
+         * <code>string mapName = 1;</code>
+         *
+         * @return The mapName.
+         */
+        java.lang.String getMapName();
+
+        /**
+         * <code>string mapName = 1;</code>
+         *
+         * @return The bytes for mapName.
+         */
+        com.google.protobuf.ByteString
+        getMapNameBytes();
+
+        /**
+         * <code>int32 mapLine = 2;</code>
+         *
+         * @return The mapLine.
+         */
+        int getMapLine();
+
+        /**
+         * <code>.XY xy = 3;</code>
+         *
+         * @return Whether the xy field is set.
+         */
+        boolean hasXy();
+
+        /**
+         * <code>.XY xy = 3;</code>
+         *
+         * @return The xy.
+         */
+        CommonProto.XY getXy();
+
+        /**
+         * <code>.XY xy = 3;</code>
+         */
+        CommonProto.XYOrBuilder getXyOrBuilder();
+    }
+
+    /**
+     * Protobuf type {@code Position}
+     */
+    public static final class Position extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:Position)
+            PositionOrBuilder {
+        private static final long serialVersionUID = 0L;
+
+        // Use Position.newBuilder() to construct.
+        private Position(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
+        }
+
+        private Position() {
+            mapName_ = "";
+        }
+
+        @java.lang.Override
+        @SuppressWarnings({"unused"})
+        protected java.lang.Object newInstance(
+                UnusedPrivateParameter unused) {
+            return new Position();
+        }
+
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
+        }
+
+        private Position(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
+            }
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        case 10: {
+                            java.lang.String s = input.readStringRequireUtf8();
+
+                            mapName_ = s;
+                            break;
+                        }
+                        case 16: {
+
+                            mapLine_ = input.readInt32();
+                            break;
+                        }
+                        case 26: {
+                            CommonProto.XY.Builder subBuilder = null;
+                            if (xy_ != null) {
+                                subBuilder = xy_.toBuilder();
+                            }
+                            xy_ = input.readMessage(CommonProto.XY.parser(), extensionRegistry);
+                            if (subBuilder != null) {
+                                subBuilder.mergeFrom(xy_);
+                                xy_ = subBuilder.buildPartial();
+                            }
+
+                            break;
+                        }
+                        default: {
+                            if (!parseUnknownField(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (com.google.protobuf.UninitializedMessageException e) {
+                throw e.asInvalidProtocolBufferException().setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
+        }
+
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return CommonProto.internal_static_Position_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return CommonProto.internal_static_Position_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            CommonProto.Position.class, CommonProto.Position.Builder.class);
+        }
+
+        public static final int MAPNAME_FIELD_NUMBER = 1;
+        private volatile java.lang.Object mapName_;
+
+        /**
+         * <code>string mapName = 1;</code>
+         *
+         * @return The mapName.
+         */
+        @java.lang.Override
+        public java.lang.String getMapName() {
+            java.lang.Object ref = mapName_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                mapName_ = s;
+                return s;
+            }
+        }
+
+        /**
+         * <code>string mapName = 1;</code>
+         *
+         * @return The bytes for mapName.
+         */
+        @java.lang.Override
+        public com.google.protobuf.ByteString
+        getMapNameBytes() {
+            java.lang.Object ref = mapName_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                mapName_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
+        }
+
+        public static final int MAPLINE_FIELD_NUMBER = 2;
+        private int mapLine_;
+
+        /**
+         * <code>int32 mapLine = 2;</code>
+         *
+         * @return The mapLine.
+         */
+        @java.lang.Override
+        public int getMapLine() {
+            return mapLine_;
+        }
+
+        public static final int XY_FIELD_NUMBER = 3;
+        private CommonProto.XY xy_;
+
+        /**
+         * <code>.XY xy = 3;</code>
+         *
+         * @return Whether the xy field is set.
+         */
+        @java.lang.Override
+        public boolean hasXy() {
+            return xy_ != null;
+        }
+
+        /**
+         * <code>.XY xy = 3;</code>
+         *
+         * @return The xy.
+         */
+        @java.lang.Override
+        public CommonProto.XY getXy() {
+            return xy_ == null ? CommonProto.XY.getDefaultInstance() : xy_;
+        }
+
+        /**
+         * <code>.XY xy = 3;</code>
+         */
+        @java.lang.Override
+        public CommonProto.XYOrBuilder getXyOrBuilder() {
+            return getXy();
+        }
+
+        private byte memoizedIsInitialized = -1;
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        @java.lang.Override
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(mapName_)) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 1, mapName_);
+            }
+            if (mapLine_ != 0) {
+                output.writeInt32(2, mapLine_);
+            }
+            if (xy_ != null) {
+                output.writeMessage(3, getXy());
+            }
+            unknownFields.writeTo(output);
+        }
+
+        @java.lang.Override
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(mapName_)) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, mapName_);
+            }
+            if (mapLine_ != 0) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt32Size(2, mapLine_);
+            }
+            if (xy_ != null) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeMessageSize(3, getXy());
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof CommonProto.Position)) {
+                return super.equals(obj);
+            }
+            CommonProto.Position other = (CommonProto.Position) obj;
+
+            if (!getMapName()
+                    .equals(other.getMapName())) return false;
+            if (getMapLine()
+                    != other.getMapLine()) return false;
+            if (hasXy() != other.hasXy()) return false;
+            if (hasXy()) {
+                if (!getXy()
+                        .equals(other.getXy())) return false;
+            }
+            if (!unknownFields.equals(other.unknownFields)) return false;
+            return true;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + MAPNAME_FIELD_NUMBER;
+            hash = (53 * hash) + getMapName().hashCode();
+            hash = (37 * hash) + MAPLINE_FIELD_NUMBER;
+            hash = (53 * hash) + getMapLine();
+            if (hasXy()) {
+                hash = (37 * hash) + XY_FIELD_NUMBER;
+                hash = (53 * hash) + getXy().hashCode();
+            }
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static CommonProto.Position parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static CommonProto.Position parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static CommonProto.Position parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static CommonProto.Position parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static CommonProto.Position parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static CommonProto.Position parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static CommonProto.Position parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static CommonProto.Position parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static CommonProto.Position parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static CommonProto.Position parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static CommonProto.Position parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static CommonProto.Position parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        @java.lang.Override
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(CommonProto.Position prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        @java.lang.Override
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * Protobuf type {@code Position}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:Position)
+                CommonProto.PositionOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return CommonProto.internal_static_Position_descriptor;
+            }
+
+            @java.lang.Override
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return CommonProto.internal_static_Position_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                CommonProto.Position.class, CommonProto.Position.Builder.class);
+            }
+
+            // Construct using CommonProto.Position.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            @java.lang.Override
+            public Builder clear() {
+                super.clear();
+                mapName_ = "";
+
+                mapLine_ = 0;
+
+                if (xyBuilder_ == null) {
+                    xy_ = null;
+                } else {
+                    xy_ = null;
+                    xyBuilder_ = null;
+                }
+                return this;
+            }
+
+            @java.lang.Override
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return CommonProto.internal_static_Position_descriptor;
+            }
+
+            @java.lang.Override
+            public CommonProto.Position getDefaultInstanceForType() {
+                return CommonProto.Position.getDefaultInstance();
+            }
+
+            @java.lang.Override
+            public CommonProto.Position build() {
+                CommonProto.Position result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            @java.lang.Override
+            public CommonProto.Position buildPartial() {
+                CommonProto.Position result = new CommonProto.Position(this);
+                result.mapName_ = mapName_;
+                result.mapLine_ = mapLine_;
+                if (xyBuilder_ == null) {
+                    result.xy_ = xy_;
+                } else {
+                    result.xy_ = xyBuilder_.build();
+                }
+                onBuilt();
+                return result;
+            }
+
+            @java.lang.Override
+            public Builder clone() {
+                return super.clone();
+            }
+
+            @java.lang.Override
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.setField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return super.clearField(field);
+            }
+
+            @java.lang.Override
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return super.clearOneof(oneof);
+            }
+
+            @java.lang.Override
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return super.setRepeatedField(field, index, value);
+            }
+
+            @java.lang.Override
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.addRepeatedField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof CommonProto.Position) {
+                    return mergeFrom((CommonProto.Position) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(CommonProto.Position other) {
+                if (other == CommonProto.Position.getDefaultInstance()) return this;
+                if (!other.getMapName().isEmpty()) {
+                    mapName_ = other.mapName_;
+                    onChanged();
+                }
+                if (other.getMapLine() != 0) {
+                    setMapLine(other.getMapLine());
+                }
+                if (other.hasXy()) {
+                    mergeXy(other.getXy());
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            @java.lang.Override
+            public final boolean isInitialized() {
+                return true;
+            }
+
+            @java.lang.Override
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                CommonProto.Position parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (CommonProto.Position) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private java.lang.Object mapName_ = "";
+
+            /**
+             * <code>string mapName = 1;</code>
+             *
+             * @return The mapName.
+             */
+            public java.lang.String getMapName() {
+                java.lang.Object ref = mapName_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    mapName_ = s;
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
+
+            /**
+             * <code>string mapName = 1;</code>
+             *
+             * @return The bytes for mapName.
+             */
+            public com.google.protobuf.ByteString
+            getMapNameBytes() {
+                java.lang.Object ref = mapName_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    mapName_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
+                }
+            }
+
+            /**
+             * <code>string mapName = 1;</code>
+             *
+             * @param value The mapName to set.
+             * @return This builder for chaining.
+             */
+            public Builder setMapName(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                mapName_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>string mapName = 1;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearMapName() {
+
+                mapName_ = getDefaultInstance().getMapName();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>string mapName = 1;</code>
+             *
+             * @param value The bytes for mapName to set.
+             * @return This builder for chaining.
+             */
+            public Builder setMapNameBytes(
+                    com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                checkByteStringIsUtf8(value);
+
+                mapName_ = value;
+                onChanged();
+                return this;
+            }
+
+            private int mapLine_;
+
+            /**
+             * <code>int32 mapLine = 2;</code>
+             *
+             * @return The mapLine.
+             */
+            @java.lang.Override
+            public int getMapLine() {
+                return mapLine_;
+            }
+
+            /**
+             * <code>int32 mapLine = 2;</code>
+             *
+             * @param value The mapLine to set.
+             * @return This builder for chaining.
+             */
+            public Builder setMapLine(int value) {
+
+                mapLine_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>int32 mapLine = 2;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearMapLine() {
+
+                mapLine_ = 0;
+                onChanged();
+                return this;
+            }
+
+            private CommonProto.XY xy_;
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    CommonProto.XY, CommonProto.XY.Builder, CommonProto.XYOrBuilder> xyBuilder_;
+
+            /**
+             * <code>.XY xy = 3;</code>
+             *
+             * @return Whether the xy field is set.
+             */
+            public boolean hasXy() {
+                return xyBuilder_ != null || xy_ != null;
+            }
+
+            /**
+             * <code>.XY xy = 3;</code>
+             *
+             * @return The xy.
+             */
+            public CommonProto.XY getXy() {
+                if (xyBuilder_ == null) {
+                    return xy_ == null ? CommonProto.XY.getDefaultInstance() : xy_;
+                } else {
+                    return xyBuilder_.getMessage();
+                }
+            }
+
+            /**
+             * <code>.XY xy = 3;</code>
+             */
+            public Builder setXy(CommonProto.XY value) {
+                if (xyBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    xy_ = value;
+                    onChanged();
+                } else {
+                    xyBuilder_.setMessage(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.XY xy = 3;</code>
+             */
+            public Builder setXy(
+                    CommonProto.XY.Builder builderForValue) {
+                if (xyBuilder_ == null) {
+                    xy_ = builderForValue.build();
+                    onChanged();
+                } else {
+                    xyBuilder_.setMessage(builderForValue.build());
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.XY xy = 3;</code>
+             */
+            public Builder mergeXy(CommonProto.XY value) {
+                if (xyBuilder_ == null) {
+                    if (xy_ != null) {
+                        xy_ =
+                                CommonProto.XY.newBuilder(xy_).mergeFrom(value).buildPartial();
+                    } else {
+                        xy_ = value;
+                    }
+                    onChanged();
+                } else {
+                    xyBuilder_.mergeFrom(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.XY xy = 3;</code>
+             */
+            public Builder clearXy() {
+                if (xyBuilder_ == null) {
+                    xy_ = null;
+                    onChanged();
+                } else {
+                    xy_ = null;
+                    xyBuilder_ = null;
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.XY xy = 3;</code>
+             */
+            public CommonProto.XY.Builder getXyBuilder() {
+
+                onChanged();
+                return getXyFieldBuilder().getBuilder();
+            }
+
+            /**
+             * <code>.XY xy = 3;</code>
+             */
+            public CommonProto.XYOrBuilder getXyOrBuilder() {
+                if (xyBuilder_ != null) {
+                    return xyBuilder_.getMessageOrBuilder();
+                } else {
+                    return xy_ == null ?
+                            CommonProto.XY.getDefaultInstance() : xy_;
+                }
+            }
+
+            /**
+             * <code>.XY xy = 3;</code>
+             */
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    CommonProto.XY, CommonProto.XY.Builder, CommonProto.XYOrBuilder>
+            getXyFieldBuilder() {
+                if (xyBuilder_ == null) {
+                    xyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                            CommonProto.XY, CommonProto.XY.Builder, CommonProto.XYOrBuilder>(
+                            getXy(),
+                            getParentForChildren(),
+                            isClean());
+                    xy_ = null;
+                }
+                return xyBuilder_;
+            }
+
+            @java.lang.Override
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFields(unknownFields);
+            }
+
+            @java.lang.Override
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
+
+
+            // @@protoc_insertion_point(builder_scope:Position)
+        }
+
+        // @@protoc_insertion_point(class_scope:Position)
+        private static final CommonProto.Position DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new CommonProto.Position();
+        }
+
+        public static CommonProto.Position getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        private static final com.google.protobuf.Parser<Position>
+                PARSER = new com.google.protobuf.AbstractParser<Position>() {
+            @java.lang.Override
+            public Position parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new Position(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<Position> parser() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<Position> getParserForType() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public CommonProto.Position getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
+    }
+
+    public interface XYOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:XY)
+            com.google.protobuf.MessageOrBuilder {
+
+        /**
+         * <code>int32 x = 1;</code>
+         *
+         * @return The x.
+         */
+        int getX();
+
+        /**
+         * <code>int32 y = 2;</code>
+         *
+         * @return The y.
+         */
+        int getY();
+    }
+
+    /**
+     * <pre>
+     * 坐标
+     * </pre>
+     * <p>
+     * Protobuf type {@code XY}
+     */
+    public static final class XY extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:XY)
+            XYOrBuilder {
+        private static final long serialVersionUID = 0L;
+
+        // Use XY.newBuilder() to construct.
+        private XY(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
+        }
+
+        private XY() {
+        }
+
+        @java.lang.Override
+        @SuppressWarnings({"unused"})
+        protected java.lang.Object newInstance(
+                UnusedPrivateParameter unused) {
+            return new XY();
+        }
+
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
+        }
+
+        private XY(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
+            }
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        case 8: {
+
+                            x_ = input.readInt32();
+                            break;
+                        }
+                        case 16: {
+
+                            y_ = input.readInt32();
+                            break;
+                        }
+                        default: {
+                            if (!parseUnknownField(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (com.google.protobuf.UninitializedMessageException e) {
+                throw e.asInvalidProtocolBufferException().setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
+        }
+
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return CommonProto.internal_static_XY_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return CommonProto.internal_static_XY_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            CommonProto.XY.class, CommonProto.XY.Builder.class);
+        }
+
+        public static final int X_FIELD_NUMBER = 1;
+        private int x_;
+
+        /**
+         * <code>int32 x = 1;</code>
+         *
+         * @return The x.
+         */
+        @java.lang.Override
+        public int getX() {
+            return x_;
+        }
+
+        public static final int Y_FIELD_NUMBER = 2;
+        private int y_;
+
+        /**
+         * <code>int32 y = 2;</code>
+         *
+         * @return The y.
+         */
+        @java.lang.Override
+        public int getY() {
+            return y_;
+        }
+
+        private byte memoizedIsInitialized = -1;
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        @java.lang.Override
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (x_ != 0) {
+                output.writeInt32(1, x_);
+            }
+            if (y_ != 0) {
+                output.writeInt32(2, y_);
+            }
+            unknownFields.writeTo(output);
+        }
+
+        @java.lang.Override
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (x_ != 0) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt32Size(1, x_);
+            }
+            if (y_ != 0) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeInt32Size(2, y_);
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof CommonProto.XY)) {
+                return super.equals(obj);
+            }
+            CommonProto.XY other = (CommonProto.XY) obj;
+
+            if (getX()
+                    != other.getX()) return false;
+            if (getY()
+                    != other.getY()) return false;
+            if (!unknownFields.equals(other.unknownFields)) return false;
+            return true;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + X_FIELD_NUMBER;
+            hash = (53 * hash) + getX();
+            hash = (37 * hash) + Y_FIELD_NUMBER;
+            hash = (53 * hash) + getY();
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static CommonProto.XY parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static CommonProto.XY parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static CommonProto.XY parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static CommonProto.XY parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static CommonProto.XY parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static CommonProto.XY parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static CommonProto.XY parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static CommonProto.XY parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static CommonProto.XY parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static CommonProto.XY parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static CommonProto.XY parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static CommonProto.XY parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        @java.lang.Override
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(CommonProto.XY prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        @java.lang.Override
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * <pre>
+         * 坐标
+         * </pre>
+         * <p>
+         * Protobuf type {@code XY}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:XY)
+                CommonProto.XYOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return CommonProto.internal_static_XY_descriptor;
+            }
+
+            @java.lang.Override
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return CommonProto.internal_static_XY_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                CommonProto.XY.class, CommonProto.XY.Builder.class);
+            }
+
+            // Construct using CommonProto.XY.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            @java.lang.Override
+            public Builder clear() {
+                super.clear();
+                x_ = 0;
+
+                y_ = 0;
+
+                return this;
+            }
+
+            @java.lang.Override
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return CommonProto.internal_static_XY_descriptor;
+            }
+
+            @java.lang.Override
+            public CommonProto.XY getDefaultInstanceForType() {
+                return CommonProto.XY.getDefaultInstance();
+            }
+
+            @java.lang.Override
+            public CommonProto.XY build() {
+                CommonProto.XY result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            @java.lang.Override
+            public CommonProto.XY buildPartial() {
+                CommonProto.XY result = new CommonProto.XY(this);
+                result.x_ = x_;
+                result.y_ = y_;
+                onBuilt();
+                return result;
+            }
+
+            @java.lang.Override
+            public Builder clone() {
+                return super.clone();
+            }
+
+            @java.lang.Override
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.setField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return super.clearField(field);
+            }
+
+            @java.lang.Override
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return super.clearOneof(oneof);
+            }
+
+            @java.lang.Override
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return super.setRepeatedField(field, index, value);
+            }
+
+            @java.lang.Override
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.addRepeatedField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof CommonProto.XY) {
+                    return mergeFrom((CommonProto.XY) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(CommonProto.XY other) {
+                if (other == CommonProto.XY.getDefaultInstance()) return this;
+                if (other.getX() != 0) {
+                    setX(other.getX());
+                }
+                if (other.getY() != 0) {
+                    setY(other.getY());
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            @java.lang.Override
+            public final boolean isInitialized() {
+                return true;
+            }
+
+            @java.lang.Override
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                CommonProto.XY parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (CommonProto.XY) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private int x_;
+
+            /**
+             * <code>int32 x = 1;</code>
+             *
+             * @return The x.
+             */
+            @java.lang.Override
+            public int getX() {
+                return x_;
+            }
+
+            /**
+             * <code>int32 x = 1;</code>
+             *
+             * @param value The x to set.
+             * @return This builder for chaining.
+             */
+            public Builder setX(int value) {
+
+                x_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>int32 x = 1;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearX() {
+
+                x_ = 0;
+                onChanged();
+                return this;
+            }
+
+            private int y_;
+
+            /**
+             * <code>int32 y = 2;</code>
+             *
+             * @return The y.
+             */
+            @java.lang.Override
+            public int getY() {
+                return y_;
+            }
+
+            /**
+             * <code>int32 y = 2;</code>
+             *
+             * @param value The y to set.
+             * @return This builder for chaining.
+             */
+            public Builder setY(int value) {
+
+                y_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>int32 y = 2;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearY() {
+
+                y_ = 0;
+                onChanged();
+                return this;
+            }
+
+            @java.lang.Override
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFields(unknownFields);
+            }
+
+            @java.lang.Override
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
+
+
+            // @@protoc_insertion_point(builder_scope:XY)
+        }
+
+        // @@protoc_insertion_point(class_scope:XY)
+        private static final CommonProto.XY DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new CommonProto.XY();
+        }
+
+        public static CommonProto.XY getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        private static final com.google.protobuf.Parser<XY>
+                PARSER = new com.google.protobuf.AbstractParser<XY>() {
+            @java.lang.Override
+            public XY parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new XY(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<XY> parser() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<XY> getParserForType() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public CommonProto.XY getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
+    }
+
     private static final com.google.protobuf.Descriptors.Descriptor
             internal_static_LoginReq_descriptor;
     private static final
@@ -2701,6 +5994,26 @@ public final class CommonProto {
     private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internal_static_Role_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_EnterRoleReq_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_EnterRoleReq_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_EnterRoleRes_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_EnterRoleRes_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_Position_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_Position_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_XY_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_XY_fieldAccessorTable;
 
     public static com.google.protobuf.Descriptors.FileDescriptor
     getDescriptor() {
@@ -2714,10 +6027,16 @@ public final class CommonProto {
         java.lang.String[] descriptorData = {
                 "\n\021file/Common.proto\".\n\010LoginReq\022\020\n\010usern" +
                         "ame\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\",\n\010LoginRes\022" +
-                        "\013\n\003uid\030\001 \001(\003\022\023\n\004role\030\002 \003(\0132\005.Role\"D\n\004Rol" +
-                        "e\022\013\n\003rid\030\001 \001(\003\022\020\n\010roleName\030\002 \001(\t\022\r\n\005leve" +
-                        "l\030\003 \001(\005\022\016\n\006career\030\004 \001(\tB\017B\013CommonProtoH\001" +
-                        "b\006proto3"
+                        "\013\n\003uid\030\001 \001(\003\022\023\n\004role\030\002 \003(\0132\005.Role\"Q\n\004Rol" +
+                        "e\022\013\n\003uid\030\001 \001(\003\022\013\n\003rid\030\002 \001(\003\022\020\n\010roleName\030" +
+                        "\003 \001(\t\022\r\n\005level\030\004 \001(\005\022\016\n\006career\030\005 \001(\t\"(\n\014" +
+                        "EnterRoleReq\022\013\n\003uid\030\001 \001(\003\022\013\n\003rid\030\002 \001(\003\"a" +
+                        "\n\014EnterRoleRes\022\013\n\003uid\030\001 \001(\003\022\023\n\004role\030\002 \001(" +
+                        "\0132\005.Role\022\022\n\nserverTime\030\003 \001(\003\022\033\n\010position" +
+                        "\030\004 \001(\0132\t.Position\"=\n\010Position\022\017\n\007mapName" +
+                        "\030\001 \001(\t\022\017\n\007mapLine\030\002 \001(\005\022\017\n\002xy\030\003 \001(\0132\003.XY" +
+                        "\"\032\n\002XY\022\t\n\001x\030\001 \001(\005\022\t\n\001y\030\002 \001(\005B\017B\013CommonPr" +
+                        "otoH\001b\006proto3"
         };
         descriptor = com.google.protobuf.Descriptors.FileDescriptor
                 .internalBuildGeneratedFileFrom(descriptorData,
@@ -2740,7 +6059,31 @@ public final class CommonProto {
         internal_static_Role_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_Role_descriptor,
-                new java.lang.String[]{"Rid", "RoleName", "Level", "Career",});
+                new java.lang.String[]{"Uid", "Rid", "RoleName", "Level", "Career",});
+        internal_static_EnterRoleReq_descriptor =
+                getDescriptor().getMessageTypes().get(3);
+        internal_static_EnterRoleReq_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_EnterRoleReq_descriptor,
+                new java.lang.String[]{"Uid", "Rid",});
+        internal_static_EnterRoleRes_descriptor =
+                getDescriptor().getMessageTypes().get(4);
+        internal_static_EnterRoleRes_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_EnterRoleRes_descriptor,
+                new java.lang.String[]{"Uid", "Role", "ServerTime", "Position",});
+        internal_static_Position_descriptor =
+                getDescriptor().getMessageTypes().get(5);
+        internal_static_Position_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_Position_descriptor,
+                new java.lang.String[]{"MapName", "MapLine", "Xy",});
+        internal_static_XY_descriptor =
+                getDescriptor().getMessageTypes().get(6);
+        internal_static_XY_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_XY_descriptor,
+                new java.lang.String[]{"X", "Y",});
     }
 
     // @@protoc_insertion_point(outer_class_scope)

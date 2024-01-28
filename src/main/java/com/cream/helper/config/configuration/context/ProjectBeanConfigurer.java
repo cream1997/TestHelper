@@ -2,9 +2,9 @@ package com.cream.helper.config.configuration.context;
 
 import com.cream.helper.core.net.common.MsgTemplatePool;
 import com.cream.helper.core.net.common.constant.MsgType;
-import com.cream.helper.core.net.msg.ReqLoginMsg;
-import com.cream.helper.core.net.msg.ResLoginMsg;
 import com.cream.helper.core.net.msg.base.Message;
+import com.cream.helper.core.net.msg.req.ReqLoginMsg;
+import com.cream.helper.core.net.msg.res.ResLoginMsg;
 import com.cream.helper.core.net.proto.clazz.CommonProto;
 import com.cream.helper.utils.Util;
 import lombok.extern.slf4j.Slf4j;
