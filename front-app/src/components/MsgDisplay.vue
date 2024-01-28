@@ -44,6 +44,8 @@
 
 .title-text {
   width: 320px;
+  font-size: small;
+  font-weight: bold;
   display: inline-block;
 }
 
