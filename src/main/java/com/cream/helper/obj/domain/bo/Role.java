@@ -43,4 +43,10 @@ public class Role {
         this.level = level;
         this.career = career;
     }
+
+    public Role() {
+        this.userId = 0;
+        this.name = null;
+        this.career = 0;
+    }
 }

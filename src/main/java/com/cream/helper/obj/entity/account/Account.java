@@ -40,4 +40,8 @@ public class Account {
         this.accountName = accountName;
         this.password = password;
     }
+
+    public Account() {
+        this.accountName = null;
+    }
 }

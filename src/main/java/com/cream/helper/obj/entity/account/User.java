@@ -37,4 +37,10 @@ public class User {
         this.username = username;
         this.password = password;
     }
+
+    public User() {
+        this.accountId = 0L;
+        this.username = null;
+        this.password = null;
+    }
 }

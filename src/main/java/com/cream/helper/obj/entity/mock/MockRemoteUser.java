@@ -21,4 +21,8 @@ public class MockRemoteUser {
         this.username = username;
         this.password = password;
     }
+
+    public MockRemoteUser() {
+        this.id = 0L;
+    }
 }
