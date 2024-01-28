@@ -2,25 +2,29 @@
 import TimePicker from "@/components/time/TimePicker.vue";
 import type AccountInfo from "@/interface/AccountInfo";
 import {useAccountStore} from "@/store/account";
-import {ref} from "vue";
+import {onUnmounted} from "vue";
 
 const accountInfo: AccountInfo = useAccountStore();
-// 服务器传回来的time是string（fastjson为了避免long值精度丢失做了处理）
-const serverTimeNum = ref(parseInt(accountInfo.serverTime));
 
-setInterval(() => {
-  serverTimeNum.value = new Date(serverTimeNum.value + 1000).getTime()
-}, 1000)
+
+const interval = setInterval(() => {
+  // 服务器传回来的time是string（fastjson为了避免long值精度丢失做了处理）
+  accountInfo.serverTime = new Date(parseInt(accountInfo.serverTime) + 1000).getTime() + ""
+}, 1000);
 
 function setTime(time: number) {
   console.log(time)
 }
+
+onUnmounted(() => {
+  clearInterval(interval)
+})
 </script>
 
 <template>
   <div class="title">
     <span class="server-time">
-      <TimePicker :server-time="serverTimeNum" :set-time="setTime"/>
+      <TimePicker :server-time="parseInt(accountInfo.serverTime)" :set-time="setTime"/>
     </span>
     <span class="position-span">
       {{ accountInfo.position.mapName }}
