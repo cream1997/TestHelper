@@ -134,11 +134,9 @@ public class UserService {
         }
     }
 
-    /**
-     * todo 没有引入Session机制时，不需要logout
-     */
-    public Ret<String> logout(long id) {
-        return null;
+    public Ret<String> logout(long uid) {
+        userSessionManager.removeSession(uid);
+        return Ret.ok("退出User");
     }
 
 

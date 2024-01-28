@@ -1,5 +1,6 @@
 package com.cream.helper.core.net;
 
+import com.cream.helper.config.configuration.exception.CommonRunError;
 import com.cream.helper.core.ExecutorManager;
 import com.cream.helper.core.net.bo.UserSession;
 import com.cream.helper.utils.Times;
@@ -34,11 +35,27 @@ public class UserSessionManager {
      */
     private void cycleCheckOffLine() {
         executorManager.runFixedDelay(() -> {
-            uid2Session.values()
-                    .removeIf(userSession -> userSession.getLastHeartTime() + 15 * Times.ONE_SECOND < Times.now());
+            uid2Session.values().removeIf(userSession ->
+                    {
+                        if (userSession.getLastHeartTime() + 15 * Times.ONE_SECOND < Times.now()) {
+                            userSession.getGameClient().close();
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+            );
         }, 0, 10, TimeUnit.SECONDS);
     }
 
+    public void removeSession(long uid) {
+        UserSession session = uid2Session.remove(uid);
+        if (session != null) {
+            session.getGameClient().close();
+        } else {
+            throw new CommonRunError("退出时找不到session uid:" + uid);
+        }
+    }
 
     public boolean isOnline(long uid) {
         return uid2Session.containsKey(uid);

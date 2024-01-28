@@ -95,4 +95,10 @@ public class GameClient {
         }
         return channel;
     }
+
+    public void close() {
+        if (channel != null) {
+            channel.close();
+        }
+    }
 }
