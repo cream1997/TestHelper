@@ -3,10 +3,11 @@
 </script>
 
 <template>
-  <p class="title">消息控制台
-    <span>统计</span>
-    <button>设置</button>
-    <button>清空</button>
+  <p class="title">
+    <span class="title-text">消息控制台</span>
+    <span class="num-display">999+</span>
+    <button class="setup-btn">设置</button>
+    <button class="clear-btn">清空</button>
   </p>
   <div class="middle">
     <ol class="msg-list-class">
@@ -23,11 +24,11 @@
 .title {
   margin: 1px auto;
   border-bottom: 1px black dotted;
-  height: 20px;
+  height: 25px;
 }
 
 .middle {
-  height: calc(100% - 50px);
+  height: calc(100% - 55px);
 }
 
 .footer {
@@ -39,5 +40,24 @@
 .msg-list-class {
   padding: 0;
   margin: 0;
+}
+
+.title-text {
+  width: 320px;
+  display: inline-block;
+}
+
+.num-display {
+  font-size: small;
+  border: 1px solid black;
+  border-radius: 6px;
+  width: 34px;
+  text-align: center;
+  margin-right: 4px;
+  display: inline-block;
+}
+
+.clear-btn, .setup-btn {
+  text-align: right;
 }
 </style>
