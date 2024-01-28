@@ -59,7 +59,7 @@ onMounted(() => {
 }
 
 .module {
-  background-color: gray;
+  background-color: rgb(230, 232, 239);
   border: 1px solid black;
   box-sizing: border-box;
   padding: 1px;
