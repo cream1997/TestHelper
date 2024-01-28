@@ -32,20 +32,26 @@ public class MockRoleLoginService implements IRoleLoginService {
     }
 
     @Override
-    public Ret<Role> createRole(Role role) {
-        String name = role.getName();
-        if (mockRoleMapper.containsName(name)) {
+    public Ret<RoleItemVO> createRole(RoleItemVO roleItemVO) {
+        String roleName = roleItemVO.getRoleName();
+        if (mockRoleMapper.containsName(roleName)) {
             return Ret.err("角色名称已存在");
         }
+        Role role = new Role(roleItemVO.getUid(), roleName, 1, 1);
         // 初始化等级
-        role.setLevel(1);
         mockRoleMapper.insert(role);
-        return Ret.ok(role);
+        RoleItemVO createRole = new RoleItemVO(role.getUserId(), role.getId(), role.getName(), role.getLevel(), role.getCareer() + "");
+        return Ret.ok(createRole);
     }
 
     @Override
-    public Ret<Role> deleteRole(Role role) {
-        return null;
+    public Ret<RoleItemVO> deleteRole(RoleItemVO roleItemVO) {
+        int deleteNum = mockRoleMapper.deleteById(roleItemVO.getRid());
+        if (deleteNum > 0) {
+            return Ret.ok(roleItemVO);
+        } else {
+            return Ret.err("删除失败");
+        }
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.cream.helper.core.net.msg.base.Message;
 import com.cream.helper.utils.MsgReflectUtil;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -18,7 +19,10 @@ public class ServerMsgListener extends MsgListener {
 
     private final Map<Integer, MsgHandler<?>> allServerMsgHandler = new ConcurrentHashMap<>();
 
-    public ServerMsgListener() {
+    private final ApplicationContext appContext;
+
+    public ServerMsgListener(ApplicationContext appContext) {
+        this.appContext = appContext;
         registerHandler();
     }
 
@@ -37,11 +41,16 @@ public class ServerMsgListener extends MsgListener {
      * 目前不采用反射读取，简单一点
      */
     private void registerHandler() {
-        addHandler(new ReqLoginMsgHandler());
+        addHandler(ReqLoginMsgHandler.class);
     }
 
-    private void addHandler(MsgHandler<?> msgHandler) {
+    private <T extends MsgHandler<?>> T getMsgHandler(Class<T> clazz) {
+        return appContext.getBean(clazz);
+    }
+
+    private <T extends MsgHandler<?>> void addHandler(Class<T> clazz) {
         try {
+            T msgHandler = getMsgHandler(clazz);
             int msgId = MsgReflectUtil.getMsgId(msgHandler);
             allServerMsgHandler.put(msgId, msgHandler);
         } catch (Exception e) {

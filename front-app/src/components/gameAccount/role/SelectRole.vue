@@ -9,11 +9,14 @@ import UserState from "@/interface/UserState";
 
 const accountInfo: AccountInfo = useAccountStore();
 let roleItems = accountInfo.roleItems;
-console.log(roleItems)
-
 
 function toCreateRolePage() {
-
+  if (roleItems.length >= 4) {
+    Tip.error("最多只能创建4个角色");
+    return;
+  }
+  // 切换页面
+  accountInfo.userState = UserState.CreateRole;
 }
 
 function loginRole(roleItem: RoleItemVO) {
@@ -41,6 +44,11 @@ function operateRole(roleItem: RoleItemVO) {
       .catch((action: Action) => {
         if (action == "cancel") {
           Tip.error("删除角色")
+          post("deleteRole", roleItem)
+              .then((deletedRole: RoleItemVO) => {
+                roleItems.splice(roleItems.indexOf(deletedRole), 1);
+                Tip.success("删除成功")
+              })
         }
       })
 }

@@ -1,7 +1,7 @@
 export default interface RoleItemVO {
     uid: number,
-    rid: number,
+    rid?: number,
     roleName: string,
-    level: number,
+    level?: number,
     career: string
 }

@@ -1,10 +1,11 @@
 <script setup lang="ts" name="AccountBox">
 import {useAccountStore} from "@/store/account";
 import type AccountInfo from "@/interface/AccountInfo";
-import UserAccount from "@/components/gameAccount/UserAccount.vue";
-import RoleAccount from "@/components/gameAccount/RoleAccount.vue";
-import SelectRole from "@/components/gameAccount/SelectRole.vue";
+import UserAccount from "@/components/gameAccount/user/UserAccount.vue";
+import RoleAccount from "@/components/gameAccount/role/RoleAccount.vue";
+import SelectRole from "@/components/gameAccount/role/SelectRole.vue";
 import UserState from "@/interface/UserState";
+import CreateRole from "@/components/gameAccount/role/CreateRole.vue";
 
 const accountInfo: AccountInfo = useAccountStore();
 
@@ -12,8 +13,9 @@ const accountInfo: AccountInfo = useAccountStore();
 
 <template>
   <UserAccount v-if="accountInfo.userState===UserState.UnLoginUser"/>
-  <RoleAccount v-if="accountInfo.userState===UserState.enterRole"/>
   <SelectRole v-if="accountInfo.userState===UserState.SelectRole"/>
+  <CreateRole v-if="accountInfo.userState===UserState.CreateRole"/>
+  <RoleAccount v-if="accountInfo.userState===UserState.enterRole"/>
 </template>
 
 <style scoped>

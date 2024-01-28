@@ -22,19 +22,19 @@ public class RoleController {
     }
 
     @PostMapping("/createRole")
-    public Ret<Role> createRole(@RequestBody Role role) {
-        if (role.getUserId() == 0) {
+    public Ret<RoleItemVO> createRole(@RequestBody RoleItemVO roleItemVO) {
+        if (roleItemVO.getUid() == 0) {
             return Ret.err("请先登录");
         }
-        return roleLoginService.createRole(role);
+        return roleLoginService.createRole(roleItemVO);
     }
 
     @PostMapping("/deleteRole")
-    public Ret<Role> deleteRole(@RequestBody Role role) {
-        if (role.getUserId() == 0) {
+    public Ret<RoleItemVO> deleteRole(@RequestBody RoleItemVO roleItemVO) {
+        if (roleItemVO.getUid() == 0) {
             return Ret.err("请先登录");
         }
-        return roleLoginService.deleteRole(role);
+        return roleLoginService.deleteRole(roleItemVO);
     }
 
     @PostMapping("/enterRole")

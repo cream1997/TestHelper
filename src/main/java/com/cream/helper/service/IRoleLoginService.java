@@ -7,9 +7,9 @@ import com.cream.helper.obj.domain.bo.RoleHeartInfo;
 import com.cream.helper.obj.domain.vo.RoleItemVO;
 
 public interface IRoleLoginService {
-    Ret<Role> createRole(Role role);
+    Ret<RoleItemVO> createRole(RoleItemVO roleItemVO);
 
-    Ret<Role> deleteRole(Role role);
+    Ret<RoleItemVO> deleteRole(RoleItemVO role);
 
     Ret<RoleEnterInfo> enterRole(RoleItemVO roleItem);
 

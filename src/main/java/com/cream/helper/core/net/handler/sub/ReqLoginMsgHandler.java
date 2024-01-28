@@ -6,27 +6,52 @@ import com.cream.helper.core.net.msg.ReqLoginMsg;
 import com.cream.helper.core.net.msg.ResLoginMsg;
 import com.cream.helper.core.net.msg.base.Message;
 import com.cream.helper.core.net.proto.clazz.CommonProto;
+import com.cream.helper.mapper.LocalUserMapper;
+import com.cream.helper.mapper.mock.MockRoleMapper;
+import com.cream.helper.obj.domain.bo.Role;
+import com.cream.helper.obj.entity.account.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+
+@Component
 public class ReqLoginMsgHandler extends MsgHandler<ReqLoginMsg> {
+
+    private final MockRoleMapper roleMapper;
+    private final LocalUserMapper localUserMapper;
+
+    @Autowired
+    public ReqLoginMsgHandler(MockRoleMapper roleMapper,
+                              LocalUserMapper localUserMapper) {
+        this.roleMapper = roleMapper;
+        this.localUserMapper = localUserMapper;
+    }
+
     @Override
     public Message<?> handle(ReqLoginMsg message) {
-        // todo
-        CommonProto.Role role1 = CommonProto.Role.newBuilder()
-                .setRid(12345)
-                .setRoleName("张三")
-                .setLevel(33)
-                .setCareer("法师").build();
-        CommonProto.Role role2 = CommonProto.Role.newBuilder()
-                .setRid(3333)
-                .setRoleName("李四")
-                .setLevel(55)
-                .setCareer("战士").build();
-        CommonProto.LoginRes loginRes = CommonProto.LoginRes.newBuilder()
-                .setUid(IdUtil.getSnowflakeNextId())
-                .addRole(role1)
-                .addRole(role2)
-                .build();
-        ResLoginMsg resLoginMsg = new ResLoginMsg(() -> loginRes);
-        return resLoginMsg;
+        CommonProto.LoginReq data = message.getData();
+        String username = data.getUsername();
+        User user = localUserMapper.getUser(username);
+        if (user == null) {
+            // todo
+            throw new RuntimeException();
+        }
+        Long uid = user.getId();
+        List<Role> roleList = roleMapper.getRoleList(uid);
+
+        CommonProto.LoginRes.Builder resDataBuilder = CommonProto.LoginRes.newBuilder()
+                .setUid(IdUtil.getSnowflakeNextId());
+        if (roleList != null) {
+            for (Role role : roleList) {
+                resDataBuilder.addRole(CommonProto.Role.newBuilder()
+                        .setRid(role.getId())
+                        .setRoleName(role.getName())
+                        .setLevel(role.getLevel())
+                        .setCareer(role.getCareer() + "")
+                        .build());
+            }
+        }
+        return new ResLoginMsg(resDataBuilder::build);
     }
 }
