@@ -8,6 +8,6 @@ export default interface AccountInfo {
     uid: number,
     roleItems: Array<RoleItemVO>,
     role: RoleItemVO | null,
-    serverTime: number,
+    serverTime: string,
     position: PositionVO
 }

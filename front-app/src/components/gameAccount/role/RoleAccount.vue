@@ -2,25 +2,29 @@
 import TimePicker from "@/components/time/TimePicker.vue";
 import type AccountInfo from "@/interface/AccountInfo";
 import {useAccountStore} from "@/store/account";
+import {ref} from "vue";
 
 const accountInfo: AccountInfo = useAccountStore();
+// 服务器传回来的time是string（fastjson为了避免long值精度丢失做了处理）
+const serverTimeNum = ref(parseInt(accountInfo.serverTime));
 
 setInterval(() => {
-  accountInfo.serverTime = new Date(accountInfo.serverTime + 1000).getTime()
+  serverTimeNum.value = new Date(serverTimeNum.value + 1000).getTime()
 }, 1000)
 
 function setTime(time: number) {
+  console.log(time)
 }
 </script>
 
 <template>
   <div class="title">
     <span class="server-time">
-      <TimePicker :server-time="accountInfo.serverTime" :set-time="setTime"/>
+      <TimePicker :server-time="serverTimeNum" :set-time="setTime"/>
     </span>
     <span class="position-span">
       {{ accountInfo.position.mapName }}
-      {{ accountInfo.position.line }}
+      {{ accountInfo.position.line }}线
       {{ accountInfo.position.xy.x }}:{{ accountInfo.position.xy.y }}</span>
     <span class="delay-span">100ms</span>
     <button class="btn">切换</button>
