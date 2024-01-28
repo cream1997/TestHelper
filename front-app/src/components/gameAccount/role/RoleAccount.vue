@@ -72,7 +72,7 @@ onUnmounted(() => {
 .delay-span {
   padding: 0 1px;
   display: inline-block;
-  width: 55px
+  width: 45px
 }
 
 .mapName-span {
@@ -91,7 +91,8 @@ onUnmounted(() => {
 }
 
 .delay-span {
+  text-align: right;
   color: #5eda5e;
-  padding: 0 1px;
+  padding-right: 10px
 }
 </style>
