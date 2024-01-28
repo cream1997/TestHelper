@@ -37,22 +37,27 @@ function heartBeat() {
 onMounted(() => {
   heartInterval && clearInterval(heartInterval);
 })
+
+function clearConsole() {
+  msgList.splice(0, msgList.length)
+}
+
 </script>
 
 <template>
   <p class="title">
     <span class="title-text">消息控制台</span>
-    <span class="num-display">999+</span>
+    <span class="num-display">{{ msgList.length }}</span>
     <button class="setup-btn">设置</button>
-    <button class="clear-btn">清空</button>
+    <button class="clear-btn" @click="clearConsole">清空</button>
   </p>
   <div class="middle">
     <ol class="msg-list-class">
       <li v-for="msg in msgList" :key="msg.no" @click="lookData(msg)">
-        <span>{{ msg.type == 1 ? "请求" : "响应" }}</span>
-        <span>{{ msg.msgName }}</span>
-        <span>{{ msg.msgId }}</span>
-        <span>{{ msg.type == 1 ? msg.sendTime : msg.receiveTime }}</span>
+        <span class="msgType-span">{{ msg.type == 1 ? "请求" : "响应" }}</span>
+        <span class="msgName-span">{{ msg.msgName }}</span>
+        <span class="msgId-span">{{ msg.msgId }}</span>
+        <span class="msgTime-span">{{ msg.type == 1 ? msg.sendTime : msg.receiveTime }}</span>
       </li>
     </ol>
   </div>
@@ -77,8 +82,10 @@ onMounted(() => {
 }
 
 .msg-list-class {
+  height: 100%;
   padding: 0;
   margin: 0;
+  overflow: auto;
 }
 
 .title-text {
