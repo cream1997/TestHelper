@@ -25,7 +25,6 @@ const interval = setInterval(() => {
 }, 1000);
 
 function setTime(time: number) {
-  console.log(time)
 }
 
 onUnmounted(() => {

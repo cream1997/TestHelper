@@ -16,18 +16,15 @@ function lookData(msg: MsgVO) {
 let heartInterval: number;
 watch(() => accountInfo.role, (newVal, oldValue) => {
   if (!oldValue && newVal) {
-    console.log("变化1")
     heartInterval = setInterval(() => {
       heartBeat()
     }, 1000);
   } else if (newVal && !oldValue) {
-    console.log("变化2")
     heartInterval && clearInterval(heartInterval);
   }
 })
 
 function heartBeat() {
-  console.log(accountInfo.uid)
   post("/heartBeat", accountInfo.uid)
       .then((msgVOS: Array<MsgVO>) => {
         msgList.push(...msgVOS)

@@ -1,7 +1,7 @@
 <script setup lang="ts" name="CreateRole">
 import type AccountInfo from "@/interface/AccountInfo";
 import {useAccountStore} from "@/store/account";
-import {reactive, toRefs} from "vue";
+import {reactive} from "vue";
 import {Tip} from "@/tools/CommonTools";
 import UserState from "@/interface/UserState";
 import {post} from "@/axios/axios";
@@ -26,8 +26,6 @@ function createRole() {
     Tip.error("请选择职业")
     return
   }
-
-  console.log(toRefs(createRoleVO))
 
   post("/createRole", createRoleVO)
       .then((createRole: RoleItemVO) => {
