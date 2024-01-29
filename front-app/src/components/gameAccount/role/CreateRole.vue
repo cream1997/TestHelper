@@ -5,7 +5,7 @@ import {reactive, toRefs} from "vue";
 import {Tip} from "@/tools/CommonTools";
 import UserState from "@/interface/UserState";
 import {post} from "@/axios/axios";
-import type RoleItemVO from "@/interface/vo/RoleItemVO";
+import type RoleItemVO from "@/interface/vo/role/RoleItemVO";
 
 const accountInfo: AccountInfo = useAccountStore();
 const accountId = accountInfo.accountId;

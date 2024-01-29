@@ -1,4 +1,4 @@
-import type RoleItemVO from "@/interface/vo/RoleItemVO";
+import type RoleItemVO from "@/interface/vo/role/RoleItemVO";
 import type UserState from "@/interface/UserState";
 import type PositionVO from "@/interface/vo/PositionVO";
 

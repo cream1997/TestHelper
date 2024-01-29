@@ -1,4 +1,4 @@
-import type RoleItemVO from "@/interface/vo/RoleItemVO";
+import type RoleItemVO from "@/interface/vo/role/RoleItemVO";
 
 export default interface LoginUserInfoVO {
     uid: number,

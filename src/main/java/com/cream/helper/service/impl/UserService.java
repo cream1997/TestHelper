@@ -11,9 +11,10 @@ import com.cream.helper.core.net.msg.res.ResLoginMsg;
 import com.cream.helper.core.net.proto.clazz.CommonProto;
 import com.cream.helper.mapper.LocalUserMapper;
 import com.cream.helper.obj.Ret;
-import com.cream.helper.obj.domain.vo.LoginUserInfoVO;
-import com.cream.helper.obj.domain.vo.RoleItemVO;
-import com.cream.helper.obj.domain.vo.UserVO;
+import com.cream.helper.obj.domain.vo.ServerVO;
+import com.cream.helper.obj.domain.vo.role.RoleItemVO;
+import com.cream.helper.obj.domain.vo.user.LoginUserInfoVO;
+import com.cream.helper.obj.domain.vo.user.UserVO;
 import com.cream.helper.obj.entity.account.User;
 import com.cream.helper.service.IGameLoginService;
 import com.cream.helper.utils.NullUtil;
@@ -33,18 +34,18 @@ public class UserService {
 
     private final IGameLoginService gameLoginService;
 
-    private final GameNetSetup gameNetSetup;
+    private final GameNetSetup netSetup;
 
     private final UserSessionManager userSessionManager;
 
     @Autowired
     public UserService(LocalUserMapper localUserMapper,
                        IGameLoginService gameLoginService,
-                       GameNetSetup gameNetSetup,
+                       GameNetSetup netSetup,
                        UserSessionManager userSessionManager) {
         this.localUserMapper = localUserMapper;
         this.gameLoginService = gameLoginService;
-        this.gameNetSetup = gameNetSetup;
+        this.netSetup = netSetup;
         this.userSessionManager = userSessionManager;
     }
 
@@ -79,8 +80,10 @@ public class UserService {
     }
 
 
-    public Ret<LoginUserInfoVO> login(long accountId, String username, String password) {
+    public Ret<LoginUserInfoVO> login(UserVO userVO, ServerVO serverVO) {
         // todo check accountId
+        String username = userVO.getUsername();
+        String password = userVO.getPassword();
         NullUtil.checkNull(username, password);
         String gameLoginToken;
         try {
@@ -89,10 +92,10 @@ public class UserService {
             throw new RuntimeException(e);
         }
         // 校验与本地数据的一致性
-        verifyLocal(accountId, username, password);
+        verifyLocal(userVO.getAccountId(), username, password);
         GameClient gameClient;
         try {
-            gameClient = new GameClient(gameNetSetup);
+            gameClient = new GameClient(netSetup, serverVO);
         } catch (CommonError e) {
             return Ret.err(e.getMessage());
         }

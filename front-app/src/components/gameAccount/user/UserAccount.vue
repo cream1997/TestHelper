@@ -5,16 +5,16 @@ import {useAccountStore} from "@/store/account";
 import {checkAccountNotNull} from "@/tools/CheckFormUtil";
 import Cookies from "js-cookie";
 import router from "@/router";
-import type Server from "@/interface/Server";
+import type ServerVO from "@/interface/ServerVO";
 import {MsgBox, Tip} from "@/tools/CommonTools";
-import type UserVO from "@/interface/vo/UserVO";
-import type LoginUserInfoVO from "@/interface/vo/LoginUserInfoVO";
+import type UserVO from "@/interface/vo/user/UserVO";
+import type LoginUserInfoVO from "@/interface/vo/user/LoginUserInfoVO";
 import UserState from "@/interface/UserState";
 
 const accountStore = useAccountStore();
 const accountId = accountStore.accountId;
-const allServer = reactive<Array<Server>>([])
-const selectedServer = ref<Server>();
+const allServer = reactive<Array<ServerVO>>([])
+const selectedServer = ref<ServerVO>();
 const userAccounts = reactive<Array<UserVO>>([])
 
 
@@ -39,14 +39,29 @@ function registerUser() {
   })
 }
 
+function getServerVO(): ServerVO {
+  if (!selectedServer.value) {
+    throw new Error("未选择服务器");
+  }
+  return {
+    name: selectedServer.value.name,
+    ip: selectedServer.value.ip,
+    port: selectedServer.value.port,
+    sid: selectedServer.value.sid
+  }
+}
+
 function loginUser() {
   const userVO = getUserVO();
-  post("/loginUser", userVO)
-      .then((loginUserInfo: LoginUserInfoVO) => {
-        accountStore.uid = loginUserInfo.uid;
-        accountStore.roleItems.push(...loginUserInfo.roleItems)
-        accountStore.userState = UserState.SelectRole
-      })
+  const serverVO = getServerVO();
+  post("/loginUser", {
+        userVO, serverVO
+      }
+  ).then((loginUserInfo: LoginUserInfoVO) => {
+    accountStore.uid = loginUserInfo.uid;
+    accountStore.roleItems.push(...loginUserInfo.roleItems)
+    accountStore.userState = UserState.SelectRole
+  })
 }
 
 function logoutAccount() {
@@ -56,7 +71,7 @@ function logoutAccount() {
 
 function fetchServerList() {
   post("/fetchServerList")
-      .then((serverList: Array<Server>) => {
+      .then((serverList: Array<ServerVO>) => {
         allServer.push(...serverList);
         defaultSelectServer();
       })

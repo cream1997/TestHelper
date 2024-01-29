@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 import type AccountInfo from "@/interface/AccountInfo";
-import type RoleItemVO from "@/interface/vo/RoleItemVO";
+import type RoleItemVO from "@/interface/vo/role/RoleItemVO";
 import UserState from "@/interface/UserState";
 
 export const useAccountStore = defineStore("account", {

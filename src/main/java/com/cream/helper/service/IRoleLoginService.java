@@ -3,8 +3,8 @@ package com.cream.helper.service;
 import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.domain.bo.Role;
 import com.cream.helper.obj.domain.bo.RoleHeartInfo;
-import com.cream.helper.obj.domain.vo.RoleEnterVO;
-import com.cream.helper.obj.domain.vo.RoleItemVO;
+import com.cream.helper.obj.domain.vo.role.RoleEnterVO;
+import com.cream.helper.obj.domain.vo.role.RoleItemVO;
 
 public interface IRoleLoginService {
     Ret<RoleItemVO> createRole(RoleItemVO roleItemVO);

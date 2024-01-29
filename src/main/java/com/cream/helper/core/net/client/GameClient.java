@@ -4,6 +4,7 @@ import com.cream.helper.config.configuration.exception.CommonError;
 import com.cream.helper.core.net.common.GameNetSetup;
 import com.cream.helper.core.net.common.MsgPool;
 import com.cream.helper.core.net.msg.base.Message;
+import com.cream.helper.obj.domain.vo.ServerVO;
 import com.cream.helper.utils.Times;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -30,8 +31,8 @@ public class GameClient {
 
     public static final AttributeKey<GameClient> ClientRefKey = AttributeKey.valueOf("clientRefKey");
 
-    public GameClient(GameNetSetup setup) throws CommonError {
-        this.channel = this.start(setup);
+    public GameClient(GameNetSetup setup, ServerVO serverVO) throws CommonError {
+        this.channel = this.start(setup, serverVO);
     }
 
     public void sendMsg(Message<?> msg) {
@@ -63,7 +64,7 @@ public class GameClient {
         msgPool.addResMsg(msg);
     }
 
-    private Channel start(GameNetSetup setup) throws CommonError {
+    private Channel start(GameNetSetup setup, ServerVO serverVO) throws CommonError {
         NioEventLoopGroup worker = new NioEventLoopGroup(Threads);
         Channel channel = null;
         try {
@@ -80,7 +81,7 @@ public class GameClient {
                                     .addLast(setup.getGlobalMsgHandler());
                         }
                     })
-                    .connect(setup.getGamePlatform().ip, setup.getGamePlatform().port)
+                    .connect(serverVO.getIp(), serverVO.getPort())
                     .sync()
                     .channel();
             channel.attr(ClientRefKey).set(this);

@@ -1,4 +1,4 @@
-package com.cream.helper.obj.domain.vo;
+package com.cream.helper.obj.domain.vo.account;
 
 import lombok.Data;
 

@@ -1,5 +1,6 @@
-package com.cream.helper.obj.domain.vo;
+package com.cream.helper.obj.domain.vo.user;
 
+import com.cream.helper.obj.domain.vo.role.RoleItemVO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

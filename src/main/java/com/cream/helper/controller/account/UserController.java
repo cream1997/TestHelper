@@ -1,9 +1,10 @@
 package com.cream.helper.controller.account;
 
 import com.cream.helper.obj.Ret;
-import com.cream.helper.obj.domain.vo.LoginUserInfoVO;
 import com.cream.helper.obj.domain.vo.ServerVO;
-import com.cream.helper.obj.domain.vo.UserVO;
+import com.cream.helper.obj.domain.vo.user.LoginUserInfoVO;
+import com.cream.helper.obj.domain.vo.user.LoginUserVO;
+import com.cream.helper.obj.domain.vo.user.UserVO;
 import com.cream.helper.service.IGameLoginService;
 import com.cream.helper.service.impl.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,8 +35,10 @@ public class UserController {
 
 
     @PostMapping("/loginUser")
-    public Ret<LoginUserInfoVO> loginUser(@RequestBody UserVO userVO) {
-        return userService.login(userVO.getAccountId(), userVO.getUsername(), userVO.getPassword());
+    public Ret<LoginUserInfoVO> loginUser(@RequestBody LoginUserVO loginUserVO) {
+        UserVO userVO = loginUserVO.getUserVO();
+        ServerVO serverVO = loginUserVO.getServerVO();
+        return userService.login(userVO, serverVO);
     }
 
     @PostMapping("/userLogout")

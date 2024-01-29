@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type AccountInfo from "@/interface/AccountInfo";
 import {useAccountStore} from "@/store/account";
-import type RoleItemVO from "@/interface/vo/RoleItemVO";
+import type RoleItemVO from "@/interface/vo/role/RoleItemVO";
 import {MsgBox, Tip} from "@/tools/CommonTools";
 import type {Action} from "element-plus";
 import {post} from "@/axios/axios";
 import UserState from "@/interface/UserState";
-import type RoleEnterVO from "@/interface/vo/RoleEnterVO";
+import type RoleEnterVO from "@/interface/vo/role/RoleEnterVO";
 
 const accountInfo: AccountInfo = useAccountStore();
 let roleItems = accountInfo.roleItems;

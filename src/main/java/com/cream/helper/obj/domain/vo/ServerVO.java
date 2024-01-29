@@ -10,4 +10,5 @@ public class ServerVO {
     private final String name;
     private final String ip;
     private final int port;
+    private final int sid;
 }

@@ -21,6 +21,10 @@ public class NullUtil {
         return CollectionUtils.isEmpty(collection);
     }
 
+    public static boolean isNotEmpty(Collection<?> collection) {
+        return !isEmpty(collection);
+    }
+
     public static boolean isAnyEmpty(Collection<?>... collections) {
         if (ArrayUtils.isEmpty(collections)) {
             return true;

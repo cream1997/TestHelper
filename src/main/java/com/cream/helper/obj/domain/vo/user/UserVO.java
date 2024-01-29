@@ -1,4 +1,4 @@
-package com.cream.helper.obj.domain.vo;
+package com.cream.helper.obj.domain.vo.user;
 
 
 import com.cream.helper.obj.entity.account.User;
