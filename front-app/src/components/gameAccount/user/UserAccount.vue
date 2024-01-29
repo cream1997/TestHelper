@@ -81,6 +81,10 @@ function fetchUserAccounts() {
   post("/fetchUserAccounts", accountId)
       .then((res: Array<UserVO>) => {
         userAccounts.push(...res);
+        if (userAccounts.length > 0) {
+          username.value = userAccounts[0].username;
+          password.value = userAccounts[0].password;
+        }
       })
 }
 
@@ -152,7 +156,7 @@ function removeAccount() {
       <button class="logout-account-button" @click="logoutAccount">退出</button>
     </h4>
     <label for="name" class="username-label">
-      <input type="text" id="name" name="name" v-model="username" @change="selectAccount($event)" placeholder="用户名"
+      <input type="text" id="name" name="name" v-model="username" @input="selectAccount($event)" placeholder="用户名"
              autocomplete="off"
              list="user-list"/>
       <button v-if="matchAccount" @click="removeAccount" class="remove-account-btn">删除</button>
