@@ -16,7 +16,7 @@ const accountId = accountStore.accountId;
 const allServer = reactive<Array<ServerVO>>([])
 const selectedServer = ref<ServerVO>();
 const userAccounts = reactive<Array<UserVO>>([])
-
+const defaultServer = ref("");
 
 let username = ref<string>("")
 let password = ref<string>("")
@@ -73,7 +73,23 @@ function fetchServerList() {
   post("/fetchServerList")
       .then((serverList: Array<ServerVO>) => {
         allServer.push(...serverList);
-        defaultSelectServer();
+        selectDefaultServer();
+      })
+}
+
+function selectDefaultServer() {
+  post("/getDefaultServer", accountId)
+      .then((res: string) => {
+        defaultServer.value = res;
+        if (res) {
+          allServer.forEach(server => {
+            if (server.name === defaultServer.value) {
+              selectedServer.value = server
+            }
+          })
+        } else {
+          selectedServer.value = allServer[0];
+        }
       })
 }
 
@@ -97,13 +113,6 @@ onMounted(() => {
   fetchUserAccounts();
 })
 
-function defaultSelectServer() {
-  allServer.forEach(server => {
-    if (server.name.includes("研发服")) {
-      selectedServer.value = server;
-    }
-  })
-}
 
 const matchAccount = ref(false);
 
@@ -146,6 +155,15 @@ function removeAccount() {
       })
 }
 
+function setDefaultServer(serverName: string) {
+  post("/setDefaultServer", {
+    accountId,
+    defaultServer: serverName
+  }).then(() => {
+    Tip.success("设置成功")
+  })
+}
+
 
 </script>
 
@@ -169,12 +187,19 @@ function removeAccount() {
       <input type="password" id="password" name="password" v-model="password" placeholder="密码"/>
     </label>
     <div class="server-selector">
-      服务器：
       <select class="server-selector-option" v-model="selectedServer">
         <option v-for="(server,index) in allServer" :value="server" :key="index">
           {{ server.name }}
         </option>
       </select>
+      <el-radio-group id="default-server-btn" v-model="defaultServer" class="ml-4">
+        <el-radio v-for="(server,index) in allServer" :key="index"
+                  v-show="(server.name==selectedServer?.name)"
+                  :label="server.name" size="small" @change="setDefaultServer">
+          默认
+        </el-radio>
+      </el-radio-group>
+
     </div>
     <div class="button-box">
       <button class="user-button" @click="loginUser">登录</button>
@@ -234,6 +259,10 @@ input {
 
 .remove-account-btn:active {
   background-color: rgba(224, 112, 112, 0.4);
+}
+
+#default-server-btn {
+  margin-left: 4px;
 }
 
 </style>

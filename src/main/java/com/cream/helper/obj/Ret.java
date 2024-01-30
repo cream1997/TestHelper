@@ -15,6 +15,10 @@ public class Ret<T> {
         this.info = info;
     }
 
+    public static <T> Ret<T> ok() {
+        return new Ret<>(null, Status.SUCCESS, null);
+    }
+
     public static <T> Ret<T> ok(T data) {
         return new Ret<>(data, Status.SUCCESS, null);
     }

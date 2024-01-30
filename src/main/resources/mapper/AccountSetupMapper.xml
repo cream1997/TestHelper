@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cream.helper.mapper.AccountSetupMapper">
+    <update id="updateDefaultServer">
+        update t_account_setup
+        set default_server = #{defaultServer}
+        where account_id = #{accountId}
+    </update>
+    <select id="getDefaultMapper" resultType="java.lang.String">
+        select default_server
+        from t_account_setup
+        where account_id = #{accountId}
+    </select>
+</mapper>

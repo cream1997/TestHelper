@@ -48,3 +48,13 @@ CREATE TABLE `t_mock_role`
     PRIMARY KEY (`id`),
     UNIQUE KEY `t_mock_role_un` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- 账户设置表
+CREATE TABLE `t_account_setup`
+(
+    `account_id`     bigint   NOT NULL,
+    `default_server` varchar(10) DEFAULT NULL,
+    `create_time`    datetime NOT NULL,
+    `update_time`    datetime NOT NULL,
+    PRIMARY KEY (`account_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
