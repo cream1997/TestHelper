@@ -73,8 +73,10 @@ function getMsgShowTime(msgVo: MsgVO) {
     <ol class="msg-list-class">
       <li class="msg-class" v-for="msg in msgList" :key="msg.no" @click="lookData(msg)">
         <span class="msgType-span" :style="computeMsgTypeColor(msg.type)">{{ msg.type == 1 ? "请求" : "响应" }}</span>
-        <span class="msgName-span">{{ msg.msgName }}</span>
-        <span class="msgId-span">{{ msg.msgId }}</span>
+        <span class="msgName-span">
+          {{ msg.msgName }}<span class="msgId-span">{{ msg.msgId }}</span>
+        </span>
+
         <span class="msgTime-span">{{ getMsgShowTime(msg).toLocaleTimeString() }}</span>
       </li>
     </ol>
@@ -110,7 +112,7 @@ function getMsgShowTime(msgVo: MsgVO) {
   height: 20px;
   padding: 5px 0;
   border-bottom: 1px solid rgba(173, 161, 161, 0.24);
-  cursor: pointer;
+  cursor: text;
 }
 
 .msg-class:hover {
@@ -143,25 +145,40 @@ function getMsgShowTime(msgVo: MsgVO) {
   cursor: pointer;
 }
 
+.msgType-span, .msgName-span, .msgId-span, .msgTime-span {
+  display: inline-block;
+}
+
+
 .msgType-span {
+  width: 27px;
   font-size: small;
   font-weight: bold;
   padding: 0 2px;
 }
 
 .msgName-span {
+  width: 336px;
   padding: 0 4px;
 }
 
 .msgId-span {
+  margin-left: 4px;
   font-size: small;
 }
 
 .msgId-span:before {
-  content: '(';
+  content: '( ';
+  font-size: smaller;
 }
 
 .msgId-span:after {
-  content: ')';
+  content: ' )';
+  font-size: smaller;
+}
+
+.msgTime-span {
+  text-align: right;
+  font-size: small;
 }
 </style>
