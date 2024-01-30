@@ -1,13 +1,13 @@
 <script setup lang="ts" name="MsgDisplay">
 import {useAccountStore} from "@/store/account";
 import type AccountInfo from "@/interface/AccountInfo";
-import {onMounted, reactive, watch} from "vue";
+import {onMounted, reactive, ref, watch} from "vue";
 import {post} from "@/axios/axios";
 import type MsgVO from "@/interface/vo/MsgVO";
 
 const accountInfo: AccountInfo = useAccountStore();
 const msgList = reactive<Array<MsgVO>>([])
-
+const stopReceive = ref(false);
 
 function lookData(msg: MsgVO) {
 
@@ -27,7 +27,7 @@ watch(() => accountInfo.role, (newVal, oldValue) => {
 function heartBeat() {
   post("/heartBeat", accountInfo.uid)
       .then((msgVOS: Array<MsgVO>) => {
-        msgList.push(...msgVOS)
+        stopReceive.value || msgList.push(...msgVOS)
       })
 }
 
@@ -66,6 +66,7 @@ function getMsgShowTime(msgVo: MsgVO) {
     <span class="title-text">消息控制台</span>
     <span class="num-display">{{ msgList.length }}</span>
     <button class="setup-btn">设置</button>
+    <button class="stop-btn" @click="stopReceive=!stopReceive">{{ stopReceive ? "恢复" : "暂停" }}</button>
     <button class="clear-btn" @click="clearConsole">清空</button>
   </p>
   <div class="middle">
@@ -106,11 +107,22 @@ function getMsgShowTime(msgVo: MsgVO) {
 }
 
 .msg-class {
-  height: 5%;
+  height: 20px;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(173, 161, 161, 0.24);
+  cursor: pointer;
+}
+
+.msg-class:hover {
+  background-color: rgba(173, 161, 161, 0.24);
+}
+
+.msg-class:active {
+  background-color: rgba(152, 140, 140, 0.47);
 }
 
 .title-text {
-  width: 320px;
+  width: 277px;
   font-size: small;
   font-weight: bold;
   display: inline-block;
@@ -126,8 +138,9 @@ function getMsgShowTime(msgVo: MsgVO) {
   display: inline-block;
 }
 
-.clear-btn, .setup-btn {
+.clear-btn, .stop-btn, .setup-btn {
   text-align: right;
+  cursor: pointer;
 }
 
 .msgType-span {
