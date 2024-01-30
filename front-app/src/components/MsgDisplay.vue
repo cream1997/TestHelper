@@ -4,10 +4,12 @@ import type AccountInfo from "@/interface/AccountInfo";
 import {onMounted, reactive, ref, watch} from "vue";
 import {post} from "@/axios/axios";
 import type MsgVO from "@/interface/vo/MsgVO";
+import {Search} from '@element-plus/icons-vue'
 
 const accountInfo: AccountInfo = useAccountStore();
 const msgList = reactive<Array<MsgVO>>([])
 const stopReceive = ref(false);
+const searchMsgName = ref("");
 
 function lookData(msg: MsgVO) {
 
@@ -63,7 +65,24 @@ function getMsgShowTime(msgVo: MsgVO) {
 
 <template>
   <p class="title">
-    <span class="title-text">消息控制台</span>
+    <span class="title-text">控制台</span>
+    <span class="search-input">
+    <el-input
+        v-model="searchMsgName"
+        placeholder="Please input"
+        class="input-with-select">
+      <template #prepend>
+        <el-select v-model="searchMsgName" placeholder="选择" style="width: 60px">
+          <el-option label="Restaurant" value="1"/>
+          <el-option label="Order No." value="2"/>
+          <el-option label="Tel" value="3"/>
+        </el-select>
+      </template>
+      <template #append>
+        <el-button id="search-btn" :icon="Search"/>
+      </template>
+    </el-input>
+  </span>
     <span class="num-display">{{ msgList.length }}</span>
     <button class="setup-btn">设置</button>
     <button class="stop-btn" @click="stopReceive=!stopReceive">{{ stopReceive ? "恢复" : "暂停" }}</button>
@@ -124,10 +143,19 @@ function getMsgShowTime(msgVo: MsgVO) {
 }
 
 .title-text {
-  width: 277px;
+  width: 42px;
   font-size: small;
   font-weight: bold;
   display: inline-block;
+}
+
+.search-input {
+  display: inline-block;
+  width: 236px;
+}
+
+.input-with-select {
+  width: 235px;
 }
 
 .num-display {
