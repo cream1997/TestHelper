@@ -100,6 +100,7 @@ function fetchUserAccounts() {
         if (userAccounts.length > 0) {
           username.value = userAccounts[0].username;
           password.value = userAccounts[0].password;
+          matchAccount.value = true;
         }
       })
 }
