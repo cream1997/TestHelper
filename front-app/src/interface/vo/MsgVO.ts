@@ -5,5 +5,6 @@ export default interface MsgVO {
     type: number,
     sendTime: string,
     receiveTime: string,
-    data: any
+    data: any,
+    visible?: boolean
 }

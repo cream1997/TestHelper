@@ -1,11 +1,10 @@
-<script setup lang="ts" name="MsgDisplay">
+<script lang="ts" name="MsgDisplay" setup>
 import {useAccountStore} from "@/store/account";
 import type AccountInfo from "@/interface/AccountInfo";
 import {onMounted, reactive, ref, watch} from "vue";
 import {post} from "@/axios/axios";
 import type MsgVO from "@/interface/vo/MsgVO";
 import {Search} from '@element-plus/icons-vue'
-import {set} from "js-cookie";
 
 const accountInfo: AccountInfo = useAccountStore();
 const msgList = reactive<Array<MsgVO>>([])
@@ -13,9 +12,6 @@ const stopReceive = ref(false);
 const searchMsgName = ref("");
 const searchMsgNameSet = reactive(new Set());
 
-function lookData(msg: MsgVO) {
-
-}
 
 let heartInterval: number;
 watch(() => accountInfo.role, (newVal, oldValue) => {
@@ -38,7 +34,6 @@ function heartBeat() {
         msgVOS.forEach(item => {
           searchMsgNameSet.add(item.msgName)
         })
-        console.log("searchCount:", searchMsgNameSet.size)
       })
 }
 
@@ -70,7 +65,7 @@ function getMsgShowTime(msgVo: MsgVO) {
   return new Date(parseInt(timeStr));
 }
 
-function showMsg(msg: MsgVO): boolean{
+function showMsg(msg: MsgVO): boolean {
   return !searchMsgName.value ||
       msg.msgName.toLowerCase().includes(searchMsgName.value.toLowerCase());
 }
@@ -83,8 +78,8 @@ function showMsg(msg: MsgVO): boolean{
     <span class="search-input">
     <el-input
         v-model="searchMsgName"
-        placeholder="Please input"
-        class="input-with-select">
+        class="input-with-select"
+        placeholder="Please input">
       <template #prepend>
         <el-select v-model="searchMsgName" placeholder="选择" style="width: 60px">
           <el-option v-for="(name,index) in searchMsgNameSet" :key="index" :label="name" :value="name"/>
@@ -99,14 +94,23 @@ function showMsg(msg: MsgVO): boolean{
   </p>
   <div class="middle">
     <ol class="msg-list-class">
-      <li class="msg-class" v-for="msg in msgList" :key="msg.no" @click="lookData(msg)" v-show="showMsg(msg)">
-        <span class="msgType-span" :style="computeMsgTypeColor(msg.type)">{{ msg.type == 1 ? "请求" : "响应" }}</span>
-        <span class="msgName-span">
+      <el-popover v-for="msg in msgList" :key="msg.no"
+                  :visible="msg.visible"
+                  placement="right" trigger="click">
+        <template #reference>
+          <li v-show="showMsg(msg)" class="msg-class" @click="msg.visible=!msg.visible">
+            <span :style="computeMsgTypeColor(msg.type)" class="msgType-span">{{
+                msg.type == 1 ? "请求" : "响应"
+              }}</span>
+            <span class="msgName-span">
           {{ msg.msgName }}<span class="msgId-span">{{ msg.msgId }}</span>
         </span>
+            <span class="msgTime-span">{{ getMsgShowTime(msg).toLocaleTimeString() }}</span>
+          </li>
+        </template>
+        <div>{{ msg.data }}</div>
+      </el-popover>
 
-        <span class="msgTime-span">{{ getMsgShowTime(msg).toLocaleTimeString() }}</span>
-      </li>
     </ol>
   </div>
   <div class="footer">回到顶部</div>
