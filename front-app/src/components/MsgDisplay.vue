@@ -5,11 +5,13 @@ import {onMounted, reactive, ref, watch} from "vue";
 import {post} from "@/axios/axios";
 import type MsgVO from "@/interface/vo/MsgVO";
 import {Search} from '@element-plus/icons-vue'
+import {set} from "js-cookie";
 
 const accountInfo: AccountInfo = useAccountStore();
 const msgList = reactive<Array<MsgVO>>([])
 const stopReceive = ref(false);
 const searchMsgName = ref("");
+const searchMsgNameSet = reactive(new Set());
 
 function lookData(msg: MsgVO) {
 
@@ -29,7 +31,14 @@ watch(() => accountInfo.role, (newVal, oldValue) => {
 function heartBeat() {
   post("/heartBeat", accountInfo.uid)
       .then((msgVOS: Array<MsgVO>) => {
-        stopReceive.value || msgList.push(...msgVOS)
+        if (stopReceive.value) {
+          return
+        }
+        msgList.push(...msgVOS)
+        msgVOS.forEach(item => {
+          searchMsgNameSet.add(item.msgName)
+        })
+        console.log("searchCount:", searchMsgNameSet.size)
       })
 }
 
@@ -61,6 +70,11 @@ function getMsgShowTime(msgVo: MsgVO) {
   return new Date(parseInt(timeStr));
 }
 
+function showMsg(msg: MsgVO): boolean{
+  return !searchMsgName.value ||
+      msg.msgName.toLowerCase().includes(searchMsgName.value.toLowerCase());
+}
+
 </script>
 
 <template>
@@ -73,13 +87,8 @@ function getMsgShowTime(msgVo: MsgVO) {
         class="input-with-select">
       <template #prepend>
         <el-select v-model="searchMsgName" placeholder="选择" style="width: 60px">
-          <el-option label="Restaurant" value="1"/>
-          <el-option label="Order No." value="2"/>
-          <el-option label="Tel" value="3"/>
+          <el-option v-for="(name,index) in searchMsgNameSet" :key="index" :label="name" :value="name"/>
         </el-select>
-      </template>
-      <template #append>
-        <el-button id="search-btn" :icon="Search"/>
       </template>
     </el-input>
   </span>
@@ -90,7 +99,7 @@ function getMsgShowTime(msgVo: MsgVO) {
   </p>
   <div class="middle">
     <ol class="msg-list-class">
-      <li class="msg-class" v-for="msg in msgList" :key="msg.no" @click="lookData(msg)">
+      <li class="msg-class" v-for="msg in msgList" :key="msg.no" @click="lookData(msg)" v-show="showMsg(msg)">
         <span class="msgType-span" :style="computeMsgTypeColor(msg.type)">{{ msg.type == 1 ? "请求" : "响应" }}</span>
         <span class="msgName-span">
           {{ msg.msgName }}<span class="msgId-span">{{ msg.msgId }}</span>
