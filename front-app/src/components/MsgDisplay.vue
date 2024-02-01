@@ -77,6 +77,14 @@ function changeMsgDataShow(msg: MsgVO) {
   }
 }
 
+function selectMsgBackColor(msg: MsgVO) {
+  if (msg == currentShowMsg.value) {
+    return {
+      backgroundColor: "rgb(225,124,124)"
+    }
+  }
+}
+
 </script>
 
 <template>
@@ -107,7 +115,9 @@ function changeMsgDataShow(msg: MsgVO) {
                   width="360px"
       >
         <template #reference>
-          <li v-show="showMsg(msg)" class="msg-class" @click="changeMsgDataShow(msg)">
+          <li v-show="showMsg(msg)" class="msg-class"
+              :style="selectMsgBackColor(msg)"
+              @click="changeMsgDataShow(msg)">
             <span :style="computeMsgTypeColor(msg.type)" class="msgType-span">{{
                 msg.type == 1 ? "请求" : "响应"
               }}</span>
