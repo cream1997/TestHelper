@@ -4,14 +4,13 @@ import type AccountInfo from "@/interface/AccountInfo";
 import {onMounted, reactive, ref, watch} from "vue";
 import {post} from "@/axios/axios";
 import type MsgVO from "@/interface/vo/MsgVO";
-import {Search} from '@element-plus/icons-vue'
 
 const accountInfo: AccountInfo = useAccountStore();
 const msgList = reactive<Array<MsgVO>>([])
 const stopReceive = ref(false);
 const searchMsgName = ref("");
 const searchMsgNameSet = reactive(new Set());
-
+const currentShowMsg = ref();
 
 let heartInterval: number;
 watch(() => accountInfo.role, (newVal, oldValue) => {
@@ -70,6 +69,14 @@ function showMsg(msg: MsgVO): boolean {
       msg.msgName.toLowerCase().includes(searchMsgName.value.toLowerCase());
 }
 
+function changeMsgDataShow(msg: MsgVO) {
+  if (currentShowMsg.value !== msg) {
+    currentShowMsg.value = msg
+  } else {
+    currentShowMsg.value = null
+  }
+}
+
 </script>
 
 <template>
@@ -95,10 +102,12 @@ function showMsg(msg: MsgVO): boolean {
   <div class="middle">
     <ol class="msg-list-class">
       <el-popover v-for="msg in msgList" :key="msg.no"
-                  :visible="msg.visible"
-                  placement="right" trigger="click">
+                  :visible="currentShowMsg==msg"
+                  placement="right" trigger="click"
+                  width="360px"
+      >
         <template #reference>
-          <li v-show="showMsg(msg)" class="msg-class" @click="msg.visible=!msg.visible">
+          <li v-show="showMsg(msg)" class="msg-class" @click="changeMsgDataShow(msg)">
             <span :style="computeMsgTypeColor(msg.type)" class="msgType-span">{{
                 msg.type == 1 ? "请求" : "响应"
               }}</span>
@@ -108,7 +117,7 @@ function showMsg(msg: MsgVO): boolean {
             <span class="msgTime-span">{{ getMsgShowTime(msg).toLocaleTimeString() }}</span>
           </li>
         </template>
-        <div>{{ msg.data }}</div>
+        <pre style="max-height: 360px; overflow: auto">{{ msg.data }}</pre>
       </el-popover>
 
     </ol>
@@ -221,5 +230,11 @@ function showMsg(msg: MsgVO): boolean {
 .msgTime-span {
   text-align: right;
   font-size: small;
+}
+
+.popover-scrollable .el-popover__wrapper .el-popover__content {
+  height: 400px; /* 设置一个固定高度或最大高度 */
+  overflow: auto;
+  -webkit-overflow-scrolling: touch; /* 使滚动更顺畅，尤其是在移动设备上 */
 }
 </style>
