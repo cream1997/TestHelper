@@ -1,26 +1,31 @@
 <script setup lang="ts">
 import GMTool from "@/components/commonReq/sub/GMTool.vue";
 import RequestEditor from "@/components/commonReq/sub/RequestEditor.vue";
+import {ref} from "vue";
+
+const showGMTool = ref(false);
 </script>
 
 <template>
-  <div class="gm-tool">
+  <p class="title">
+    {{ showGMTool ? "GM工具" : "请求编辑器" }}
+    <button @click="showGMTool = !showGMTool" class="trigger-btn">切换</button>
+  </p>
+  <div class="gm-tool" v-if="showGMTool">
     <GMTool/>
   </div>
-  <div class="request-editor">
+  <div class="request-editor" v-if="!showGMTool">
     <RequestEditor/>
   </div>
 </template>
 
 <style scoped>
-.gm-tool {
+.gm-tool, .request-editor {
   width: 400px;
-  height: 30%;
-  border-bottom: 1px solid black;
+  height: 100%;
 }
 
-.request-editor {
-  width: 400px;
-  height: 70%;
+.trigger-btn {
+  text-align: right;
 }
 </style>
