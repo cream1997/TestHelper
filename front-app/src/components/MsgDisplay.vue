@@ -1,7 +1,7 @@
 <script lang="ts" name="MsgDisplay" setup>
 import {useAccountStore} from "@/store/account";
 import type AccountInfo from "@/interface/AccountInfo";
-import {onMounted, reactive, ref, watch} from "vue";
+import {nextTick, onMounted, reactive, ref, watch} from "vue";
 import {post} from "@/axios/axios";
 import type MsgVO from "@/interface/vo/MsgVO";
 
@@ -23,15 +23,47 @@ watch(() => accountInfo.role, (newVal, oldValue) => {
   }
 })
 
+const msgListDomRef = ref(null)
+
+const responseClearThreshold = 500;
+const clearToNum = 100;
+
 function heartBeat() {
   post("/heartBeat", accountInfo.uid)
       .then((msgVOS: Array<MsgVO>) => {
         if (stopReceive.value) {
           return
         }
+        if (msgVOS.length == 0) {
+          return;
+        }
+        if (!msgListDomRef.value) {
+          return
+        }
+        const msgListDom = msgListDomRef.value as HTMLElement;
+        const originScrollTop = msgListDom.scrollTop;
+        const clientHeight = msgListDom.clientHeight;
+        const scrollIsInBottom = originScrollTop + clientHeight + 3 > msgListDom.scrollHeight;
         msgList.push(...msgVOS)
         msgVOS.forEach(item => {
           searchMsgNameSet.add(item.msgName)
+        })
+        nextTick(() => {
+          if (scrollIsInBottom) {
+            msgListDom.scrollTop = msgListDom.scrollHeight - clientHeight;
+          } else {
+            msgListDom.scrollTop = originScrollTop;
+          }
+          // 消息太多就清理 fixme 下面的逻辑不确定是否正确
+          const resNum = msgList.length
+          if (msgList.length >= responseClearThreshold) {
+            // 清理保持滚动条位置
+            const scrollBottom = msgListDom.scrollHeight - msgListDom.scrollTop - clientHeight;
+            msgList.splice(0, resNum - clearToNum);
+            nextTick(() => {
+              msgListDom.scrollTop = msgListDom.scrollHeight - clientHeight - scrollBottom;
+            })
+          }
         })
       })
 }
@@ -44,9 +76,6 @@ function clearConsole() {
   msgList.splice(0, msgList.length)
 }
 
-const reqTypeShowColor = {
-  color: "green"
-}
 const resTypeColor = {
   color: "rgba(173,173,100,0.5)"
 }
@@ -108,7 +137,7 @@ function selectMsgBackColor(msg: MsgVO) {
     <button class="clear-btn" @click="clearConsole">清空</button>
   </p>
   <div class="middle">
-    <ol class="msg-list-class">
+    <ol class="msg-list-class" ref="msgListDomRef">
       <el-popover v-for="msg in msgList" :key="msg.no"
                   :visible="currentShowMsg==msg"
                   placement="right" trigger="click"
@@ -129,7 +158,6 @@ function selectMsgBackColor(msg: MsgVO) {
         </template>
         <pre style="max-height: 360px; overflow: auto">{{ msg.data }}</pre>
       </el-popover>
-
     </ol>
   </div>
   <div class="footer">回到顶部</div>
@@ -240,11 +268,5 @@ function selectMsgBackColor(msg: MsgVO) {
 .msgTime-span {
   text-align: right;
   font-size: small;
-}
-
-.popover-scrollable .el-popover__wrapper .el-popover__content {
-  height: 400px; /* 设置一个固定高度或最大高度 */
-  overflow: auto;
-  -webkit-overflow-scrolling: touch; /* 使滚动更顺畅，尤其是在移动设备上 */
 }
 </style>
