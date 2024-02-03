@@ -28,4 +28,12 @@ const showGMTool = ref(false);
 .trigger-btn {
   text-align: right;
 }
+
+.title {
+  margin: 0;
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+}
+
 </style>

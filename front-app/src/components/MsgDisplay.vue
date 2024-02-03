@@ -25,8 +25,8 @@ watch(() => accountInfo.role, (newVal, oldValue) => {
 
 const msgListDomRef = ref(null)
 
-const responseClearThreshold = 500;
-const clearToNum = 100;
+const responseClearThreshold = 200;
+const clearToNum = 50;
 
 function heartBeat() {
   post("/heartBeat", accountInfo.uid)

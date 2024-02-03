@@ -25,6 +25,10 @@ public class MockMessageService implements IMessageService {
     private final UserSessionManager sessionManager;
 
     private final MsgTemplatePool msgTemplatePool;
+    /**
+     * 模糊搜索最大返回数量
+     */
+    private final static int FUZZY_SEARCH_COUNT = 6;
 
     @Autowired
     public MockMessageService(UserSessionManager sessionManager,
@@ -75,5 +79,10 @@ public class MockMessageService implements IMessageService {
             msgVOS.add(new MsgVO(message));
         }
         return Ret.ok(msgVOS);
+    }
+
+    @Override
+    public List<Message<?>> searchMsgTemplate(String msgNameKey) {
+        return msgTemplatePool.searchMsgTemplates(msgNameKey, FUZZY_SEARCH_COUNT);
     }
 }

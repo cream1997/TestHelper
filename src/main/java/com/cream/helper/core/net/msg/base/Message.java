@@ -87,7 +87,7 @@ public abstract class Message<T extends GeneratedMessageV3> {
             GeneratedMessageV3 protoInstance = parserForType.parseFrom(dataBytes);
             return (T) protoInstance;
         } catch (InvalidProtocolBufferException e) {
-            log.error("解析proto字节出错 {}", Util.getStackTrace(), e);
+            log.error("解析proto字节出错 {}", Util.getSimpleStackTrace(), e);
         }
         return null;
     }

@@ -29,4 +29,6 @@ public interface IMessageService {
      * 不能一个请求对应一个回来处理，采用循环主动拉取的方式获取所有响应消息，模拟长连接
      */
     Ret<List<MsgVO>> heartBeat(long rid);
+
+    List<Message<?>> searchMsgTemplate(String msgNameKey);
 }

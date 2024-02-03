@@ -1,12 +1,14 @@
 package com.cream.helper.utils;
 
 import com.cream.helper.config.configuration.exception.CommonRunError;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collection;
 
+@Slf4j
 public class NullUtil {
 
     public static boolean isBlank(String string) {
@@ -40,6 +42,14 @@ public class NullUtil {
     public static void checkNull(String name, String password) {
         if (NullUtil.isAnyBlank(name, password)) {
             throw new CommonRunError("用户名或密码不能为空");
+        }
+    }
+
+    public static void assertNoNull(Object object) {
+        if (object == null) {
+            Util.logThrowErr("参数不能为空");
+        } else if (object instanceof String && NullUtil.isBlank((String) object)) {
+            Util.logThrowErr("参数不能为空");
         }
     }
 }

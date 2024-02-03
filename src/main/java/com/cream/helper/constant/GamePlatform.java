@@ -35,7 +35,7 @@ public enum GamePlatform {
                 return gamePlatform;
             }
         }
-        log.error("未找到对应的游戏平台: {} {}", platformName, Util.getStackTrace());
+        log.error("未找到对应的游戏平台: {} {}", platformName, Util.getSimpleStackTrace());
         return null;
     }
 }

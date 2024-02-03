@@ -39,7 +39,7 @@ public class UserSessionManager {
         executorManager.runFixedDelay(() -> {
             uid2Session.values().removeIf(userSession ->
                     {
-                        if (userSession.getLastHeartTime() + 15 * Times.ONE_SECOND < Times.now()) {
+                        if (userSession.getLastHeartTime() + 10 * Times.ONE_MINUTE < Times.now()) {
                             userSession.getGameClient().close();
                             return true;
                         } else {

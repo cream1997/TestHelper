@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class MessageController {
@@ -41,6 +42,14 @@ public class MessageController {
     @PostMapping("/fetchAllReqTemplate")
     public Ret<List<Message<?>>> fetchAllReqTemplate() {
         return messageService.fetchAllReqTemplate();
+    }
+
+    @PostMapping("/searchMsgTemplate")
+    public Ret<List<MsgVO>> searchMsgTemplate(@RequestBody String msgNameKey) {
+        List<MsgVO> result = messageService.searchMsgTemplate(msgNameKey).stream()
+                .map(MsgVO::new)
+                .collect(Collectors.toList());
+        return Ret.ok(result);
     }
 
     /**
