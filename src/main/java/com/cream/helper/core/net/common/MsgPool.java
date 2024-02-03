@@ -1,6 +1,6 @@
 package com.cream.helper.core.net.common;
 
-import com.cream.helper.config.configuration.exception.CommonError;
+import com.cream.helper.config.configuration.exception.Err;
 import com.cream.helper.core.net.msg.base.Message;
 import com.cream.helper.utils.Times;
 import lombok.extern.slf4j.Slf4j;
@@ -53,11 +53,11 @@ public class MsgPool {
         return result;
     }
 
-    public <T extends Message<?>> T fetchResMsg(Class<T> msgClass, int msgSerialNum) throws CommonError {
+    public <T extends Message<?>> T fetchResMsg(Class<T> msgClass, int msgSerialNum) throws Err {
         long startTime = Times.now();
         for (; ; ) {
             if (Times.now() - startTime > TIMEOUT_MS) {
-                throw new CommonError("从队列中取出消息超时，请检查");
+                throw new Err("从队列中取出消息超时，请检查");
             }
             for (Message<?> message : resMsgQueue) {
                 if (msgClass.isInstance(message) && message.getSerialNum() > msgSerialNum) {

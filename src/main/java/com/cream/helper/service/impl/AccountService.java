@@ -1,6 +1,6 @@
 package com.cream.helper.service.impl;
 
-import com.cream.helper.config.configuration.exception.CommonRunError;
+import com.cream.helper.config.configuration.exception.RunErr;
 import com.cream.helper.mapper.AccountMapper;
 import com.cream.helper.mapper.AccountSetupMapper;
 import com.cream.helper.obj.Ret;
@@ -73,7 +73,7 @@ public class AccountService {
     public void setDefaultServer(SetDefaultServerDTO setDefaultServerDTO) {
         long accountId = setDefaultServerDTO.getAccountId();
         if (accountId == 0) {
-            throw new CommonRunError("系统异常：检测到未登录~");
+            throw new RunErr("系统异常：检测到未登录~");
         }
         AccountSetup accountSetup = accountSetupMapper.selectById(accountId);
         if (accountSetup == null) {

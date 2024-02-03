@@ -1,7 +1,7 @@
 package com.cream.helper.service.impl;
 
-import com.cream.helper.config.configuration.exception.CommonError;
-import com.cream.helper.config.configuration.exception.CommonRunError;
+import com.cream.helper.config.configuration.exception.Err;
+import com.cream.helper.config.configuration.exception.RunErr;
 import com.cream.helper.core.net.UserSessionManager;
 import com.cream.helper.core.net.bo.UserSession;
 import com.cream.helper.core.net.client.GameClient;
@@ -61,7 +61,7 @@ public class UserService {
         // 查看远端是否已注册
         try {
             gameLoginService.registerRemote(username, pwd);
-        } catch (CommonError e) {
+        } catch (Err e) {
             return Ret.err(e.getMessage());
         }
         // 本地注册
@@ -88,7 +88,7 @@ public class UserService {
         String gameLoginToken;
         try {
             gameLoginToken = gameLoginService.loginUser(username, password);
-        } catch (CommonError e) {
+        } catch (Err e) {
             throw new RuntimeException(e);
         }
         // 校验与本地数据的一致性
@@ -96,7 +96,7 @@ public class UserService {
         GameClient gameClient;
         try {
             gameClient = new GameClient(netSetup, serverVO);
-        } catch (CommonError e) {
+        } catch (Err e) {
             return Ret.err(e.getMessage());
         }
         ReqLoginMsg reqLoginMsg = new ReqLoginMsg(() ->
@@ -117,7 +117,7 @@ public class UserService {
                 roleItemVOS.add(roleItemVO);
             }
             return Ret.ok(new LoginUserInfoVO(uid, roleItemVOS));
-        } catch (CommonError e) {
+        } catch (Err e) {
             return Ret.err(e.getMessage());
         }
     }
@@ -129,7 +129,7 @@ public class UserService {
             localRegister(accountId, username, password, false);
         } else {
             if (localUser.getAccountId() != accountId) {
-                throw new CommonRunError("该账号已绑定其它账户");
+                throw new RunErr("该账号已绑定其它账户");
             }
             if (!Objects.equals(localUser.getPassword(), password)) {
                 localRegister(accountId, username, password, true);

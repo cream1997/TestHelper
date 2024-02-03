@@ -1,7 +1,7 @@
 package com.cream.helper.service.impl.mock;
 
 import com.cream.helper.annotation.MockComponent;
-import com.cream.helper.config.configuration.exception.CommonError;
+import com.cream.helper.config.configuration.exception.Err;
 import com.cream.helper.core.net.UserSessionManager;
 import com.cream.helper.core.net.bo.UserSession;
 import com.cream.helper.core.net.client.GameClient;
@@ -78,7 +78,7 @@ public class MockRoleLoginService implements IRoleLoginService {
             ResEnterRoleMsg enterRoleRes = gameClient.sendMsg(reqEnterRoleMsg, ResEnterRoleMsg.class);
             RoleEnterVO roleEnterVO = getRoleEnterVO(enterRoleRes);
             return Ret.ok(roleEnterVO);
-        } catch (CommonError e) {
+        } catch (Err e) {
             return Ret.err(e.getMessage());
         }
     }

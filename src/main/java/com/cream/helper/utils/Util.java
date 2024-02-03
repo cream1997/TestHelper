@@ -1,6 +1,6 @@
 package com.cream.helper.utils;
 
-import com.cream.helper.config.configuration.exception.CommonRunError;
+import com.cream.helper.config.configuration.exception.RunErr;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -27,7 +27,7 @@ public class Util {
 
     public static void logThrowErr(String errInfo) {
         log.error(errInfo + ":\n" + getSimpleStackTrace());
-        throw new CommonRunError("errInfo: " + getSimpleStackTrace());
+        throw new RunErr("errInfo: " + getSimpleStackTrace());
     }
 
     public static void errExit() {

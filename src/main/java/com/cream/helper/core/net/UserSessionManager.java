@@ -1,6 +1,6 @@
 package com.cream.helper.core.net;
 
-import com.cream.helper.config.configuration.exception.CommonRunError;
+import com.cream.helper.config.configuration.exception.RunErr;
 import com.cream.helper.core.ExecutorManager;
 import com.cream.helper.core.net.bo.UserSession;
 import com.cream.helper.utils.Times;
@@ -56,7 +56,7 @@ public class UserSessionManager {
             session.getGameClient().close();
             log.info("成功退出");
         } else {
-            throw new CommonRunError("退出时找不到session uid:" + uid);
+            throw new RunErr("退出时找不到session uid:" + uid);
         }
     }
 

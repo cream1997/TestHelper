@@ -1,7 +1,7 @@
 package com.cream.helper.service.impl.mock;
 
 import com.cream.helper.annotation.MockComponent;
-import com.cream.helper.config.configuration.exception.CommonError;
+import com.cream.helper.config.configuration.exception.Err;
 import com.cream.helper.constant.GamePlatform;
 import com.cream.helper.mapper.mock.MockRemoteUserMapper;
 import com.cream.helper.obj.Ret;
@@ -28,29 +28,29 @@ public class MockGameLoginService implements IGameLoginService {
     }
 
     @Override
-    public String loginUser(String username, String password) throws CommonError {
+    public String loginUser(String username, String password) throws Err {
         MockRemoteUser mockRemoteUser = mockRemoteUserMapper.getUser(username);
         if (mockRemoteUser == null) {
-            throw new CommonError("未注册");
+            throw new Err("未注册");
         } else {
             if (!password.equals(mockRemoteUser.getPassword())) {
-                throw new CommonError("密码错误");
+                throw new Err("密码错误");
             }
             return "OK";
         }
     }
 
     @Override
-    public void registerRemote(String username, String password) throws CommonError {
+    public void registerRemote(String username, String password) throws Err {
         try {
             MockRemoteUser mockRemoteUser = mockRemoteUserMapper.getUser(username);
             if (mockRemoteUser != null) {
-                throw new CommonError("用户名已注册");
+                throw new Err("用户名已注册");
             }
             mockRemoteUser = new MockRemoteUser(username, password);
             mockRemoteUserMapper.insert(mockRemoteUser);
         } catch (Exception e) {
-            throw new CommonError(e.getMessage());
+            throw new Err(e.getMessage());
         }
     }
 

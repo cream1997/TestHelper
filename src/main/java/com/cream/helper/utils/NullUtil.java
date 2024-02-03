@@ -1,6 +1,6 @@
 package com.cream.helper.utils;
 
-import com.cream.helper.config.configuration.exception.CommonRunError;
+import com.cream.helper.config.configuration.exception.RunErr;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -41,7 +41,7 @@ public class NullUtil {
 
     public static void checkNull(String name, String password) {
         if (NullUtil.isAnyBlank(name, password)) {
-            throw new CommonRunError("用户名或密码不能为空");
+            throw new RunErr("用户名或密码不能为空");
         }
     }
 

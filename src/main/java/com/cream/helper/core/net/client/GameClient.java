@@ -1,6 +1,6 @@
 package com.cream.helper.core.net.client;
 
-import com.cream.helper.config.configuration.exception.CommonError;
+import com.cream.helper.config.configuration.exception.Err;
 import com.cream.helper.core.net.common.GameNetSetup;
 import com.cream.helper.core.net.common.MsgPool;
 import com.cream.helper.core.net.msg.base.Message;
@@ -31,7 +31,7 @@ public class GameClient {
 
     public static final AttributeKey<GameClient> ClientRefKey = AttributeKey.valueOf("clientRefKey");
 
-    public GameClient(GameNetSetup setup, ServerVO serverVO) throws CommonError {
+    public GameClient(GameNetSetup setup, ServerVO serverVO) throws Err {
         this.channel = this.start(setup, serverVO);
     }
 
@@ -39,7 +39,7 @@ public class GameClient {
         channel.writeAndFlush(msg);
     }
 
-    public <T extends Message<?>> T sendMsg(Message<?> msg, Class<T> resClass) throws CommonError {
+    public <T extends Message<?>> T sendMsg(Message<?> msg, Class<T> resClass) throws Err {
         fetchLock.lock();
         int msgSerialNum = msgPool.getMsgSerialNum();
         try {
@@ -64,7 +64,7 @@ public class GameClient {
         msgPool.addResMsg(msg);
     }
 
-    private Channel start(GameNetSetup setup, ServerVO serverVO) throws CommonError {
+    private Channel start(GameNetSetup setup, ServerVO serverVO) throws Err {
         NioEventLoopGroup worker = new NioEventLoopGroup(Threads);
         Channel channel = null;
         try {
@@ -87,7 +87,7 @@ public class GameClient {
             channel.attr(ClientRefKey).set(this);
         } catch (InterruptedException e) {
             log.error("创建客户端异常", e);
-            throw new CommonError("连接服务器异常");
+            throw new Err("连接服务器异常");
         } finally {
             if (channel != null) {
                 channel.closeFuture()

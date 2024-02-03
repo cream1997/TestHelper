@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ResponseBody
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(CommonRunError.class)
-    public Ret<String> handleCommonRunErr(CommonRunError e) {
+    @ExceptionHandler(RunErr.class)
+    public Ret<String> handleCommonRunErr(RunErr e) {
         log.error("发生异常", e);
         return Ret.err(e.getMessage());
     }
 
-    @ExceptionHandler(CommonError.class)
-    public Ret<String> handleCommonErr(CommonError e) {
+    @ExceptionHandler(Err.class)
+    public Ret<String> handleCommonErr(Err e) {
         log.error("发生异常", e);
         return Ret.err(e.getMessage());
     }
