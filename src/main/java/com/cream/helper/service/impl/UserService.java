@@ -10,7 +10,6 @@ import com.cream.helper.core.net.msg.req.ReqLoginMsg;
 import com.cream.helper.core.net.msg.res.ResLoginMsg;
 import com.cream.helper.core.net.proto.clazz.CommonProto;
 import com.cream.helper.mapper.LocalUserMapper;
-import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.domain.vo.ServerVO;
 import com.cream.helper.obj.domain.vo.role.RoleItemVO;
 import com.cream.helper.obj.domain.vo.user.LoginUserInfoVO;
@@ -18,6 +17,7 @@ import com.cream.helper.obj.domain.vo.user.UserVO;
 import com.cream.helper.obj.entity.account.User;
 import com.cream.helper.service.IGameLoginService;
 import com.cream.helper.utils.NullUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class UserService {
 
@@ -52,35 +53,34 @@ public class UserService {
     /**
      * 注册账号
      */
-    public Ret<String> register(long accountId, String username, String pwd) {
+    public void register(long accountId, String username, String pwd) {
         if (accountId == 0L) {
             // fixme
-            return Ret.err("未登录测试平台");
+            throw new RunErr("未登录测试平台");
         }
         NullUtil.checkNull(username, pwd);
         // 查看远端是否已注册
         try {
             gameLoginService.registerRemote(username, pwd);
         } catch (Err e) {
-            return Ret.err(e.getMessage());
+            throw new RunErr(e);
         }
         // 本地注册
-        return localRegister(accountId, username, pwd, true);
+        localRegister(accountId, username, pwd, true);
     }
 
 
-    private Ret<String> localRegister(long accountId, String username, String pwd, boolean deleteOldData) {
+    private void localRegister(long accountId, String username, String pwd, boolean deleteOldData) {
         // 添加到本地数据库, 删除本地可能存在的不一致数据
         if (deleteOldData) {
             localUserMapper.deleteByUsername(username);
         }
         User user = new User(accountId, username, pwd);
         localUserMapper.insert(user);
-        return Ret.ok("注册成功");
     }
 
 
-    public Ret<LoginUserInfoVO> login(UserVO userVO, ServerVO serverVO) {
+    public LoginUserInfoVO login(UserVO userVO, ServerVO serverVO) {
         // todo check accountId
         String username = userVO.getUsername();
         String password = userVO.getPassword();
@@ -97,7 +97,7 @@ public class UserService {
         try {
             gameClient = new GameClient(netSetup, serverVO);
         } catch (Err e) {
-            return Ret.err(e.getMessage());
+            throw new RunErr(e);
         }
         ReqLoginMsg reqLoginMsg = new ReqLoginMsg(() ->
                 CommonProto.LoginReq.newBuilder()
@@ -116,9 +116,9 @@ public class UserService {
                 RoleItemVO roleItemVO = new RoleItemVO(uid, role.getRid(), role.getRoleName(), role.getLevel(), role.getCareer());
                 roleItemVOS.add(roleItemVO);
             }
-            return Ret.ok(new LoginUserInfoVO(uid, roleItemVOS));
+            return new LoginUserInfoVO(uid, roleItemVOS);
         } catch (Err e) {
-            return Ret.err(e.getMessage());
+            throw new RunErr(e);
         }
     }
 
@@ -137,24 +137,23 @@ public class UserService {
         }
     }
 
-    public Ret<String> logout(long uid) {
+    public void logout(long uid) {
         userSessionManager.removeSession(uid);
-        return Ret.ok("退出User");
+        log.info("用户{}退出", uid);
     }
 
 
-    public Ret<List<UserVO>> fetchUserAccounts(long accountId) {
+    public List<UserVO> fetchUserAccounts(long accountId) {
         List<User> users = localUserMapper.getUserAccounts(accountId);
         List<UserVO> allUserVO = Collections.emptyList();
         if (users != null) {
             allUserVO = users.stream().map(UserVO::new)
                     .collect(Collectors.toList());
         }
-        return Ret.ok(allUserVO);
+        return allUserVO;
     }
 
-    public Ret<String> unBindUser(String username) {
+    public void unBindUser(String username) {
         localUserMapper.deleteByUsername(username);
-        return Ret.ok("删除成功");
     }
 }

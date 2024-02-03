@@ -4,7 +4,6 @@ import com.cream.helper.annotation.MockComponent;
 import com.cream.helper.config.configuration.exception.Err;
 import com.cream.helper.constant.GamePlatform;
 import com.cream.helper.mapper.mock.MockRemoteUserMapper;
-import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.domain.vo.ServerVO;
 import com.cream.helper.obj.entity.mock.MockRemoteUser;
 import com.cream.helper.service.IGameLoginService;
@@ -59,13 +58,12 @@ public class MockGameLoginService implements IGameLoginService {
      * 抓取可用的服务器列表
      */
     @Override
-    public Ret<List<ServerVO>> fetchServerList() {
+    public List<ServerVO> fetchServerList() {
         ServerVO dev = new ServerVO("研发服", "192.168.1.1", 6666, 1);
         ServerVO beta = new ServerVO("beta服", "192.168.2.2", 8888, 2);
         ServerVO trunk = new ServerVO("稳定服", "192.168.3.3", 6688, 3);
         ServerVO mockServer = new ServerVO("模拟服", GamePlatform.MockServer.ip, GamePlatform.MockServer.port, 1);
-        List<ServerVO> serverList = new ArrayList<>(Arrays.asList(dev, beta, trunk, mockServer));
-        return Ret.ok(serverList);
+        return new ArrayList<>(Arrays.asList(dev, beta, trunk, mockServer));
     }
 
 }

@@ -30,7 +30,8 @@ public class UserController {
 
     @PostMapping("/registerUser")
     public Ret<String> registerUser(@RequestBody UserVO userVO) {
-        return userService.register(userVO.getAccountId(), userVO.getUsername(), userVO.getPassword());
+        userService.register(userVO.getAccountId(), userVO.getUsername(), userVO.getPassword());
+        return Ret.ok("注册成功");
     }
 
 
@@ -38,18 +39,18 @@ public class UserController {
     public Ret<LoginUserInfoVO> loginUser(@RequestBody LoginUserVO loginUserVO) {
         UserVO userVO = loginUserVO.getUserVO();
         ServerVO serverVO = loginUserVO.getServerVO();
-        return userService.login(userVO, serverVO);
+        return Ret.ok(userService.login(userVO, serverVO));
     }
 
     @PostMapping("/userLogout")
-    public Ret<String> userLogout(@RequestBody long uid) {
-        return userService.logout(uid);
+    public void userLogout(@RequestBody long uid) {
+        userService.logout(uid);
     }
 
 
     @PostMapping("/fetchUserAccounts")
     public Ret<List<UserVO>> fetchUserAccounts(@RequestBody long accountId) {
-        return userService.fetchUserAccounts(accountId);
+        return Ret.ok(userService.fetchUserAccounts(accountId));
     }
 
     /**
@@ -57,11 +58,12 @@ public class UserController {
      */
     @PostMapping("/fetchServerList")
     public Ret<List<ServerVO>> fetchServerList() {
-        return gameLoginService.fetchServerList();
+        return Ret.ok(gameLoginService.fetchServerList());
     }
 
     @PostMapping("/unBindUser")
     public Ret<String> unBindUser(@RequestBody String username) {
-        return userService.unBindUser(username);
+        userService.unBindUser(username);
+        return Ret.ok("删除成功");
     }
 }

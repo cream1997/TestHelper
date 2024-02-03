@@ -26,7 +26,7 @@ public class RoleController {
         if (roleItemVO.getUid() == 0) {
             return Ret.err("请先登录");
         }
-        return roleLoginService.createRole(roleItemVO);
+        return Ret.ok(roleLoginService.createRole(roleItemVO));
     }
 
     @PostMapping("/deleteRole")
@@ -34,7 +34,8 @@ public class RoleController {
         if (roleItemVO.getUid() == 0) {
             return Ret.err("请先登录");
         }
-        return roleLoginService.deleteRole(roleItemVO);
+        RoleItemVO roleItemVORet = roleLoginService.deleteRole(roleItemVO);
+        return Ret.ok(roleItemVORet);
     }
 
     @PostMapping("/enterRole")
@@ -42,7 +43,8 @@ public class RoleController {
         if (roleItem.getUid() == 0) {
             return Ret.err("请先登录");
         }
-        return roleLoginService.enterRole(roleItem);
+        RoleEnterVO roleEnterVO = roleLoginService.enterRole(roleItem);
+        return Ret.ok(roleEnterVO);
     }
 
     @PostMapping("/exitRole")
@@ -50,7 +52,8 @@ public class RoleController {
         if (role.getUserId() == 0) {
             return Ret.err("请先登录");
         }
-        return roleLoginService.exitRole(role);
+        Role roleRet = roleLoginService.exitRole(role);
+        return Ret.ok(roleRet);
     }
 
     @PostMapping("/roleHeart")
@@ -58,6 +61,7 @@ public class RoleController {
         if (role.getUserId() == 0) {
             throw new RuntimeException("心跳异常");
         }
-        return roleLoginService.heart(role);
+        RoleHeartInfo heartInfo = roleLoginService.heart(role);
+        return Ret.ok(heartInfo);
     }
 }

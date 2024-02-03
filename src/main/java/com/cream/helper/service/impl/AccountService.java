@@ -3,7 +3,6 @@ package com.cream.helper.service.impl;
 import com.cream.helper.config.configuration.exception.RunErr;
 import com.cream.helper.mapper.AccountMapper;
 import com.cream.helper.mapper.AccountSetupMapper;
-import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.domain.dto.account.SetDefaultServerDTO;
 import com.cream.helper.obj.domain.vo.account.AccountVO;
 import com.cream.helper.obj.entity.account.Account;
@@ -32,38 +31,35 @@ public class AccountService {
         this.jwtTool = jwtTool;
     }
 
-    public Ret<String> register(String username, String password) {
+    public void register(String username, String password) {
         NullUtil.checkNull(username, password);
         Account account = accountMapper.getAccount(username);
         if (account != null) {
-            return Ret.err(null, "账号已被注册");
+            throw new RunErr("账号已被注册");
         }
         accountMapper.insert(new Account(username, password));
-        return Ret.ok("注册成功");
     }
 
-    public Ret<AccountVO> login(String username, String password) {
+    public AccountVO login(String username, String password) {
         NullUtil.checkNull(username, password);
         Account account = accountMapper.getAccount(username);
         if (account == null) {
-            return Ret.err("账号不存在");
+            throw new RunErr("账号不存在");
         }
         if (!password.equals(account.getPassword())) {
-            return Ret.err("密码错误");
+            throw new RunErr("密码错误");
         } else {
             // 生成token
             String token = jwtTool.createToken(account.getId(), account.getAccountName());
-            AccountVO accountVO = new AccountVO(account.getId(), account.getAccountName(), account.getPassword(), token);
-            return Ret.ok(accountVO);
+            return new AccountVO(account.getId(), account.getAccountName(), account.getPassword(), token);
         }
     }
 
-    public Ret<Object> logout(String username) {
-        return null;
+    public void logout(String username) {
     }
 
-    public Ret<Boolean> checkToken(String token) {
-        return Ret.ok(jwtTool.tokenInvalid(token));
+    public boolean checkToken(String token) {
+        return jwtTool.tokenInvalid(token);
     }
 
     public String getDefaultServer(long accountId) {

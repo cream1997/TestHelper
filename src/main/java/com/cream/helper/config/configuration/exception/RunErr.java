@@ -8,4 +8,8 @@ public class RunErr extends RuntimeException {
     public RunErr(String message) {
         super(message);
     }
+
+    public RunErr(Err err) {
+        super(err);
+    }
 }

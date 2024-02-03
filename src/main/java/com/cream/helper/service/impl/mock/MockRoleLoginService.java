@@ -2,6 +2,7 @@ package com.cream.helper.service.impl.mock;
 
 import com.cream.helper.annotation.MockComponent;
 import com.cream.helper.config.configuration.exception.Err;
+import com.cream.helper.config.configuration.exception.RunErr;
 import com.cream.helper.core.net.UserSessionManager;
 import com.cream.helper.core.net.bo.UserSession;
 import com.cream.helper.core.net.client.GameClient;
@@ -10,7 +11,6 @@ import com.cream.helper.core.net.msg.req.ReqEnterRoleMsg;
 import com.cream.helper.core.net.msg.res.ResEnterRoleMsg;
 import com.cream.helper.core.net.proto.clazz.CommonProto;
 import com.cream.helper.mapper.mock.MockRoleMapper;
-import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.domain.bo.Role;
 import com.cream.helper.obj.domain.bo.RoleHeartInfo;
 import com.cream.helper.obj.domain.vo.role.RoleEnterVO;
@@ -39,34 +39,33 @@ public class MockRoleLoginService implements IRoleLoginService {
     }
 
     @Override
-    public Ret<RoleItemVO> createRole(RoleItemVO roleItemVO) {
+    public RoleItemVO createRole(RoleItemVO roleItemVO) {
         String roleName = roleItemVO.getRoleName();
         if (mockRoleMapper.containsName(roleName)) {
-            return Ret.err("角色名称已存在");
+            throw new RunErr("角色名称已存在");
         }
         Role role = new Role(roleItemVO.getUid(), roleName, 1, 1);
         // 初始化等级
         mockRoleMapper.insert(role);
-        RoleItemVO createRole = new RoleItemVO(role.getUserId(), role.getId(), role.getName(), role.getLevel(), role.getCareer() + "");
-        return Ret.ok(createRole);
+        return new RoleItemVO(role.getUserId(), role.getId(), role.getName(), role.getLevel(), role.getCareer() + "");
     }
 
     @Override
-    public Ret<RoleItemVO> deleteRole(RoleItemVO roleItemVO) {
+    public RoleItemVO deleteRole(RoleItemVO roleItemVO) {
         int deleteNum = mockRoleMapper.deleteById(roleItemVO.getRid());
         if (deleteNum > 0) {
-            return Ret.ok(roleItemVO);
+            return roleItemVO;
         } else {
-            return Ret.err("删除失败");
+            throw new RunErr("删除失败");
         }
     }
 
     @Override
-    public Ret<RoleEnterVO> enterRole(RoleItemVO role) {
+    public RoleEnterVO enterRole(RoleItemVO role) {
         long uid = role.getUid();
         UserSession session = sessionManager.getSession(uid);
         if (session == null) {
-            return Ret.err("用户未登录");
+            throw new RunErr("用户未登录");
         }
         GameClient gameClient = session.getGameClient();
         ReqEnterRoleMsg reqEnterRoleMsg = new ReqEnterRoleMsg(() ->
@@ -76,10 +75,9 @@ public class MockRoleLoginService implements IRoleLoginService {
                         .build());
         try {
             ResEnterRoleMsg enterRoleRes = gameClient.sendMsg(reqEnterRoleMsg, ResEnterRoleMsg.class);
-            RoleEnterVO roleEnterVO = getRoleEnterVO(enterRoleRes);
-            return Ret.ok(roleEnterVO);
+            return getRoleEnterVO(enterRoleRes);
         } catch (Err e) {
-            return Ret.err(e.getMessage());
+            throw new RunErr(e.getMessage());
         }
     }
 
@@ -94,13 +92,13 @@ public class MockRoleLoginService implements IRoleLoginService {
     }
 
     @Override
-    public Ret<Role> exitRole(Role role) {
-        return Ret.ok(role);
+    public Role exitRole(Role role) {
+        return role;
     }
 
 
     @Override
-    public Ret<RoleHeartInfo> heart(Role role) {
+    public RoleHeartInfo heart(Role role) {
         return null;
     }
 }

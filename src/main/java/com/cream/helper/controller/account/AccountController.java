@@ -26,23 +26,26 @@ public class AccountController {
 
     @PostMapping("/register")
     public Ret<String> register(@RequestBody LoginDTO loginDTO) {
-        return accountService.register(loginDTO.getUsername(), loginDTO.getPassword());
+        accountService.register(loginDTO.getUsername(), loginDTO.getPassword());
+        return Ret.ok("注册成功");
     }
 
 
     @PostMapping("/login")
     public Ret<AccountVO> login(@RequestBody LoginDTO loginDTO) {
-        return accountService.login(loginDTO.getUsername(), loginDTO.getPassword());
+        String username = loginDTO.getUsername();
+        String password = loginDTO.getPassword();
+        return Ret.ok(accountService.login(username, password));
     }
 
     @PostMapping("/checkToken")
     public Ret<Boolean> checkToken(String token) {
-        return accountService.checkToken(token);
+        return Ret.ok(accountService.checkToken(token));
     }
 
     @PostMapping("/logout")
-    public Ret<Object> logout(String username) {
-        return accountService.logout(username);
+    public void logout(String username) {
+        accountService.logout(username);
     }
 
     @PostMapping("/getDefaultServer")

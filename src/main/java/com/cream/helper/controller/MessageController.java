@@ -23,8 +23,8 @@ public class MessageController {
     }
 
     @PostMapping("/sendRequest")
-    public Ret<String> sendRequest(long rid, MsgVO msgVO) {
-        return messageService.sendRequest(rid, msgVO);
+    public void sendRequest(long rid, MsgVO msgVO) {
+        messageService.sendRequest(rid, msgVO);
     }
 
 
@@ -33,7 +33,8 @@ public class MessageController {
      */
     @PostMapping("/heartBeat")
     public Ret<List<MsgVO>> heartBeat(@RequestBody long uid) {
-        return messageService.heartBeat(uid);
+        List<MsgVO> msgList = messageService.heartBeat(uid);
+        return Ret.ok(msgList);
     }
 
     /**
@@ -41,7 +42,8 @@ public class MessageController {
      */
     @PostMapping("/fetchAllReqTemplate")
     public Ret<List<Message<?>>> fetchAllReqTemplate() {
-        return messageService.fetchAllReqTemplate();
+        List<Message<?>> listRet = messageService.fetchAllReqTemplate();
+        return Ret.ok(listRet);
     }
 
     @PostMapping("/searchMsgTemplate")
@@ -57,6 +59,7 @@ public class MessageController {
      */
     @PostMapping("/fetchAllResTemplate")
     public Ret<List<Message<?>>> fetchAllResTemplate() {
-        return messageService.fetchAllResTemplate();
+        List<Message<?>> result = messageService.fetchAllResTemplate();
+        return Ret.ok(result);
     }
 }
