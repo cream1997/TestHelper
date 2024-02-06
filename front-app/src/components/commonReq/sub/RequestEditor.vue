@@ -2,9 +2,11 @@
 import {ref} from "vue";
 import {post} from "@/axios/axios";
 import type MsgVO from "@/interface/vo/MsgVO";
+import JsonEditorVue from 'json-editor-vue'
 
-let value = ref()
+let rawMsg = ref()
 let msgTemplateOptions = ref<Array<MsgVO>>([]);
+const copyMsg = ref();
 
 function searchMsgTemplate(msgNameKey: string) {
   post("/searchMsgTemplate", msgNameKey)
@@ -13,13 +15,16 @@ function searchMsgTemplate(msgNameKey: string) {
       })
 }
 
+function selectMsg() {
+  copyMsg.value = JSON.parse(JSON.stringify(rawMsg.value));
+}
 </script>
 
 <template>
   <div class="fast-menu-div">快捷菜单</div>
   <div class="req-editor-div">
     <el-select
-        v-model="value"
+        v-model="rawMsg"
         filterable
         remote
         reserve-keyword
@@ -27,6 +32,7 @@ function searchMsgTemplate(msgNameKey: string) {
         :remote-method="searchMsgTemplate"
         style="width: 240px; margin-left: 2px;"
         size="default"
+        @change="selectMsg"
     >
       <el-option
           v-for="item in msgTemplateOptions"
@@ -37,6 +43,7 @@ function searchMsgTemplate(msgNameKey: string) {
     </el-select>
     <button>发送</button>
     <button>标记</button>
+    <JsonEditorVue v-model="copyMsg"/>
   </div>
 </template>
 
