@@ -48,6 +48,11 @@ function selectMsg() {
 </template>
 
 <style scoped>
+.fast-menu-div {
+  height: 100px;
+  background-color: #9488d3;
+}
+
 .send-btn, .tag-btn {
   width: 56px;
   height: 28px;
@@ -58,6 +63,8 @@ function selectMsg() {
 }
 
 .json-editor-cls {
+  height: 435px;
   width: calc(100% - 2px);
+  overflow: scroll;
 }
 </style>

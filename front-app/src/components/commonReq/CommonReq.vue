@@ -11,10 +11,10 @@ const showGMTool = ref(false);
     {{ showGMTool ? "GM工具" : "请求编辑器" }}
     <button @click="showGMTool = !showGMTool" class="trigger-btn">切换</button>
   </p>
-  <div class="gm-tool" v-if="showGMTool">
+  <div class="gm-tool" v-show="showGMTool">
     <GMTool/>
   </div>
-  <div class="request-editor" v-if="!showGMTool">
+  <div class="request-editor" v-show="!showGMTool">
     <RequestEditor/>
   </div>
 </template>
