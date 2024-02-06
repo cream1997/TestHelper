@@ -2,13 +2,12 @@ package com.cream.helper.core.net.common.codec;
 
 import com.cream.helper.core.net.common.MsgTemplatePool;
 import com.cream.helper.core.net.msg.base.Message;
-import com.cream.helper.utils.MsgReflectUtil;
+import com.cream.helper.utils.MsgClassUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.List;
 
 public class MsgDecoder extends ByteToMessageDecoder {
@@ -37,10 +36,8 @@ public class MsgDecoder extends ByteToMessageDecoder {
     }
 
     private Message<?> buildMsgWithData(Class<? extends Message<?>> msgClass, byte[] bytes) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        Message<?> message = MsgReflectUtil.newMsgInstance(msgClass);
-        Method setDataMethod = message.getClass().getSuperclass().getDeclaredMethod("setData", byte[].class);
-        setDataMethod.setAccessible(true);
-        setDataMethod.invoke(message, bytes);
+        Message<?> message = MsgClassUtil.newMsgInstance(msgClass);
+        message.setDataFromBytes(bytes);
         return message;
     }
 }

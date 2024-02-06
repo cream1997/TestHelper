@@ -6,8 +6,9 @@ import com.cream.helper.core.net.common.constant.MsgType;
 import com.cream.helper.core.net.msg.base.Message;
 import com.cream.helper.core.net.msg.base.MessageWithoutData;
 import com.cream.helper.utils.ClassUtil;
-import com.cream.helper.utils.MsgReflectUtil;
+import com.cream.helper.utils.MsgClassUtil;
 import com.cream.helper.utils.Util;
+import com.google.protobuf.GeneratedMessageV3;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,10 +36,10 @@ public class ProjectBeanConfigurer {
     private void registerMsgTemplate() {
         List<Class<? extends Message>> allMsgClass = ClassUtil.findClasses(AppConst.MOCK_MSG_PKG, Message.class);
         for (Class<? extends Message> msgClass : allMsgClass) {
-            Message<?> message = MsgReflectUtil.newMsgInstance((Class<? extends Message<?>>) msgClass);
+            Message<?> message = MsgClassUtil.newMsgInstance((Class<? extends Message<?>>) msgClass);
             if (msgClass != MessageWithoutData.class) {
-                // todo 消息体赋默认值
-
+                // 消息体赋默认值, 目的是让json能解析出格式
+                setDefaultMsgData(message);
             }
             MsgType msgType = message.getMsgMeta().msgType;
             if (msgType == MsgType.Req) {
@@ -46,6 +47,15 @@ public class ProjectBeanConfigurer {
             } else if (msgType == MsgType.Res) {
                 allResMTemplate.add(message);
             }
+        }
+    }
+
+    private void setDefaultMsgData(Message<?> message) {
+        Class<?> dataClass = message.getDataClass();
+        if (GeneratedMessageV3.class.isAssignableFrom(dataClass)) {
+            Class<GeneratedMessageV3> protoClass = (Class<GeneratedMessageV3>) dataClass;
+            GeneratedMessageV3 dataInstance = MsgClassUtil.getDataInstance(protoClass);
+            message.setDataFromGV3(dataInstance);
         }
     }
 

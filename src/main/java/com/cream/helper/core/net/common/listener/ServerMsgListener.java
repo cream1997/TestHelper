@@ -8,7 +8,7 @@ import com.cream.helper.core.net.msg.base.Message;
 import com.cream.helper.core.net.msg.res.ResEnterRoleMsg;
 import com.cream.helper.core.net.msg.res.ResMockMsgOneMsg;
 import com.cream.helper.core.net.proto.clazz.CommonProto;
-import com.cream.helper.utils.MsgReflectUtil;
+import com.cream.helper.utils.MsgClassUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.AllArgsConstructor;
@@ -91,7 +91,7 @@ public class ServerMsgListener extends MsgListener {
         Map<String, MsgHandler> allMsgHandler = appContext.getBeansOfType(MsgHandler.class);
         for (MsgHandler msgHandler : allMsgHandler.values()) {
             try {
-                int msgId = MsgReflectUtil.getMsgId(msgHandler);
+                int msgId = MsgClassUtil.getMsgId(msgHandler);
                 allServerMsgHandler.put(msgId, msgHandler);
             } catch (Exception e) {
                 log.error("注册处理器发生异常", e);

@@ -12,7 +12,6 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.util.function.Supplier;
 
 @Slf4j
@@ -23,7 +22,7 @@ public abstract class Message<T extends GeneratedMessageV3> {
     /**
      * 消息体（内容）
      */
-    private final T data;
+    private T data;
 
     private final long sendTime = Times.now();
     @Setter
@@ -37,14 +36,13 @@ public abstract class Message<T extends GeneratedMessageV3> {
     }
 
 
-    /**
-     * 留给解码器反射使用
-     */
-    private void setData(byte[] data) {
+    public void setDataFromGV3(GeneratedMessageV3 protoObj) {
+        this.data = getDataClass().cast(protoObj);
+    }
+
+    public void setDataFromBytes(byte[] data) {
         try {
-            Field dataField = this.getClass().getSuperclass().getDeclaredField("data");
-            dataField.setAccessible(true);
-            dataField.set(this, parseData(data));
+            this.data = parseData(data);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
