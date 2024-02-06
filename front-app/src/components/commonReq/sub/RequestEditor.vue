@@ -2,7 +2,7 @@
 import {ref} from "vue";
 import {post} from "@/axios/axios";
 import type MsgVO from "@/interface/vo/MsgVO";
-import JsonEditorVue from 'json-editor-vue'
+import JsonEditor from 'json-editor-vue'
 
 let rawMsg = ref()
 let msgTemplateOptions = ref<Array<MsgVO>>([]);
@@ -30,7 +30,7 @@ function selectMsg() {
         reserve-keyword
         placeholder="请输入请求消息名称"
         :remote-method="searchMsgTemplate"
-        style="width: 240px; margin-left: 2px;"
+        style="width: 280px; margin-left: 2px;"
         size="default"
         @change="selectMsg"
     >
@@ -41,12 +41,23 @@ function selectMsg() {
           :value="item"
       />
     </el-select>
-    <button>发送</button>
-    <button>标记</button>
-    <JsonEditorVue v-model="copyMsg"/>
+    <button class="send-btn">发送</button>
+    <button class="tag-btn">标记</button>
+    <JsonEditor v-model="copyMsg" class="json-editor-cls"/>
   </div>
 </template>
 
 <style scoped>
+.send-btn, .tag-btn {
+  width: 56px;
+  height: 28px;
+}
 
+.tag-btn {
+  margin-left: 2px;
+}
+
+.json-editor-cls {
+  width: calc(100% - 2px);
+}
 </style>
