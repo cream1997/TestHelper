@@ -3,6 +3,6 @@ import type PositionVO from "@/interface/vo/PositionVO";
 
 export default interface RoleEnterVO {
     roleItem: RoleItemVO,
-    serverTime: number,
+    serverTime: string,
     position: PositionVO
 }

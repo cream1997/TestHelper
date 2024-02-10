@@ -11,7 +11,7 @@ export const useAccountStore = defineStore("account", {
             userState: UserState.UnLoginUser,
             role: null as RoleItemVO | null,
             roleItems: [] as RoleItemVO[],
-            serverTime: 0 as number,
+            serverTime: "" as string,
             position: null as any,
         }
     },

@@ -61,9 +61,9 @@ function operateRole(roleItem: RoleItemVO) {
   <div class="title">登录/创建/删除角色</div>
   <div class="role-item-parent-box">
     <span class="role-item-box" v-for="roleItem in roleItems" :key="roleItem.rid" @click="operateRole(roleItem)">
-      <span class="role-desc">名称：{{ roleItem.roleName }}</span>
-      <span class="role-desc">职业：{{ roleItem.career }}</span>
-      <span class="role-desc">等级：{{ roleItem.level }}</span>
+      <span class="role-info role-name">{{ roleItem.roleName }}</span>
+      <span class="role-info"><small>职业</small>{{ roleItem.career }}</span>
+      <span class="role-info"><small>等级</small>{{ roleItem.level }}</span>
     </span>
     <span @click="toCreateRolePage" class="role-item-box add-role" v-if="roleItems.length<=3">+</span>
   </div>
@@ -80,7 +80,7 @@ function operateRole(roleItem: RoleItemVO) {
 .role-item-parent-box {
   height: calc(100% - 22px);
   width: 100%;
-  background-color: #51458d;
+  background-color: #b4acd9;
 }
 
 .role-item-box {
@@ -101,9 +101,17 @@ function operateRole(roleItem: RoleItemVO) {
 }
 
 
-.role-desc {
-  display: inline-block;
+.role-info {
+  display: block;
   margin: 0;
+  height: 22px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.role-name {
+  font-size: 15px;
+  font-weight: bold;
 }
 
 .add-role {

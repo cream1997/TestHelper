@@ -10,6 +10,6 @@ public class RunErr extends RuntimeException {
     }
 
     public RunErr(Err err) {
-        super(err);
+        super(err.getMessage());
     }
 }
