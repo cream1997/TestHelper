@@ -3,7 +3,7 @@ import {onMounted, onUnmounted, ref} from "vue";
 import {useRouter} from "vue-router";
 import {post} from "@/axios/axios";
 import {Tip} from "@/tools/CommonTools"
-import {useAccountStore} from "@/store/account";
+import {useAccountStore} from "@/stores/account";
 import {checkAccountNotNull} from "@/tools/CheckFormUtil";
 import type Account from "@/interface/Account";
 import Cookies from 'js-cookie'

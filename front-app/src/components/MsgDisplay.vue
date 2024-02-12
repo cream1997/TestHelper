@@ -1,5 +1,5 @@
 <script lang="ts" name="MsgDisplay" setup>
-import {useAccountStore} from "@/store/account";
+import {useAccountStore} from "@/stores/account";
 import type AccountInfo from "@/interface/AccountInfo";
 import {nextTick, onMounted, reactive, ref, watch} from "vue";
 import {post} from "@/axios/axios";

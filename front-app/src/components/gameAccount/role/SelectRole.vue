@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type AccountInfo from "@/interface/AccountInfo";
-import {useAccountStore} from "@/store/account";
+import {useAccountStore} from "@/stores/account";
 import type RoleItemVO from "@/interface/vo/role/RoleItemVO";
 import {MsgBox, Tip} from "@/tools/CommonTools";
 import type {Action} from "element-plus";

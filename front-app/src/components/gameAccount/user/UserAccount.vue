@@ -1,7 +1,7 @@
 <script setup lang="ts" name="UserAccount">
 import {onMounted, reactive, ref} from "vue";
 import {post} from "@/axios/axios";
-import {useAccountStore} from "@/store/account";
+import {useAccountStore} from "@/stores/account";
 import {checkAccountNotNull} from "@/tools/CheckFormUtil";
 import Cookies from "js-cookie";
 import router from "@/router";

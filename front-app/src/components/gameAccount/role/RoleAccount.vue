@@ -1,7 +1,7 @@
 <script setup lang="ts" name="RoleAccount">
 import TimePicker from "@/components/time/TimePicker.vue";
 import type AccountInfo from "@/interface/AccountInfo";
-import {useAccountStore} from "@/store/account";
+import {useAccountStore} from "@/stores/account";
 import {onUnmounted, ref, watch} from "vue";
 
 const accountInfo: AccountInfo = useAccountStore();

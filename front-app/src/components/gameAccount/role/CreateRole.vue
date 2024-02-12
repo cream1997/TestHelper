@@ -1,6 +1,6 @@
 <script setup lang="ts" name="CreateRole">
 import type AccountInfo from "@/interface/AccountInfo";
-import {useAccountStore} from "@/store/account";
+import {useAccountStore} from "@/stores/account";
 import {reactive} from "vue";
 import {Tip} from "@/tools/CommonTools";
 import UserState from "@/interface/UserState";

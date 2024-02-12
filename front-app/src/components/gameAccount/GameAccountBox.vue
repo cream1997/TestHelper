@@ -1,5 +1,5 @@
 <script setup lang="ts" name="AccountBox">
-import {useAccountStore} from "@/store/account";
+import {useAccountStore} from "@/stores/account";
 import type AccountInfo from "@/interface/AccountInfo";
 import UserAccount from "@/components/gameAccount/user/UserAccount.vue";
 import RoleAccount from "@/components/gameAccount/role/RoleAccount.vue";
