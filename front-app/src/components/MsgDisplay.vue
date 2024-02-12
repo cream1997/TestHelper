@@ -6,16 +6,16 @@ export default {
 <script lang="ts" setup>
 import {useAccountStore} from "@/stores/account";
 import type AccountStore from "@/interface/store/AccountStore";
-import {nextTick, onMounted, reactive, ref, watch} from "vue";
+import {nextTick, onMounted, reactive, ref, shallowReactive, watch} from "vue";
 import {post} from "@/net/axios";
 import type MsgVO from "@/interface/vo/MsgVO";
 
 const accountInfo: AccountStore = useAccountStore();
-const msgList = reactive<Array<MsgVO>>([]);
+const msgList = shallowReactive<Array<MsgVO>>([]);
 const stopReceive = ref(false);
 const searchMsgName = ref("");
 const searchMsgNameSet = reactive(new Set());
-const currentShowMsg = ref();
+const currentShowMsg = ref<MsgVO | null>();
 
 let heartInterval: number;
 watch(
@@ -33,7 +33,7 @@ watch(
 
 const msgListDomRef = ref(null);
 
-const responseClearThreshold = 200;
+const responseClearThreshold = 500;
 const clearToNum = 50;
 
 function heartBeat() {
@@ -107,7 +107,7 @@ function showMsg(msg: MsgVO): boolean {
 }
 
 function changeMsgDataShow(msg: MsgVO) {
-  if (currentShowMsg.value !== msg) {
+  if (currentShowMsg.value?.no !== msg.no) {
     currentShowMsg.value = msg;
   } else {
     currentShowMsg.value = null;
@@ -152,7 +152,7 @@ function selectMsgBackColor(msg: MsgVO) {
       <el-popover
         v-for="msg in msgList"
         :key="msg.no"
-        :visible="currentShowMsg == msg"
+        :visible="currentShowMsg?.no == msg.no"
         placement="right"
         trigger="click"
         width="360px"

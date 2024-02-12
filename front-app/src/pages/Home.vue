@@ -59,42 +59,42 @@ onMounted(() => {
   height: 100vh;
   display: flex;
   flex-wrap: wrap;
-}
 
-.module {
-  background-color: rgb(230, 232, 239);
-  border: 1px solid black;
-  box-sizing: border-box;
-  padding: 1px;
-}
+  .module {
+    background-color: rgb(230, 232, 239);
+    border: 1px solid black;
+    box-sizing: border-box;
+    padding: 1px;
+  }
 
-.top-component {
-  height: 130px;
-}
+  .top-component {
+    height: 130px;
+  }
 
-.account {
-  width: 450px;
-  height: 130px;
-}
+  .account {
+    width: 450px;
+    height: 130px;
+  }
 
-.quickMenu {
-  height: 130px;
-  width: calc(100% - 450px);
-}
+  .quickMenu {
+    height: 130px;
+    width: calc(100% - 450px);
+  }
 
-.bottom-component {
-  height: calc(100vh - 130px);
-}
+  .bottom-component {
+    height: calc(100vh - 130px);
+  }
 
-.msgDisplay {
-  width: 450px;
-}
+  .msgDisplay {
+    width: 450px;
+  }
 
-.common-req-panel {
-  width: 400px;
-}
+  .common-req-panel {
+    width: 400px;
+  }
 
-.test-script-editor {
-  width: calc(100% - 850px);
+  .test-script-editor {
+    width: calc(100% - 850px);
+  }
 }
 </style>
