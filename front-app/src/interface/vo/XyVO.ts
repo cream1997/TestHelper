@@ -1,4 +1,4 @@
 export default interface XyVO {
-    x: number,
-    y: number
+  x: number;
+  y: number;
 }

@@ -1,11 +1,5 @@
-<script setup lang="ts" name="GMTool">
+<script setup lang="ts" name="GMTool"></script>
 
-</script>
+<template>GM工具</template>
 
-<template>
-  GM工具
-</template>
-
-<style scoped>
-
-</style>
+<style scoped></style>

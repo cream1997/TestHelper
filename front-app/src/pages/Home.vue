@@ -13,7 +13,7 @@ const accountInfo = useAccountStore();
 onMounted(() => {
   window.onbeforeunload = () => {
     if (!accountInfo.uid) {
-      return
+      return;
     }
     post("/userLogout", accountInfo.uid);
     accountInfo.$patch({
@@ -22,30 +22,28 @@ onMounted(() => {
       uid: 0,
       role: null,
       roleItems: []
-    })
-  }
-})
+    });
+  };
+});
 </script>
 
 <template>
   <div class="homeBox">
     <div class="account module top-component">
-      <Account/>
+      <Account />
     </div>
     <div class="quickMenu module top-component">
-      <QuickMenu/>
+      <QuickMenu />
     </div>
 
     <div class="msgDisplay module bottom-component">
-      <MsgDisplay/>
+      <MsgDisplay />
     </div>
 
     <div class="common-req-panel module bottom-component">
-      <CommonReq/>
+      <CommonReq />
     </div>
-    <div class="test-script-editor module bottom-component">
-      组合式工具
-    </div>
+    <div class="test-script-editor module bottom-component">组合式工具</div>
   </div>
 </template>
 
@@ -90,7 +88,6 @@ onMounted(() => {
 .common-req-panel {
   width: 400px;
 }
-
 
 .test-script-editor {
   width: calc(100% - 850px);

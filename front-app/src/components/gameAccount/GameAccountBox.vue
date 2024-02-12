@@ -8,16 +8,13 @@ import UserState from "@/interface/UserState";
 import CreateRole from "@/components/gameAccount/role/CreateRole.vue";
 
 const accountInfo: AccountInfo = useAccountStore();
-
 </script>
 
 <template>
-  <UserAccount v-if="accountInfo.userState===UserState.UnLoginUser"/>
-  <SelectRole v-if="accountInfo.userState===UserState.SelectRole"/>
-  <CreateRole v-if="accountInfo.userState===UserState.CreateRole"/>
-  <RoleAccount v-if="accountInfo.userState===UserState.enterRole"/>
+  <UserAccount v-if="accountInfo.userState === UserState.UnLoginUser" />
+  <SelectRole v-if="accountInfo.userState === UserState.SelectRole" />
+  <CreateRole v-if="accountInfo.userState === UserState.CreateRole" />
+  <RoleAccount v-if="accountInfo.userState === UserState.enterRole" />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

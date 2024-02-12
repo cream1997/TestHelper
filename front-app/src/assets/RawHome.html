@@ -1,34 +1,34 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>首页</title>
     <style>
-        .outer {
-            width: 1000px;
-            height: 600px;
-            background-color: #888;
-            margin: 0 auto;
-            /*将该元素变为了伸缩容器（开启了flex布局）*/
-            display: flex;
-            /*调整换行方式为换行(默认为不换行，多个伸缩项目会缩小在同一行)*/
-            flex-wrap: wrap;
-        }
+      .outer {
+        width: 1000px;
+        height: 600px;
+        background-color: #888;
+        margin: 0 auto;
+        /*将该元素变为了伸缩容器（开启了flex布局）*/
+        display: flex;
+        /*调整换行方式为换行(默认为不换行，多个伸缩项目会缩小在同一行)*/
+        flex-wrap: wrap;
+      }
 
-        .inner {
-            width: 200px;
-            height: 200px;
-            background-color: skyblue;
-            border: 1px solid black;
-            box-sizing: border-box;
-        }
+      .inner {
+        width: 200px;
+        height: 200px;
+        background-color: skyblue;
+        border: 1px solid black;
+        box-sizing: border-box;
+      }
     </style>
-</head>
-<body>
-<div class="outer">
-    <div class="inner">1</div>
-    <div class="inner">2</div>
-    <div class="inner">3</div>
-</div>
-</body>
+  </head>
+  <body>
+    <div class="outer">
+      <div class="inner">1</div>
+      <div class="inner">2</div>
+      <div class="inner">3</div>
+    </div>
+  </body>
 </html>

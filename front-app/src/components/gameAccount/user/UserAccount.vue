@@ -13,30 +13,29 @@ import UserState from "@/interface/UserState";
 
 const accountStore = useAccountStore();
 const accountId = accountStore.accountId;
-const allServer = reactive<Array<ServerVO>>([])
+const allServer = reactive<Array<ServerVO>>([]);
 const selectedServer = ref<ServerVO>();
-const userAccounts = reactive<Array<UserVO>>([])
+const userAccounts = reactive<Array<UserVO>>([]);
 const defaultServer = ref("");
 
-let username = ref<string>("")
-let password = ref<string>("")
-
+let username = ref<string>("");
+let password = ref<string>("");
 
 function getUserVO(): UserVO {
-  checkAccountNotNull(username.value, password.value)
+  checkAccountNotNull(username.value, password.value);
   return {
     accountId,
     username: username.value,
     password: username.value
-  }
+  };
 }
 
 function registerUser() {
   const userVO = getUserVO();
   post("/registerUser", userVO).then((okMsg: string) => {
-    Tip.success(okMsg)
-    userAccounts.unshift(userVO)
-  })
+    Tip.success(okMsg);
+    userAccounts.unshift(userVO);
+  });
 }
 
 function getServerVO(): ServerVO {
@@ -48,79 +47,75 @@ function getServerVO(): ServerVO {
     ip: selectedServer.value.ip,
     port: selectedServer.value.port,
     sid: selectedServer.value.sid
-  }
+  };
 }
 
 function loginUser() {
   const userVO = getUserVO();
   const serverVO = getServerVO();
   post("/loginUser", {
-        userVO, serverVO
-      }
-  ).then((loginUserInfo: LoginUserInfoVO) => {
+    userVO,
+    serverVO
+  }).then((loginUserInfo: LoginUserInfoVO) => {
     accountStore.uid = loginUserInfo.uid;
-    accountStore.roleItems.push(...loginUserInfo.roleItems)
-    accountStore.userState = UserState.SelectRole
-  })
+    accountStore.roleItems.push(...loginUserInfo.roleItems);
+    accountStore.userState = UserState.SelectRole;
+  });
 }
 
 function logoutAccount() {
-  Cookies.set("accountInfo", "")
-  router.push("/login")
+  Cookies.set("accountInfo", "");
+  router.push("/login");
 }
 
 function fetchServerList() {
-  post("/fetchServerList")
-      .then((serverList: Array<ServerVO>) => {
-        allServer.push(...serverList);
-        selectDefaultServer();
-      })
+  post("/fetchServerList").then((serverList: Array<ServerVO>) => {
+    allServer.push(...serverList);
+    selectDefaultServer();
+  });
 }
 
 function selectDefaultServer() {
-  post("/getDefaultServer", accountId)
-      .then((res: string) => {
-        defaultServer.value = res;
-        if (res) {
-          allServer.forEach(server => {
-            if (server.name === defaultServer.value) {
-              selectedServer.value = server
-            }
-          })
-        } else {
-          selectedServer.value = allServer[0];
+  post("/getDefaultServer", accountId).then((res: string) => {
+    defaultServer.value = res;
+    if (res) {
+      allServer.forEach((server) => {
+        if (server.name === defaultServer.value) {
+          selectedServer.value = server;
         }
-      })
+      });
+    } else {
+      selectedServer.value = allServer[0];
+    }
+  });
 }
 
 function fetchUserAccounts() {
-  post("/fetchUserAccounts", accountId)
-      .then((res: Array<UserVO>) => {
-        userAccounts.push(...res);
-        if (userAccounts.length > 0) {
-          username.value = userAccounts[0].username;
-          password.value = userAccounts[0].password;
-          matchAccount.value = true;
-        }
-      })
+  post("/fetchUserAccounts", accountId).then((res: Array<UserVO>) => {
+    userAccounts.push(...res);
+    if (userAccounts.length > 0) {
+      username.value = userAccounts[0].username;
+      password.value = userAccounts[0].password;
+      matchAccount.value = true;
+    }
+  });
 }
 
 onMounted(() => {
   if (accountId == 0) {
     router.push("/login");
-    return
+    return;
   }
   fetchServerList();
   fetchUserAccounts();
-})
-
+});
 
 const matchAccount = ref(false);
 
 function selectAccount(event: Event) {
-  const target = event.target as HTMLInputElement | HTMLSelectElement
+  const target = event.target as HTMLInputElement | HTMLSelectElement;
   const username = target.value;
-  const matchingUser = userAccounts.find(user => user.username === username); // 使用find以提高效率
+  const matchingUser = userAccounts.find((user) => user.username === username); // 使用find以提高效率
   if (matchingUser) {
     password.value = matchingUser.password; // 设置密码输入框的值
     matchAccount.value = true;
@@ -131,29 +126,26 @@ function selectAccount(event: Event) {
 }
 
 function removeAccount() {
-  MsgBox.confirm(
-      '确认操作？',
-      '取消关联该账号',
-      {
-        confirmButtonText: '确认',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }
-  )
-      .then(() => {
-        post("/unBindUser", username.value)
-            .then((okMsg) => {
-              Tip.success(okMsg)
-              userAccounts.splice(userAccounts.findIndex(user => user.username === username.value), 1);
-              username.value = "";
-              password.value = "";
-              matchAccount.value = false;
-            })
-
-      })
-      .catch(() => {
-        Tip.info("取消删除")
-      })
+  MsgBox.confirm("确认操作？", "取消关联该账号", {
+    confirmButtonText: "确认",
+    cancelButtonText: "取消",
+    type: "warning"
+  })
+    .then(() => {
+      post("/unBindUser", username.value).then((okMsg) => {
+        Tip.success(okMsg);
+        userAccounts.splice(
+          userAccounts.findIndex((user) => user.username === username.value),
+          1
+        );
+        username.value = "";
+        password.value = "";
+        matchAccount.value = false;
+      });
+    })
+    .catch(() => {
+      Tip.info("取消删除");
+    });
 }
 
 function setDefaultServer(serverName: string) {
@@ -161,46 +153,55 @@ function setDefaultServer(serverName: string) {
     accountId,
     defaultServer: serverName
   }).then(() => {
-    Tip.success("设置成功")
-  })
+    Tip.success("设置成功");
+  });
 }
-
-
 </script>
 
 <template>
-
   <form class="login-form" action="javascript:">
-    <h4 class="form-title">游戏账号登录
+    <h4 class="form-title">
+      游戏账号登录
       <button class="logout-account-button" @click="logoutAccount">退出</button>
     </h4>
     <label for="name" class="username-label">
-      <input type="text" id="name" name="name" v-model="username" @input="selectAccount($event)" placeholder="用户名"
-             autocomplete="off"
-             list="user-list"/>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        v-model="username"
+        @input="selectAccount($event)"
+        placeholder="用户名"
+        autocomplete="off"
+        list="user-list"
+      />
       <button v-if="matchAccount" @click="removeAccount" class="remove-account-btn">删除</button>
       <datalist id="user-list">
-        <option v-for="(user,index) in userAccounts" :value="user.username" :key="index"/>
+        <option v-for="(user, index) in userAccounts" :value="user.username" :key="index" />
       </datalist>
     </label>
 
     <label for="password" class="password-label">
-      <input type="password" id="password" name="password" v-model="password" placeholder="密码"/>
+      <input type="password" id="password" name="password" v-model="password" placeholder="密码" />
     </label>
     <div class="server-selector">
       <select class="server-selector-option" v-model="selectedServer">
-        <option v-for="(server,index) in allServer" :value="server" :key="index">
+        <option v-for="(server, index) in allServer" :value="server" :key="index">
           {{ server.name }}
         </option>
       </select>
       <el-radio-group id="default-server-btn" v-model="defaultServer" class="ml-4">
-        <el-radio v-for="(server,index) in allServer" :key="index"
-                  v-show="(server.name==selectedServer?.name)"
-                  :label="server.name" size="small" @change="setDefaultServer">
+        <el-radio
+          v-for="(server, index) in allServer"
+          :key="index"
+          v-show="server.name == selectedServer?.name"
+          :label="server.name"
+          size="small"
+          @change="setDefaultServer"
+        >
           默认
         </el-radio>
       </el-radio-group>
-
     </div>
     <div class="button-box">
       <button class="user-button" @click="loginUser">登录</button>
@@ -215,7 +216,10 @@ function setDefaultServer(serverName: string) {
   flex-wrap: wrap;
 }
 
-.form-title, .username-label, .password-label, .server-selector {
+.form-title,
+.username-label,
+.password-label,
+.server-selector {
   width: 100%;
   text-align: center;
 }
@@ -265,5 +269,4 @@ input {
 #default-server-btn {
   margin-left: 4px;
 }
-
 </style>

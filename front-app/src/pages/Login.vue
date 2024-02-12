@@ -1,13 +1,14 @@
 <script setup lang="ts" name="Login">
 import {onMounted, onUnmounted, ref} from "vue";
+
 import {useRouter} from "vue-router";
 import {post} from "@/axios/axios";
-import {Tip} from "@/tools/CommonTools"
+import {Tip} from "@/tools/CommonTools";
 import {useAccountStore} from "@/stores/account";
 import {checkAccountNotNull} from "@/tools/CheckFormUtil";
 import type Account from "@/interface/Account";
-import Cookies from 'js-cookie'
-import config from "@/config.json"
+import Cookies from "js-cookie";
+import config from "@/config.json";
 
 const router = useRouter();
 const AccountCookieKey = config.accountCookieKey;
@@ -23,24 +24,22 @@ function login() {
     Tip.success("登录成功");
     Cookies.set(AccountCookieKey, JSON.stringify(account), {
       expires: 30
-    })
+    });
     // 存入accountStore
     const accountStore = useAccountStore();
     accountStore.accountId = account.id;
-    router.push("/home")
-  })
+    router.push("/home");
+  });
 }
 
 function register() {
   checkAccountNotNull(accountName.value, password.value);
-  post("/register",
-      {
-        username: accountName.value,
-        password: password.value
-      }
-  ).then((res: any) => {
-    Tip.success(res)
-  })
+  post("/register", {
+    username: accountName.value,
+    password: password.value
+  }).then((res: any) => {
+    Tip.success(res);
+  });
 }
 
 function defaultLogin() {
@@ -50,52 +49,52 @@ function defaultLogin() {
     // 检查token合法性
     post("/checkToken", {
       token: account.token
-    }).then(tokenValid => {
+    }).then((tokenValid) => {
       if (tokenValid) {
-        accountName.value = account.accountName
-        password.value = account.password
-        login()
+        accountName.value = account.accountName;
+        password.value = account.password;
+        login();
       } else {
         Cookies.set(AccountCookieKey, "");
       }
-    })
+    });
   }
 }
 
 function setLoginPageStyle() {
   onMounted(() => {
-    document.querySelector("body")
-        ?.setAttribute("style",
-            `background: linear-gradient(to right, #65CBF7, #B3A5FC);
+    document.querySelector("body")?.setAttribute(
+      "style",
+      `background: linear-gradient(to right, #65CBF7, #B3A5FC);
                    width: 100vw;
                    height: 100vh;
-                   margin: 0;`)
-  })
+                   margin: 0;`
+    );
+  });
   onUnmounted(() => {
-    document.querySelector("body")
-        ?.removeAttribute("style")
-  })
+    document.querySelector("body")?.removeAttribute("style");
+  });
   onMounted(() => {
-    defaultLogin()
-  })
+    defaultLogin();
+  });
 }
 
 setLoginPageStyle();
 
 function forgetPassword() {
-  Tip.info("请联系管理员！")
+  Tip.info("请联系管理员！");
 }
 </script>
 
 <template>
   <div class="box">
     <div class="left">
-      <img src="../assets/flower.jpg" alt="loading">
+      <img src="../assets/flower.jpg" alt="loading" />
     </div>
     <div class="right">
       <h1>测试助手</h1>
-      <input type="text" v-model="accountName" class="inputItem" placeholder="请输入账号">
-      <input type="password" v-model="password" class="inputItem" placeholder="请输入密码">
+      <input type="text" v-model="accountName" class="inputItem" placeholder="请输入账号" />
+      <input type="password" v-model="password" class="inputItem" placeholder="请输入密码" />
       <a href="#" class="forgetPassword" @click="forgetPassword">忘记密码?</a>
       <button class="btn" @click="login">登录</button>
       <button class="btn" @click="register">注册</button>
@@ -105,7 +104,7 @@ function forgetPassword() {
 
 <style scoped>
 body {
-  background: linear-gradient(to right, #65CBF7, #B3A5FC);
+  background: linear-gradient(to right, #65cbf7, #b3a5fc);
   width: 100vw;
   height: 100vh;
   margin: 0;
@@ -114,7 +113,7 @@ body {
 .box {
   width: 60%;
   height: 450px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, .8);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
   display: flex;
   position: fixed;
   top: 50%;
@@ -152,7 +151,7 @@ h1 {
   border: none;
   background: none;
   outline: none;
-  border-bottom: 3px solid #B3A5FC;
+  border-bottom: 3px solid #b3a5fc;
   width: 100%;
   font-size: 18px;
   margin-top: 20px;
@@ -160,7 +159,7 @@ h1 {
 
 .forgetPassword {
   margin-top: 25px;
-  color: #9C3493;
+  color: #9c3493;
   text-align: right;
   display: block;
 }
@@ -170,12 +169,12 @@ h1 {
 }
 
 .forgetPassword:active {
-  color: #B3A5FC;
+  color: #b3a5fc;
 }
 
 .btn {
-  background: linear-gradient(to right, #65CBF7, #B3A5FC);
-  color: #9C3493;
+  background: linear-gradient(to right, #65cbf7, #b3a5fc);
+  color: #9c3493;
   font-weight: bold;
   border: none;
   border-radius: 30px;
@@ -188,11 +187,11 @@ h1 {
 }
 
 .btn:hover {
-  background: linear-gradient(to right, #B3A5FC, #65CBF7);
+  background: linear-gradient(to right, #b3a5fc, #65cbf7);
 }
 
 .btn:active {
-  background: linear-gradient(to right, #51458d, #65CBF7);
+  background: linear-gradient(to right, #51458d, #65cbf7);
 }
 
 @media screen and(min-width: 960px) {

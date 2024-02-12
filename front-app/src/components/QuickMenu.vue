@@ -1,12 +1,5 @@
-<script setup lang="ts" name="QuickMenu">
+<script setup lang="ts" name="QuickMenu"></script>
 
+<template>快捷菜单</template>
 
-</script>
-
-<template>
-  快捷菜单
-</template>
-
-<style scoped>
-
-</style>
+<style scoped></style>

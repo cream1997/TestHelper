@@ -12,15 +12,16 @@ const showGMTool = ref(false);
     <button @click="showGMTool = !showGMTool" class="trigger-btn">切换</button>
   </p>
   <div class="gm-tool" v-show="showGMTool">
-    <GMTool/>
+    <GMTool />
   </div>
   <div class="request-editor" v-show="!showGMTool">
-    <RequestEditor/>
+    <RequestEditor />
   </div>
 </template>
 
 <style scoped>
-.gm-tool, .request-editor {
+.gm-tool,
+.request-editor {
   width: 400px;
   height: 100%;
 }
@@ -35,5 +36,4 @@ const showGMTool = ref(false);
   display: flex;
   justify-content: space-between;
 }
-
 </style>

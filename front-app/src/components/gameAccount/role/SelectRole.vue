@@ -21,51 +21,57 @@ function toCreateRolePage() {
 }
 
 function loginRole(roleItem: RoleItemVO) {
-  post("/enterRole", roleItem)
-      .then((roleEnterVO: RoleEnterVO) => {
-        accountInfo.role = roleEnterVO.roleItem;
-        accountInfo.serverTime = roleEnterVO.serverTime;
-        accountInfo.position = roleEnterVO.position;
-        accountInfo.userState = UserState.enterRole;
-      })
+  post("/enterRole", roleItem).then((roleEnterVO: RoleEnterVO) => {
+    accountInfo.role = roleEnterVO.roleItem;
+    accountInfo.serverTime = roleEnterVO.serverTime;
+    accountInfo.position = roleEnterVO.position;
+    accountInfo.userState = UserState.enterRole;
+  });
 }
 
 function operateRole(roleItem: RoleItemVO) {
-  MsgBox.confirm(
-      '登入或删除角色？',
-      '请确认你的操作~~',
-      {
-        distinguishCancelAndClose: true,
-        confirmButtonText: '登入角色',
-        cancelButtonText: '删除角色',
+  MsgBox.confirm("登入或删除角色？", "请确认你的操作~~", {
+    distinguishCancelAndClose: true,
+    confirmButtonText: "登入角色",
+    cancelButtonText: "删除角色"
+  })
+    .then(() => {
+      Tip.success("登录角色");
+      loginRole(roleItem);
+    })
+    .catch((action: Action) => {
+      if (action == "cancel") {
+        post("deleteRole", roleItem).then((deletedRole: RoleItemVO) => {
+          roleItems.splice(roleItems.indexOf(deletedRole), 1);
+          Tip.success("删除成功");
+        });
       }
-  )
-      .then(() => {
-        Tip.success('登录角色')
-        loginRole(roleItem)
-      })
-      .catch((action: Action) => {
-        if (action == "cancel") {
-          post("deleteRole", roleItem)
-              .then((deletedRole: RoleItemVO) => {
-                roleItems.splice(roleItems.indexOf(deletedRole), 1);
-                Tip.success("删除成功")
-              })
-        }
-      })
+    });
 }
-
 </script>
 
 <template>
   <div class="title">登录/创建/删除角色</div>
   <div class="role-item-parent-box">
-    <span class="role-item-box" v-for="roleItem in roleItems" :key="roleItem.rid" @click="operateRole(roleItem)">
+    <span
+      class="role-item-box"
+      v-for="roleItem in roleItems"
+      :key="roleItem.rid"
+      @click="operateRole(roleItem)"
+    >
       <span class="role-info role-name">{{ roleItem.roleName }}</span>
-      <span class="role-info"><small>职业</small>{{ roleItem.career }}</span>
-      <span class="role-info"><small>等级</small>{{ roleItem.level }}</span>
+      <span class="role-info">
+        <small>职业</small>
+        {{ roleItem.career }}
+      </span>
+      <span class="role-info">
+        <small>等级</small>
+        {{ roleItem.level }}
+      </span>
     </span>
-    <span @click="toCreateRolePage" class="role-item-box add-role" v-if="roleItems.length<=3">+</span>
+    <span @click="toCreateRolePage" class="role-item-box add-role" v-if="roleItems.length <= 3">
+      +
+    </span>
   </div>
 </template>
 
@@ -99,7 +105,6 @@ function operateRole(roleItem: RoleItemVO) {
 .role-item-box:active {
   background-color: rgba(126, 109, 227, 0.69);
 }
-
 
 .role-info {
   display: block;
