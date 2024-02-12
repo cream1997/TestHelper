@@ -5,16 +5,15 @@ export default {
 </script>
 <script setup lang="ts">
 import {onMounted, onUnmounted, reactive} from "vue";
-
 import {useRouter} from "vue-router";
-import {post} from "@/net/axios";
-import {Tip} from "@/tools/CommonTools";
+import {Tip, Notice} from "@/tools/CommonTool";
 import {useAccountStore} from "@/stores/account";
 import type Account from "@/interface/Account";
-import Cookies from "js-cookie";
 import config from "@/config.json";
 import type LoginVO from "@/interface/vo/account/LoginVO";
-import {reqLogin, reqRegister} from "@/api/account/AccountAPI";
+import {reqLogin, reqRegister, reqCheckToken} from "@/api/account/AccountAPI";
+import {clearCookie, getCookie, setCookie} from "@/tools/CookieTool";
+import {getDayTime} from "@/tools/TimeTool";
 
 const router = useRouter();
 const AccountCookieKey = config.accountCookieKey;
@@ -26,13 +25,13 @@ const loginVO = reactive<LoginVO>({
 
 function login() {
   reqLogin(loginVO).then((account: Account) => {
-    Tip.success("登录成功");
-    Cookies.set(AccountCookieKey, JSON.stringify(account), {
-      expires: 30
+    Notice.success({
+      title: `Hi, ${getDayTime()}好~~`,
+      message: "欢迎回来"
     });
+    setCookie(AccountCookieKey, account, 30);
     // 存入accountStore
-    const accountStore = useAccountStore();
-    accountStore.accountId = account.id;
+    useAccountStore().accountId = account.id;
     router.push("/home");
   });
 }
@@ -44,19 +43,16 @@ function register() {
 }
 
 function defaultLogin() {
-  let accountCookie = Cookies.get(AccountCookieKey);
+  const accountCookie = getCookie(AccountCookieKey);
   if (accountCookie) {
     const account: Account = JSON.parse(accountCookie);
-    // 检查token合法性
-    post("/checkToken", {
-      token: account.token
-    }).then((tokenValid) => {
+    reqCheckToken(account.token).then((tokenValid) => {
       if (tokenValid) {
         loginVO.username = account.accountName;
         loginVO.password = account.password;
         login();
       } else {
-        Cookies.set(AccountCookieKey, "");
+        clearCookie(AccountCookieKey);
       }
     });
   }

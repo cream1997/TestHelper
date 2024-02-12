@@ -1,6 +1,6 @@
 import type {AxiosRequestConfig} from "axios";
 import axios from "axios";
-import {Tip} from "@/tools/CommonTools";
+import {Tip} from "@/tools/CommonTool";
 import config from "@/config.json";
 import Cookies from "js-cookie";
 import type Account from "@/interface/Account";

@@ -7,7 +7,7 @@ export default {
 import type AccountStore from "@/interface/store/AccountStore";
 import {useAccountStore} from "@/stores/account";
 import {reactive} from "vue";
-import {Tip} from "@/tools/CommonTools";
+import {Tip} from "@/tools/CommonTool";
 import UserState from "@/interface/UserState";
 import {post} from "@/net/axios";
 import type RoleItemVO from "@/interface/vo/role/RoleItemVO";

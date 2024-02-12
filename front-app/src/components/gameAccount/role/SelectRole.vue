@@ -7,7 +7,7 @@ export default {
 import type AccountStore from "@/interface/store/AccountStore";
 import {useAccountStore} from "@/stores/account";
 import type RoleItemVO from "@/interface/vo/role/RoleItemVO";
-import {MsgBox, Tip} from "@/tools/CommonTools";
+import {MsgBox, Tip} from "@/tools/CommonTool";
 import type {Action} from "element-plus";
 import {post} from "@/net/axios";
 import UserState from "@/interface/UserState";

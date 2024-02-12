@@ -7,11 +7,11 @@ export default {
 import {onMounted, reactive, ref} from "vue";
 import {post} from "@/net/axios";
 import {useAccountStore} from "@/stores/account";
-import {checkAccountNotNull} from "@/tools/CheckFormUtil";
+import {checkAccountNotNull} from "@/tools/CheckFormTool";
 import Cookies from "js-cookie";
 import router from "@/router";
 import type ServerVO from "@/interface/ServerVO";
-import {MsgBox, Tip} from "@/tools/CommonTools";
+import {MsgBox, Tip} from "@/tools/CommonTool";
 import type UserVO from "@/interface/vo/user/UserVO";
 import type LoginUserInfoVO from "@/interface/vo/user/LoginUserInfoVO";
 import UserState from "@/interface/UserState";
