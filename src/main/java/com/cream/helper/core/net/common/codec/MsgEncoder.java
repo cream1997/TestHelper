@@ -5,16 +5,23 @@ import com.google.protobuf.GeneratedMessageV3;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class MsgEncoder extends MessageToByteEncoder<Message<?>> {
     @Override
     protected void encode(ChannelHandlerContext ctx, Message<?> msg, ByteBuf out) throws Exception {
         // 写入消息id
         out.writeInt(msg.getMsgId());
+        int length = 0;
         // 写入消息体
         GeneratedMessageV3 data = msg.getData();
-        if (data != null) {
+        if (data == null) {
+            out.writeInt(length);
+        } else {
             byte[] byteArray = data.toByteArray();
+            length = byteArray.length;
+            out.writeInt(length);
             out.writeBytes(byteArray);
         }
     }

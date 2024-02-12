@@ -76,11 +76,13 @@ public class ServerMsgListener extends MsgListener {
     }
 
     private void mockRes(Channel channel) {
-        ResMockMsgOneMsg mockMsg1 = new ResMockMsgOneMsg(() -> CommonProto.MockMsgOne.newBuilder()
-                .setDesc(IdUtil.fastSimpleUUID())
-                .setDesc2((int) IdUtil.getSnowflakeNextId())
-                .build());
-        channel.writeAndFlush(mockMsg1);
+        for (int i = 0; i < 8; i++) {
+            ResMockMsgOneMsg mockMsg1 = new ResMockMsgOneMsg(() -> CommonProto.MockMsgOne.newBuilder()
+                    .setDesc(IdUtil.fastSimpleUUID())
+                    .setDesc2((int) IdUtil.getSnowflakeNextId())
+                    .build());
+            channel.writeAndFlush(mockMsg1);
+        }
     }
 
     /**
