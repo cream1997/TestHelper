@@ -1,7 +1,7 @@
 package com.cream.helper.controller.account;
 
 import com.cream.helper.obj.Ret;
-import com.cream.helper.obj.domain.dto.LoginDTO;
+import com.cream.helper.obj.domain.dto.LoginVO;
 import com.cream.helper.obj.domain.dto.account.SetDefaultServerDTO;
 import com.cream.helper.obj.domain.vo.account.AccountVO;
 import com.cream.helper.service.impl.AccountService;
@@ -25,16 +25,16 @@ public class AccountController {
 
 
     @PostMapping("/register")
-    public Ret<String> register(@RequestBody LoginDTO loginDTO) {
-        accountService.register(loginDTO.getUsername(), loginDTO.getPassword());
+    public Ret<String> register(@RequestBody LoginVO loginVO) {
+        accountService.register(loginVO.getUsername(), loginVO.getPassword());
         return Ret.ok("注册成功");
     }
 
 
     @PostMapping("/login")
-    public Ret<AccountVO> login(@RequestBody LoginDTO loginDTO) {
-        String username = loginDTO.getUsername();
-        String password = loginDTO.getPassword();
+    public Ret<AccountVO> login(@RequestBody LoginVO loginVO) {
+        String username = loginVO.getUsername();
+        String password = loginVO.getPassword();
         return Ret.ok(accountService.login(username, password));
     }
 

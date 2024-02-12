@@ -1,6 +1,7 @@
 package com.cream.helper.service.impl;
 
 import com.cream.helper.config.configuration.exception.RunErr;
+import com.cream.helper.config.configuration.exception.TipErr;
 import com.cream.helper.mapper.AccountMapper;
 import com.cream.helper.mapper.AccountSetupMapper;
 import com.cream.helper.obj.domain.dto.account.SetDefaultServerDTO;
@@ -35,7 +36,7 @@ public class AccountService {
         NullUtil.checkNull(username, password);
         Account account = accountMapper.getAccount(username);
         if (account != null) {
-            throw new RunErr("账号已被注册");
+            throw new TipErr("账号已被注册");
         }
         accountMapper.insert(new Account(username, password));
     }
