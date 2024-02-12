@@ -1,3 +1,8 @@
+<script lang="ts">
+export default {
+  name: "SelectRole"
+};
+</script>
 <script setup lang="ts">
 import type AccountInfo from "@/interface/AccountInfo";
 import {useAccountStore} from "@/stores/account";

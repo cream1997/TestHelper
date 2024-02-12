@@ -1,4 +1,9 @@
-<script setup lang="ts" name="UserAccount">
+<script lang="ts">
+export default {
+  name: "UserAccount"
+};
+</script>
+<script setup lang="ts">
 import {onMounted, reactive, ref} from "vue";
 import {post} from "@/axios/axios";
 import {useAccountStore} from "@/stores/account";

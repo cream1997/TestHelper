@@ -1,4 +1,9 @@
-<script setup lang="ts" name="RoleAccount">
+<script lang="ts">
+export default {
+  name: "RoleAccount"
+};
+</script>
+<script setup lang="ts">
 import TimePicker from "@/components/time/TimePicker.vue";
 import type AccountInfo from "@/interface/AccountInfo";
 import {useAccountStore} from "@/stores/account";

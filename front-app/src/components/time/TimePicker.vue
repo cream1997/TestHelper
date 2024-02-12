@@ -1,4 +1,9 @@
-<script setup lang="ts" name="TimePicker">
+<script lang="ts">
+export default {
+  name: "TimePicker"
+};
+</script>
+<script setup lang="ts">
 import {onMounted, ref, watch} from "vue";
 import {ONE_DAY, ONE_HOUR, ONE_MINUTE} from "@/constant/TimeConst";
 

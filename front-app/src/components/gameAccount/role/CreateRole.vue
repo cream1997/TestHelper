@@ -1,4 +1,9 @@
-<script setup lang="ts" name="CreateRole">
+<script lang="ts">
+export default {
+  name: "CreateRole"
+};
+</script>
+<script setup lang="ts">
 import type AccountInfo from "@/interface/AccountInfo";
 import {useAccountStore} from "@/stores/account";
 import {reactive} from "vue";

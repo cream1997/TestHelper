@@ -1,4 +1,9 @@
-<script setup lang="ts" name="Home">
+<script lang="ts">
+export default {
+  name: "Home"
+};
+</script>
+<script setup lang="ts">
 import Account from "@/components/gameAccount/GameAccountBox.vue";
 import QuickMenu from "@/components/QuickMenu.vue";
 import CommonReq from "@/components/commonReq/CommonReq.vue";

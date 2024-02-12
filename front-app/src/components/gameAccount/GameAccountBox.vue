@@ -1,4 +1,9 @@
-<script setup lang="ts" name="AccountBox">
+<script lang="ts">
+export default {
+  name: "AccountBox"
+};
+</script>
+<script setup lang="ts">
 import {useAccountStore} from "@/stores/account";
 import type AccountInfo from "@/interface/AccountInfo";
 import UserAccount from "@/components/gameAccount/user/UserAccount.vue";

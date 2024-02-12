@@ -1,3 +1,8 @@
+<script lang="ts">
+export default {
+  name: "CommonReq"
+};
+</script>
 <script setup lang="ts">
 import GMTool from "@/components/commonReq/sub/GMTool.vue";
 import RequestEditor from "@/components/commonReq/sub/RequestEditor.vue";

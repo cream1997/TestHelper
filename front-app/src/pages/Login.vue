@@ -1,4 +1,9 @@
-<script setup lang="ts" name="Login">
+<script lang="ts">
+export default {
+  name: "Login"
+};
+</script>
+<script setup lang="ts">
 import {onMounted, onUnmounted, ref} from "vue";
 
 import {useRouter} from "vue-router";

@@ -1,4 +1,9 @@
-<script lang="ts" name="MsgDisplay" setup>
+<script lang="ts">
+export default {
+  name: "MsgDisplay"
+};
+</script>
+<script lang="ts" setup>
 import {useAccountStore} from "@/stores/account";
 import type AccountInfo from "@/interface/AccountInfo";
 import {nextTick, onMounted, reactive, ref, watch} from "vue";

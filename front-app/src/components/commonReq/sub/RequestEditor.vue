@@ -1,4 +1,9 @@
-<script setup lang="ts" name="RequestEditor">
+<script lang="ts">
+export default {
+  name: "RequestEditor"
+};
+</script>
+<script setup lang="ts">
 import {ref} from "vue";
 import {post} from "@/axios/axios";
 import type MsgVO from "@/interface/vo/MsgVO";

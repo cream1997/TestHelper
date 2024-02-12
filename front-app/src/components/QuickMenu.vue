@@ -1,4 +1,9 @@
-<script setup lang="ts" name="QuickMenu"></script>
+<script lang="ts">
+export default {
+  name: "QuickMenu"
+};
+</script>
+<script setup lang="ts"></script>
 
 <template>快捷菜单</template>
 
