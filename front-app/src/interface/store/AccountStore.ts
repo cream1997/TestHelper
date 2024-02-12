@@ -2,7 +2,7 @@ import type RoleItemVO from "@/interface/vo/role/RoleItemVO";
 import type UserState from "@/interface/UserState";
 import type PositionVO from "@/interface/vo/PositionVO";
 
-export default interface AccountInfo {
+export default interface AccountStore {
   accountId: number;
   userState: UserState;
   uid: number;

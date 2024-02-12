@@ -4,28 +4,28 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import {onMounted, onUnmounted, ref} from "vue";
+import {onMounted, onUnmounted, reactive} from "vue";
 
 import {useRouter} from "vue-router";
-import {post} from "@/axios/axios";
+import {post} from "@/net/axios";
 import {Tip} from "@/tools/CommonTools";
 import {useAccountStore} from "@/stores/account";
-import {checkAccountNotNull} from "@/tools/CheckFormUtil";
 import type Account from "@/interface/Account";
 import Cookies from "js-cookie";
 import config from "@/config.json";
+import type LoginVO from "@/interface/vo/account/LoginVO";
+import {reqLogin, reqRegister} from "@/api/account/AccountAPI";
 
 const router = useRouter();
 const AccountCookieKey = config.accountCookieKey;
-let accountName = ref("admin");
-let password = ref("admin");
+
+const loginVO = reactive<LoginVO>({
+  username: "admin",
+  password: "admin"
+});
 
 function login() {
-  checkAccountNotNull(accountName.value, password.value);
-  post("/login", {
-    username: accountName.value,
-    password: password.value
-  }).then((account: Account) => {
+  reqLogin(loginVO).then((account: Account) => {
     Tip.success("登录成功");
     Cookies.set(AccountCookieKey, JSON.stringify(account), {
       expires: 30
@@ -38,11 +38,7 @@ function login() {
 }
 
 function register() {
-  checkAccountNotNull(accountName.value, password.value);
-  post("/register", {
-    username: accountName.value,
-    password: password.value
-  }).then((res: any) => {
+  reqRegister(loginVO).then((res: any) => {
     Tip.success(res);
   });
 }
@@ -56,8 +52,8 @@ function defaultLogin() {
       token: account.token
     }).then((tokenValid) => {
       if (tokenValid) {
-        accountName.value = account.accountName;
-        password.value = account.password;
+        loginVO.username = account.accountName;
+        loginVO.password = account.password;
         login();
       } else {
         Cookies.set(AccountCookieKey, "");
@@ -98,8 +94,13 @@ function forgetPassword() {
     </div>
     <div class="right">
       <h1>测试助手</h1>
-      <input type="text" v-model="accountName" class="inputItem" placeholder="请输入账号" />
-      <input type="password" v-model="password" class="inputItem" placeholder="请输入密码" />
+      <input type="text" v-model="loginVO.username" class="inputItem" placeholder="请输入账号" />
+      <input
+        type="password"
+        v-model="loginVO.password"
+        class="inputItem"
+        placeholder="请输入密码"
+      />
       <a href="#" class="forgetPassword" @click="forgetPassword">忘记密码?</a>
       <button class="btn" @click="login">登录</button>
       <button class="btn" @click="register">注册</button>

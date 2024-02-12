@@ -5,7 +5,7 @@ export default {
 </script>
 <script setup lang="ts">
 import {ref} from "vue";
-import {post} from "@/axios/axios";
+import {post} from "@/net/axios";
 import type MsgVO from "@/interface/vo/MsgVO";
 import JsonEditor from "json-editor-vue";
 

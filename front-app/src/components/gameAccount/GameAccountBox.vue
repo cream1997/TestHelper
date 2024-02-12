@@ -5,14 +5,14 @@ export default {
 </script>
 <script setup lang="ts">
 import {useAccountStore} from "@/stores/account";
-import type AccountInfo from "@/interface/AccountInfo";
+import type AccountStore from "@/interface/store/AccountStore";
 import UserAccount from "@/components/gameAccount/user/UserAccount.vue";
 import RoleAccount from "@/components/gameAccount/role/RoleAccount.vue";
 import SelectRole from "@/components/gameAccount/role/SelectRole.vue";
 import UserState from "@/interface/UserState";
 import CreateRole from "@/components/gameAccount/role/CreateRole.vue";
 
-const accountInfo: AccountInfo = useAccountStore();
+const accountInfo: AccountStore = useAccountStore();
 </script>
 
 <template>

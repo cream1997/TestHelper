@@ -5,7 +5,7 @@ export default {
 </script>
 <script setup lang="ts">
 import {onMounted, reactive, ref} from "vue";
-import {post} from "@/axios/axios";
+import {post} from "@/net/axios";
 import {useAccountStore} from "@/stores/account";
 import {checkAccountNotNull} from "@/tools/CheckFormUtil";
 import Cookies from "js-cookie";
@@ -15,6 +15,7 @@ import {MsgBox, Tip} from "@/tools/CommonTools";
 import type UserVO from "@/interface/vo/user/UserVO";
 import type LoginUserInfoVO from "@/interface/vo/user/LoginUserInfoVO";
 import UserState from "@/interface/UserState";
+import type LoginVO from "@/interface/vo/account/LoginVO";
 
 const accountStore = useAccountStore();
 const accountId = accountStore.accountId;
@@ -23,15 +24,17 @@ const selectedServer = ref<ServerVO>();
 const userAccounts = reactive<Array<UserVO>>([]);
 const defaultServer = ref("");
 
-let username = ref<string>("");
-let password = ref<string>("");
+const loginVO = reactive<LoginVO>({
+  username: "",
+  password: ""
+});
 
 function getUserVO(): UserVO {
-  checkAccountNotNull(username.value, password.value);
+  checkAccountNotNull(loginVO);
   return {
     accountId,
-    username: username.value,
-    password: username.value
+    username: loginVO.username,
+    password: loginVO.username
   };
 }
 
@@ -99,8 +102,8 @@ function fetchUserAccounts() {
   post("/fetchUserAccounts", accountId).then((res: Array<UserVO>) => {
     userAccounts.push(...res);
     if (userAccounts.length > 0) {
-      username.value = userAccounts[0].username;
-      password.value = userAccounts[0].password;
+      loginVO.username = userAccounts[0].username;
+      loginVO.password = userAccounts[0].password;
       matchAccount.value = true;
     }
   });
@@ -122,10 +125,10 @@ function selectAccount(event: Event) {
   const username = target.value;
   const matchingUser = userAccounts.find((user) => user.username === username); // 使用find以提高效率
   if (matchingUser) {
-    password.value = matchingUser.password; // 设置密码输入框的值
+    loginVO.password = matchingUser.password; // 设置密码输入框的值
     matchAccount.value = true;
   } else {
-    password.value = "";
+    loginVO.password = "";
     matchAccount.value = false;
   }
 }
@@ -137,14 +140,14 @@ function removeAccount() {
     type: "warning"
   })
     .then(() => {
-      post("/unBindUser", username.value).then((okMsg) => {
+      post("/unBindUser", loginVO.username).then((okMsg) => {
         Tip.success(okMsg);
         userAccounts.splice(
-          userAccounts.findIndex((user) => user.username === username.value),
+          userAccounts.findIndex((user) => user.username === loginVO.username),
           1
         );
-        username.value = "";
-        password.value = "";
+        loginVO.username = "";
+        loginVO.password = "";
         matchAccount.value = false;
       });
     })
@@ -174,7 +177,7 @@ function setDefaultServer(serverName: string) {
         type="text"
         id="name"
         name="name"
-        v-model="username"
+        v-model="loginVO.username"
         @input="selectAccount($event)"
         placeholder="用户名"
         autocomplete="off"
@@ -187,7 +190,13 @@ function setDefaultServer(serverName: string) {
     </label>
 
     <label for="password" class="password-label">
-      <input type="password" id="password" name="password" v-model="password" placeholder="密码" />
+      <input
+        type="password"
+        id="password"
+        name="password"
+        v-model="loginVO.password"
+        placeholder="密码"
+      />
     </label>
     <div class="server-selector">
       <select class="server-selector-option" v-model="selectedServer">

@@ -10,7 +10,7 @@ import CommonReq from "@/components/commonReq/CommonReq.vue";
 import MsgDisplay from "@/components/MsgDisplay.vue";
 import {useAccountStore} from "@/stores/account";
 import UserState from "@/interface/UserState";
-import {post} from "@/axios/axios";
+import {post} from "@/net/axios";
 import {onMounted} from "vue";
 
 const accountInfo = useAccountStore();
@@ -52,7 +52,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .homeBox {
   background-color: #ada8a8;
   width: 100%;

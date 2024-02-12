@@ -4,15 +4,15 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import type AccountInfo from "@/interface/AccountInfo";
+import type AccountStore from "@/interface/store/AccountStore";
 import {useAccountStore} from "@/stores/account";
 import {reactive} from "vue";
 import {Tip} from "@/tools/CommonTools";
 import UserState from "@/interface/UserState";
-import {post} from "@/axios/axios";
+import {post} from "@/net/axios";
 import type RoleItemVO from "@/interface/vo/role/RoleItemVO";
 
-const accountInfo: AccountInfo = useAccountStore();
+const accountInfo: AccountStore = useAccountStore();
 const accountId = accountInfo.accountId;
 
 const createRoleVO = reactive<RoleItemVO>({

@@ -5,12 +5,12 @@ export default {
 </script>
 <script lang="ts" setup>
 import {useAccountStore} from "@/stores/account";
-import type AccountInfo from "@/interface/AccountInfo";
+import type AccountStore from "@/interface/store/AccountStore";
 import {nextTick, onMounted, reactive, ref, watch} from "vue";
-import {post} from "@/axios/axios";
+import {post} from "@/net/axios";
 import type MsgVO from "@/interface/vo/MsgVO";
 
-const accountInfo: AccountInfo = useAccountStore();
+const accountInfo: AccountStore = useAccountStore();
 const msgList = reactive<Array<MsgVO>>([]);
 const stopReceive = ref(false);
 const searchMsgName = ref("");

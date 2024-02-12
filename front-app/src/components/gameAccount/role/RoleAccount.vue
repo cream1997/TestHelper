@@ -5,11 +5,11 @@ export default {
 </script>
 <script setup lang="ts">
 import TimePicker from "@/components/time/TimePicker.vue";
-import type AccountInfo from "@/interface/AccountInfo";
+import type AccountStore from "@/interface/store/AccountStore";
 import {useAccountStore} from "@/stores/account";
 import {onUnmounted, ref, watch} from "vue";
 
-const accountInfo: AccountInfo = useAccountStore();
+const accountInfo: AccountStore = useAccountStore();
 const delayColor = ref({
   color: "red"
 });

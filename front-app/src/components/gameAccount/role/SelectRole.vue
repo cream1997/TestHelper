@@ -4,16 +4,16 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import type AccountInfo from "@/interface/AccountInfo";
+import type AccountStore from "@/interface/store/AccountStore";
 import {useAccountStore} from "@/stores/account";
 import type RoleItemVO from "@/interface/vo/role/RoleItemVO";
 import {MsgBox, Tip} from "@/tools/CommonTools";
 import type {Action} from "element-plus";
-import {post} from "@/axios/axios";
+import {post} from "@/net/axios";
 import UserState from "@/interface/UserState";
 import type RoleEnterVO from "@/interface/vo/role/RoleEnterVO";
 
-const accountInfo: AccountInfo = useAccountStore();
+const accountInfo: AccountStore = useAccountStore();
 let roleItems = accountInfo.roleItems;
 
 function toCreateRolePage() {
