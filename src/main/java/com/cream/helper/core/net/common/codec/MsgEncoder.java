@@ -12,7 +12,11 @@ public class MsgEncoder extends MessageToByteEncoder<Message<?>> {
     @Override
     protected void encode(ChannelHandlerContext ctx, Message<?> msg, ByteBuf out) throws Exception {
         // 写入消息id
-        out.writeInt(msg.getMsgId());
+        int msgId = msg.getMsgId();
+        if (msgId == 169894448) {
+            log.error("");
+        }
+        out.writeInt(msgId);
         int length = 0;
         // 写入消息体
         GeneratedMessageV3 data = msg.getData();
