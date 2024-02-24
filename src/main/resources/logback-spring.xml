@@ -3,7 +3,7 @@
     <!--控制台日志小于等于warn级别不打印调用路径信息-->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%cyan(%d{HH:mm:ss.SSS}) %highlight(%-5level) %logger{36} %M\(\) %L - %msg%n</pattern>
+            <pattern>%cyan(%d{HH:mm:ss.SSS}) [%thread] %highlight(%-5level) %logger{36} %M\(\) %L - %msg%n</pattern>
         </encoder>
         <filter class="com.cream.helper.config.log.LevelLessThanFilter">
             <level>WARN</level>
@@ -12,7 +12,8 @@
     <!--控制台日志大于error级别的日志打印调用路径信息-->
     <appender name="STDOUT_ERROR" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%cyan(%d{HH:mm:ss.SSS}) %highlight(%-5level) %logger{36} %M\(\) %L - %msg%n %caller{10}%n</pattern>
+            <pattern>%cyan(%d{HH:mm:ss.SSS}) [%thread] %highlight(%-5level) %logger{36} %M\(\) %L - %msg%n %caller{10}%n
+            </pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ERROR</level>
@@ -28,7 +29,7 @@
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} %M\(\) %L - %msg%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>INFO</level>
@@ -43,7 +44,7 @@
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n %caller{10}%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} %M\(\) %L - %msg%n %caller{10}%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>WARN</level>
