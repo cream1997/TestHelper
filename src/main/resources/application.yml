@@ -20,9 +20,4 @@ mybatis-plus:
 
 #日志配置
 logging:
-  file:
-    name: D:\tmp\TestHelp.log
-  logback:
-    rollingpolicy:
-      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz
-      max-file-size: 10MB
+  config: classpath:logback-spring.xml
