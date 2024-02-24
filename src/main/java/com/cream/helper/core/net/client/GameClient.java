@@ -99,6 +99,7 @@ public class GameClient {
 
     public void close() {
         if (channel != null) {
+            log.debug("通道销毁调试日志");
             channel.close();
         }
     }

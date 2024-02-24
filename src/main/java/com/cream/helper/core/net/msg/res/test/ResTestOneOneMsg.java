@@ -13,7 +13,7 @@ public class ResTestOneOneMsg extends Message<TestProto.Test1> {
 
     @Override
     public MsgMeta getMsgMeta() {
-        return MsgMeta.TestMsg2;
+        return MsgMeta.TestMsg1;
     }
 
     @Override

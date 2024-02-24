@@ -62,17 +62,17 @@ public class ProjectBeanConfigurer {
     private void check(MsgType msgType) {
         Set<Integer> msgIds = new HashSet<>();
         List<Message<?>> checkList = msgType == MsgType.Req ? allReqTemplate : allResMTemplate;
-        for (Message<?> reqMsgTemplate : checkList) {
-            int msgId = reqMsgTemplate.getMsgId();
-            if (reqMsgTemplate.getType() != msgType) {
-                log.error("消息类型错误 class:{}, msgId:{}", reqMsgTemplate.getClass(), msgId);
+        for (Message<?> msgTemplate : checkList) {
+            int msgId = msgTemplate.getMsgId();
+            if (msgTemplate.getType() != msgType) {
+                log.error("消息类型错误 class:{}, msgId:{}", msgTemplate.getClass(), msgId);
                 Util.errExit();
             }
             if (msgIds.contains(msgId)) {
-                log.error("消息重复msgId:{}", msgId);
+                log.error("消息重复msgId:{}, msgName:{}", msgId, msgTemplate.getClass().getSimpleName());
                 Util.errExit();
             }
-            msgIds.add(reqMsgTemplate.getMsgId());
+            msgIds.add(msgTemplate.getMsgId());
         }
     }
 
