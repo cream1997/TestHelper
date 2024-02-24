@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+    <!--控制台日志小于等于warn级别不打印调用路径信息-->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%cyan(%d{HH:mm:ss.SSS}) %highlight(%-5level) %logger{36} %M\(\) %L - %msg%n</pattern>
         </encoder>
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>DEBUG</level>
-            <level>INFO</level>
+        <filter class="com.cream.helper.config.log.LevelLessThanFilter">
+            <level>WARN</level>
         </filter>
     </appender>
-
+    <!--控制台日志大于error级别的日志打印调用路径信息-->
     <appender name="STDOUT_ERROR" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%cyan(%d{HH:mm:ss.SSS}) %highlight(%-5level) %logger{36} %M\(\) %L - %msg%n %caller{10}%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>WARN</level>
             <level>ERROR</level>
         </filter>
     </appender>
 
+    <!--文件常规日志：打印debug级别以上所有日志-->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>D:\tmp\TestHelp.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -31,11 +31,10 @@
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>DEBUG</level>
             <level>INFO</level>
         </filter>
     </appender>
-
+    <!--文件错误特殊日志：大于warn级别的日志打印调用路径信息-->
     <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>D:\tmp\TestHelpErrStack.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -48,7 +47,6 @@
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>WARN</level>
-            <level>ERROR</level>
         </filter>
     </appender>
 
