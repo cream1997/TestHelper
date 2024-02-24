@@ -23,6 +23,16 @@ public class NullUtil {
         return CollectionUtils.isEmpty(collection);
     }
 
+    @SafeVarargs
+    public static <T> boolean isEmpty(T... e) {
+        return e == null || e.length == 0;
+    }
+
+    @SafeVarargs
+    public static <T> boolean isNotEmpty(T... e) {
+        return !isEmpty(e);
+    }
+
     public static boolean isNotEmpty(Collection<?> collection) {
         return !isEmpty(collection);
     }

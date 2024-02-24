@@ -17,6 +17,10 @@ public enum MsgMeta {
     HeartReq(5, MsgType.Req),
     HeartRes(6, MsgType.Res),
     MockMsgOne(7, MsgType.Res),
+
+    TestMsg1(99, MsgType.Res),
+    TestMsg2(100, MsgType.Res),
+    TestMsg3(101, MsgType.Res),
     ;
 
 

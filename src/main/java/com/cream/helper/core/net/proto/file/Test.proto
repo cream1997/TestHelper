@@ -1,0 +1,19 @@
+syntax = "proto3";
+option optimize_for = SPEED; // 加快解析
+option java_outer_classname = "TestProto"; // 外部类名称
+
+message Test1{
+  string msg = 1;
+  Test1Inner inner = 2;
+}
+message Test1Inner{
+  repeated string str = 1;
+}
+
+message Test2{
+  string msg = 1;
+}
+
+message Test3{
+  int32 no = 1;
+}

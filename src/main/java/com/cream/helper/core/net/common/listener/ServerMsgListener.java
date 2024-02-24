@@ -7,8 +7,13 @@ import com.cream.helper.core.net.handler.base.MsgHandler;
 import com.cream.helper.core.net.msg.base.Message;
 import com.cream.helper.core.net.msg.res.ResEnterRoleMsg;
 import com.cream.helper.core.net.msg.res.ResMockMsgOneMsg;
+import com.cream.helper.core.net.msg.res.test.ResTestOneOneMsg;
+import com.cream.helper.core.net.msg.res.test.ResTestThreeMsg;
+import com.cream.helper.core.net.msg.res.test.ResTestTwoTwoMsg;
 import com.cream.helper.core.net.proto.clazz.CommonProto;
+import com.cream.helper.core.net.proto.clazz.TestProto;
 import com.cream.helper.utils.MsgClassUtil;
+import com.cream.helper.utils.RandomUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.AllArgsConstructor;
@@ -19,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -76,13 +82,25 @@ public class ServerMsgListener extends MsgListener {
     }
 
     private void mockRes(Channel channel) {
-        for (int i = 0; i < 8; i++) {
-            ResMockMsgOneMsg mockMsg1 = new ResMockMsgOneMsg(() -> CommonProto.MockMsgOne.newBuilder()
-                    .setDesc(IdUtil.fastSimpleUUID())
-                    .setDesc2((int) IdUtil.getSnowflakeNextId())
-                    .build());
-            channel.writeAndFlush(mockMsg1);
+        for (int i = 0; i < 20; i++) {
+            Message<?> message = geneRandomMockMsg();
+            channel.writeAndFlush(message);
         }
+    }
+
+
+    private Message<?> geneRandomMockMsg() {
+        ResMockMsgOneMsg mockMsg1 = new ResMockMsgOneMsg(() -> CommonProto.MockMsgOne.newBuilder()
+                .setDesc(IdUtil.fastSimpleUUID())
+                .setDesc2((int) IdUtil.getSnowflakeNextId())
+                .build());
+        ResTestOneOneMsg testMsg1 = new ResTestOneOneMsg(() -> TestProto.Test1.newBuilder()
+                .setMsg(IdUtil.fastSimpleUUID())
+                .setInner(TestProto.Test1Inner.newBuilder().addAllStr(Arrays.asList("aa", "bb", "cc")).build())
+                .build());
+        ResTestTwoTwoMsg testMsg2 = new ResTestTwoTwoMsg(() -> TestProto.Test2.newBuilder().setMsg(IdUtil.fastSimpleUUID()).build());
+        ResTestThreeMsg testMsg3 = new ResTestThreeMsg(() -> TestProto.Test3.newBuilder().setNo((int) IdUtil.getSnowflakeNextId()).build());
+        return RandomUtil.random(mockMsg1, testMsg1, testMsg2, testMsg3);
     }
 
     /**
