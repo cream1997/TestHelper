@@ -1,6 +1,5 @@
 package com.cream.helper.controller.account;
 
-import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.domain.vo.ServerVO;
 import com.cream.helper.obj.domain.vo.user.LoginUserInfoVO;
 import com.cream.helper.obj.domain.vo.user.LoginUserVO;
@@ -29,17 +28,17 @@ public class UserController {
     }
 
     @PostMapping("/registerUser")
-    public Ret<String> registerUser(@RequestBody UserVO userVO) {
+    public String registerUser(@RequestBody UserVO userVO) {
         userService.register(userVO.getAccountId(), userVO.getUsername(), userVO.getPassword());
-        return Ret.ok("注册成功");
+        return "注册成功";
     }
 
 
     @PostMapping("/loginUser")
-    public Ret<LoginUserInfoVO> loginUser(@RequestBody LoginUserVO loginUserVO) {
+    public LoginUserInfoVO loginUser(@RequestBody LoginUserVO loginUserVO) {
         UserVO userVO = loginUserVO.getUserVO();
         ServerVO serverVO = loginUserVO.getServerVO();
-        return Ret.ok(userService.login(userVO, serverVO));
+        return userService.login(userVO, serverVO);
     }
 
     @PostMapping("/userLogout")
@@ -49,21 +48,21 @@ public class UserController {
 
 
     @PostMapping("/fetchUserAccounts")
-    public Ret<List<UserVO>> fetchUserAccounts(@RequestBody long accountId) {
-        return Ret.ok(userService.fetchUserAccounts(accountId));
+    public List<UserVO> fetchUserAccounts(@RequestBody long accountId) {
+        return userService.fetchUserAccounts(accountId);
     }
 
     /**
      * 获取服务器列表
      */
     @PostMapping("/fetchServerList")
-    public Ret<List<ServerVO>> fetchServerList() {
-        return Ret.ok(gameLoginService.fetchServerList());
+    public List<ServerVO> fetchServerList() {
+        return gameLoginService.fetchServerList();
     }
 
     @PostMapping("/unBindUser")
-    public Ret<String> unBindUser(@RequestBody String username) {
+    public String unBindUser(@RequestBody String username) {
         userService.unBindUser(username);
-        return Ret.ok("删除成功");
+        return "删除成功";
     }
 }

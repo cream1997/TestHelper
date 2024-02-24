@@ -1,6 +1,5 @@
 package com.cream.helper.controller.account;
 
-import com.cream.helper.obj.Ret;
 import com.cream.helper.obj.domain.dto.LoginVO;
 import com.cream.helper.obj.domain.dto.account.SetDefaultServerDTO;
 import com.cream.helper.obj.domain.vo.account.AccountVO;
@@ -25,22 +24,22 @@ public class AccountController {
 
 
     @PostMapping("/register")
-    public Ret<String> register(@RequestBody LoginVO loginVO) {
+    public String register(@RequestBody LoginVO loginVO) {
         accountService.register(loginVO.getUsername(), loginVO.getPassword());
-        return Ret.ok("注册成功");
+        return "注册成功";
     }
 
 
     @PostMapping("/login")
-    public Ret<AccountVO> login(@RequestBody LoginVO loginVO) {
+    public AccountVO login(@RequestBody LoginVO loginVO) {
         String username = loginVO.getUsername();
         String password = loginVO.getPassword();
-        return Ret.ok(accountService.login(username, password));
+        return accountService.login(username, password);
     }
 
     @PostMapping("/checkToken")
-    public Ret<Boolean> checkToken(String token) {
-        return Ret.ok(accountService.checkToken(token));
+    public boolean checkToken(String token) {
+        return accountService.checkToken(token);
     }
 
     @PostMapping("/logout")
@@ -49,13 +48,12 @@ public class AccountController {
     }
 
     @PostMapping("/getDefaultServer")
-    public Ret<String> getDefaultServer(@RequestBody long accountId) {
-        return Ret.ok(accountService.getDefaultServer(accountId));
+    public String getDefaultServer(@RequestBody long accountId) {
+        return accountService.getDefaultServer(accountId);
     }
 
     @PostMapping("/setDefaultServer")
-    public Ret<String> setDefaultServer(@RequestBody SetDefaultServerDTO setDefaultServerDTO) {
+    public void setDefaultServer(@RequestBody SetDefaultServerDTO setDefaultServerDTO) {
         accountService.setDefaultServer(setDefaultServerDTO);
-        return Ret.ok();
     }
 }

@@ -1,6 +1,6 @@
 package com.cream.helper.controller.account;
 
-import com.cream.helper.obj.Ret;
+import com.cream.helper.config.configuration.exception.RunErr;
 import com.cream.helper.obj.domain.bo.Role;
 import com.cream.helper.obj.domain.bo.RoleHeartInfo;
 import com.cream.helper.obj.domain.vo.role.RoleEnterVO;
@@ -22,46 +22,42 @@ public class RoleController {
     }
 
     @PostMapping("/createRole")
-    public Ret<RoleItemVO> createRole(@RequestBody RoleItemVO roleItemVO) {
+    public RoleItemVO createRole(@RequestBody RoleItemVO roleItemVO) {
         if (roleItemVO.getUid() == 0) {
-            return Ret.err("请先登录");
+            throw new RunErr("请先登录");
         }
-        return Ret.ok(roleLoginService.createRole(roleItemVO));
+        return roleLoginService.createRole(roleItemVO);
     }
 
     @PostMapping("/deleteRole")
-    public Ret<RoleItemVO> deleteRole(@RequestBody RoleItemVO roleItemVO) {
+    public RoleItemVO deleteRole(@RequestBody RoleItemVO roleItemVO) {
         if (roleItemVO.getUid() == 0) {
-            return Ret.err("请先登录");
+            throw new RunErr("请先登录");
         }
-        RoleItemVO roleItemVORet = roleLoginService.deleteRole(roleItemVO);
-        return Ret.ok(roleItemVORet);
+        return roleLoginService.deleteRole(roleItemVO);
     }
 
     @PostMapping("/enterRole")
-    public Ret<RoleEnterVO> enterRole(@RequestBody RoleItemVO roleItem) {
+    public RoleEnterVO enterRole(@RequestBody RoleItemVO roleItem) {
         if (roleItem.getUid() == 0) {
-            return Ret.err("请先登录");
+            throw new RunErr("请先登录");
         }
-        RoleEnterVO roleEnterVO = roleLoginService.enterRole(roleItem);
-        return Ret.ok(roleEnterVO);
+        return roleLoginService.enterRole(roleItem);
     }
 
     @PostMapping("/exitRole")
-    public Ret<Role> exitRole(@RequestBody Role role) {
+    public Role exitRole(@RequestBody Role role) {
         if (role.getUserId() == 0) {
-            return Ret.err("请先登录");
+            throw new RunErr("请先登录");
         }
-        Role roleRet = roleLoginService.exitRole(role);
-        return Ret.ok(roleRet);
+        return roleLoginService.exitRole(role);
     }
 
     @PostMapping("/roleHeart")
-    public Ret<RoleHeartInfo> roleHeart(@RequestBody Role role) {
+    public RoleHeartInfo roleHeart(@RequestBody Role role) {
         if (role.getUserId() == 0) {
             throw new RuntimeException("心跳异常");
         }
-        RoleHeartInfo heartInfo = roleLoginService.heart(role);
-        return Ret.ok(heartInfo);
+        return roleLoginService.heart(role);
     }
 }

@@ -8,8 +8,6 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import lombok.extern.slf4j.Slf4j;
 
-import java.lang.reflect.InvocationTargetException;
-
 @Slf4j
 public class MsgDecoder extends LengthFieldBasedFrameDecoder {
 
@@ -43,7 +41,7 @@ public class MsgDecoder extends LengthFieldBasedFrameDecoder {
         return message;
     }
 
-    private Message<?> buildMsgWithData(Class<? extends Message<?>> msgClass, byte[] bytes) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    private Message<?> buildMsgWithData(Class<? extends Message<?>> msgClass, byte[] bytes) {
         Message<?> message = MsgClassUtil.newMsgInstance(msgClass);
         message.setDataFromBytes(bytes);
         return message;
