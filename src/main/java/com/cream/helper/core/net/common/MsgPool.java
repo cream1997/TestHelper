@@ -53,11 +53,11 @@ public class MsgPool {
         return result;
     }
 
-    public <T extends Message<?>> T fetchResMsg(Class<T> msgClass, int msgSerialNum) throws Err {
+    public <T extends Message<?>> T fetchMsgNotDel(Class<T> msgClass, int msgSerialNum) throws Err {
         long startTime = Times.now();
         for (; ; ) {
             if (Times.now() - startTime > TIMEOUT_MS) {
-                throw new Err("从队列中取出消息超时，请检查");
+                throw new Err("从队列中取出指定消息超时，请检查");
             }
             for (Message<?> message : resMsgQueue) {
                 if (msgClass.isInstance(message) && message.getSerialNum() > msgSerialNum) {

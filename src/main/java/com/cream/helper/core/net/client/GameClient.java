@@ -36,15 +36,17 @@ public class GameClient {
     }
 
     public void sendMsg(Message<?> msg) {
+        msgPool.addResMsg(msg);
         channel.writeAndFlush(msg);
     }
 
     public <T extends Message<?>> T sendMsg(Message<?> msg, Class<T> resClass) throws Err {
-        fetchLock.lock();
+        msgPool.addResMsg(msg);
         int msgSerialNum = msgPool.getMsgSerialNum();
+        fetchLock.lock();
         try {
             channel.writeAndFlush(msg);
-            return msgPool.fetchResMsg(resClass, msgSerialNum);
+            return msgPool.fetchMsgNotDel(resClass, msgSerialNum);
         } finally {
             fetchLock.unlock();
         }

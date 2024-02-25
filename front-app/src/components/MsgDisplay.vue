@@ -98,15 +98,33 @@ function clearConsole() {
   msgList.splice(0, msgList.length);
 }
 
+const reqTypeColor = {
+  color: "rgba(93,215,72)"
+};
+
 const resTypeColor = {
-  color: "rgba(173,173,100,0.5)"
+  color: "rgba(187,187,65)"
 };
 
 const computeMsgTypeColor = function (msgType: number) {
   if (msgType == 1) {
-    return resTypeColor;
+    return reqTypeColor;
   } else {
     return resTypeColor;
+  }
+};
+const reqNameColor = {
+  color: "rgb(125, 217, 230)"
+};
+const resNameColor = {
+  color: "rgb(183, 130, 23)"
+};
+
+const computeMsgNameColor = function (msgType: number) {
+  if (msgType == 1) {
+    return reqNameColor;
+  } else {
+    return resNameColor;
   }
 };
 
@@ -182,7 +200,7 @@ function selectMsgBackColor(msg: MsgVO) {
             <span :style="computeMsgTypeColor(msg.type)" class="msgType-span">
               {{ msg.type == 1 ? "请求" : "响应" }}
             </span>
-            <span class="msgName-span">
+            <span class="msgName-span" :style="computeMsgNameColor(msg.type)">
               {{ msg.msgName }}
               <span class="msgId-span">{{ msg.msgId }}</span>
             </span>
