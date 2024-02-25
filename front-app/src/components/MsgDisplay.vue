@@ -6,9 +6,10 @@ export default {
 <script lang="ts" setup>
 import {useAccountStore} from "@/stores/account";
 import type AccountStore from "@/interface/store/AccountStore";
-import {nextTick, onMounted, reactive, ref, shallowReactive, watch} from "vue";
+import {nextTick, reactive, ref, shallowReactive, watch} from "vue";
 import {post} from "@/net/axios";
 import type MsgVO from "@/interface/vo/MsgVO";
+import FetchResWorker from "@/net/FetchResWorker.ts?worker";
 
 const accountInfo: AccountStore = useAccountStore();
 const msgList = shallowReactive<Array<MsgVO>>([]);
@@ -17,16 +18,17 @@ const searchMsgName = ref("");
 const searchMsgNameSet = reactive(new Set());
 const currentShowMsg = ref<MsgVO | null>();
 
-let heartInterval: number;
+const fetchResWorker = new FetchResWorker();
+fetchResWorker.onmessage = () => {
+  heartBeat();
+};
 watch(
   () => accountInfo.role,
   (newVal, oldValue) => {
     if (!oldValue && newVal) {
-      heartInterval = setInterval(() => {
-        heartBeat();
-      }, 1000);
+      fetchResWorker.postMessage("start");
     } else if (newVal && !oldValue) {
-      heartInterval && clearInterval(heartInterval);
+      fetchResWorker.postMessage("end");
     }
   }
 );
@@ -74,10 +76,6 @@ function heartBeat() {
     });
   });
 }
-
-onMounted(() => {
-  heartInterval && clearInterval(heartInterval);
-});
 
 function clearConsole() {
   msgList.splice(0, msgList.length);

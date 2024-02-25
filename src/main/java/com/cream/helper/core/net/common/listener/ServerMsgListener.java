@@ -26,6 +26,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ScheduledFuture;
@@ -40,6 +41,7 @@ public class ServerMsgListener extends MsgListener {
     private final ApplicationContext appContext;
     private final ConcurrentLinkedQueue<ServerHeartTask> allHeartTasks = new ConcurrentLinkedQueue<>();
 
+    private final Random RANDOM = new Random();
 
     @Autowired
     public ServerMsgListener(ExecutorManager executorManager,
@@ -82,7 +84,8 @@ public class ServerMsgListener extends MsgListener {
     }
 
     private void mockRes(Channel channel) {
-        for (int i = 0; i < 20; i++) {
+        int randomMsgNum = RANDOM.nextInt(80);
+        for (int i = 0; i < randomMsgNum; i++) {
             Message<?> message = geneRandomMockMsg();
             channel.writeAndFlush(message);
         }
