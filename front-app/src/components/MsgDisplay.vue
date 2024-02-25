@@ -6,7 +6,7 @@ export default {
 <script lang="ts" setup>
 import {useAccountStore} from "@/stores/account";
 import type AccountStore from "@/interface/store/AccountStore";
-import {nextTick, reactive, ref, shallowReactive, watch} from "vue";
+import {nextTick, onUnmounted, reactive, ref, shallowReactive, watch} from "vue";
 import {post} from "@/net/axios";
 import type MsgVO from "@/interface/vo/MsgVO";
 import FetchResWorker from "@/net/FetchResWorker.ts?worker";
@@ -18,7 +18,7 @@ const searchMsgName = ref("");
 const searchMsgNameSet = reactive(new Set());
 const currentShowMsg = ref<MsgVO | null>();
 
-const fetchResWorker = new FetchResWorker();
+const fetchResWorker: Worker = new FetchResWorker();
 fetchResWorker.onmessage = () => {
   heartBeat();
 };
@@ -26,12 +26,29 @@ watch(
   () => accountInfo.role,
   (newVal, oldValue) => {
     if (!oldValue && newVal) {
-      fetchResWorker.postMessage("start");
+      startFetchResWorker();
     } else if (newVal && !oldValue) {
-      fetchResWorker.postMessage("end");
+      stopFetchResWorker();
     }
   }
 );
+
+function startFetchResWorker() {
+  fetchResWorker.postMessage("start");
+}
+
+function stopFetchResWorker() {
+  fetchResWorker.postMessage("end");
+}
+
+function fetchResWorkerTerminal() {
+  stopFetchResWorker();
+  fetchResWorker.terminate();
+}
+
+onUnmounted(() => {
+  fetchResWorkerTerminal();
+});
 
 const msgListDomRef = ref(null);
 

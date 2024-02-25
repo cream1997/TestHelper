@@ -24,21 +24,25 @@ public class MsgDecoder extends LengthFieldBasedFrameDecoder {
         if (decode == null) {
             return null;
         }
-        int msgId = decode.readInt();
-        Class<? extends Message<?>> msgClass = msgTemplatePool.getMsgClass(msgId);
-        if (msgClass == null) {
-            return null;
+        try {
+            int msgId = decode.readInt();
+            Class<? extends Message<?>> msgClass = msgTemplatePool.getMsgClass(msgId);
+            if (msgClass == null) {
+                return null;
+            }
+            Message<?> message;
+            int length = decode.readInt();
+            if (length > 0) {
+                byte[] bytes = new byte[length];
+                decode.readBytes(bytes);
+                message = buildMsgWithData(msgClass, bytes);
+            } else {
+                message = msgClass.newInstance();
+            }
+            return message;
+        } finally {
+            decode.release();
         }
-        Message<?> message;
-        int length = decode.readInt();
-        if (length > 0) {
-            byte[] bytes = new byte[length];
-            decode.readBytes(bytes);
-            message = buildMsgWithData(msgClass, bytes);
-        } else {
-            message = msgClass.newInstance();
-        }
-        return message;
     }
 
     private Message<?> buildMsgWithData(Class<? extends Message<?>> msgClass, byte[] bytes) {
