@@ -154,13 +154,19 @@ function selectMsgBackColor(msg: MsgVO) {
     };
   }
 }
+
+const settingShow = ref<boolean>(false);
 </script>
 
 <template>
   <p class="title">
     <span class="title-text">控制台</span>
     <span class="search-input">
-      <el-input v-model="searchMsgName" class="input-with-select" placeholder="Please input">
+      <el-input
+        v-model="searchMsgName"
+        class="input-with-select"
+        placeholder="请输入要过滤的消息名称"
+      >
         <template #prepend>
           <el-select v-model="searchMsgName" placeholder="选择" style="width: 60px">
             <el-option
@@ -174,7 +180,27 @@ function selectMsgBackColor(msg: MsgVO) {
       </el-input>
     </span>
     <span class="num-display">{{ msgList.length }}</span>
-    <button class="setup-btn">设置</button>
+
+    <el-popover :visible="settingShow" placement="bottom" trigger="click" width="360px">
+      <template #reference>
+        <button @click="settingShow = !settingShow" class="setup-btn">设置</button>
+      </template>
+      <div style="height: 360px; overflow: auto">
+        <p class="filter-setting-title">默认过滤</p>
+        <ul>
+          <li>ReqHeartranklistinfodetailMessage</li>
+          <li>Req1</li>
+          <li>ResHeart</li>
+          <li>Res1</li>
+        </ul>
+        <hr class="filter-setting-hr" />
+        <p class="filter-setting-title">自定义过滤</p>
+        <ul>
+          <li>CustomMsg1</li>
+        </ul>
+      </div>
+    </el-popover>
+
     <button class="stop-btn" @click="stopReceive = !stopReceive">
       {{ stopReceive ? "恢复" : "暂停" }}
     </button>
@@ -323,5 +349,15 @@ function selectMsgBackColor(msg: MsgVO) {
 .msgTime-span {
   text-align: right;
   font-size: small;
+}
+
+.filter-setting-title {
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+.filter-setting-hr {
+  margin-top: 1px;
+  margin-bottom: 1px;
 }
 </style>
