@@ -1,7 +1,6 @@
 package com.cream.helper.controller.account;
 
 import com.cream.helper.obj.domain.dto.LoginVO;
-import com.cream.helper.obj.domain.dto.account.SetDefaultServerDTO;
 import com.cream.helper.obj.domain.vo.account.AccountVO;
 import com.cream.helper.service.impl.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,15 +44,5 @@ public class AccountController {
     @PostMapping("/logout")
     public void logout(String username) {
         accountService.logout(username);
-    }
-
-    @PostMapping("/getDefaultServer")
-    public String getDefaultServer(@RequestBody long accountId) {
-        return accountService.getDefaultServer(accountId);
-    }
-
-    @PostMapping("/setDefaultServer")
-    public void setDefaultServer(@RequestBody SetDefaultServerDTO setDefaultServerDTO) {
-        accountService.setDefaultServer(setDefaultServerDTO);
     }
 }
