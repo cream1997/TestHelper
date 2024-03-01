@@ -12,8 +12,8 @@ import com.cream.helper.core.net.msg.res.test.ResTestThreeMsg;
 import com.cream.helper.core.net.msg.res.test.ResTestTwoTwoMsg;
 import com.cream.helper.core.net.proto.clazz.CommonProto;
 import com.cream.helper.core.net.proto.clazz.TestProto;
-import com.cream.helper.utils.MsgClassUtil;
 import com.cream.helper.utils.RandomUtil;
+import com.cream.helper.utils.msg.MsgClassUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.AllArgsConstructor;
@@ -84,7 +84,7 @@ public class ServerMsgListener extends MsgListener {
     }
 
     private void mockRes(Channel channel) {
-        int randomMsgNum = RANDOM.nextInt(80);
+        int randomMsgNum = RANDOM.nextInt(20);
         for (int i = 0; i < randomMsgNum; i++) {
             Message<?> message = geneRandomMockMsg();
             channel.writeAndFlush(message);

@@ -12,4 +12,8 @@ public class RunErr extends RuntimeException {
     public RunErr(Err err) {
         super(err.getMessage());
     }
+
+    public RunErr(Throwable cause) {
+        super(cause);
+    }
 }

@@ -1,4 +1,4 @@
-package com.cream.helper.utils;
+package com.cream.helper.utils.msg;
 
 import com.cream.helper.core.net.handler.base.MsgHandler;
 import com.cream.helper.core.net.msg.base.Message;
@@ -47,7 +47,7 @@ public class MsgClassUtil {
             constructor.setAccessible(true);
             GeneratedMessageV3 protoObj = constructor.newInstance();
 
-            
+
             return protoObj;
         } catch (Exception e) {
             log.error("反射创建proto实例异常 protoClass:{}", protoClass);

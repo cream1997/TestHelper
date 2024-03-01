@@ -2,7 +2,7 @@ package com.cream.helper.core.net.common.codec;
 
 import com.cream.helper.core.net.common.MsgTemplatePool;
 import com.cream.helper.core.net.msg.base.Message;
-import com.cream.helper.utils.MsgClassUtil;
+import com.cream.helper.utils.msg.MsgClassUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;

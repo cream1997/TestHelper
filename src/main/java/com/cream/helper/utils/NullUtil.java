@@ -15,6 +15,10 @@ public class NullUtil {
         return StringUtils.isBlank(string);
     }
 
+    public static boolean isNotBlank(String string) {
+        return !StringUtils.isBlank(string);
+    }
+
     public static boolean isAnyBlank(String... strings) {
         return StringUtils.isAnyBlank(strings);
     }
