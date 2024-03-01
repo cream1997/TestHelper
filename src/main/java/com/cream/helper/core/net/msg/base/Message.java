@@ -66,6 +66,10 @@ public abstract class Message<T extends GeneratedMessageV3> {
 
     public abstract Class<T> getDataClass();
 
+    public String getName() {
+        return getClass().getSimpleName();
+    }
+
     @SuppressWarnings("unchecked")
     private T parseData(byte[] dataBytes) {
         if (dataBytes == null) {

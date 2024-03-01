@@ -18,7 +18,7 @@ public class MsgVO {
     public MsgVO(Message<?> msg) {
         this.no = msg.getSerialNum();
         this.msgId = msg.getMsgId();
-        this.msgName = msg.getClass().getSimpleName();
+        this.msgName = msg.getName();
         this.type = msg.getType().value;
         this.sendTime = msg.getSendTime();
         this.receiveTime = msg.getReceiveTime();

@@ -6,7 +6,7 @@ import com.cream.helper.core.net.msg.req.ReqEnterRoleMsg;
 import com.cream.helper.core.net.msg.res.ResEnterRoleMsg;
 import com.cream.helper.core.net.proto.clazz.CommonProto;
 import com.cream.helper.mapper.mock.MockRoleMapper;
-import com.cream.helper.obj.domain.bo.Role;
+import com.cream.helper.service.bo.Role;
 import com.cream.helper.utils.Times;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,20 +1,43 @@
 package com.cream.helper.service.impl;
 
 import com.cream.helper.config.configuration.exception.RunErr;
+import com.cream.helper.core.net.common.MsgTemplatePool;
+import com.cream.helper.core.net.common.constant.MsgType;
+import com.cream.helper.core.net.msg.base.Message;
 import com.cream.helper.mapper.AccountSetupMapper;
 import com.cream.helper.obj.domain.dto.account.SetDefaultServerDTO;
+import com.cream.helper.obj.domain.vo.account.setting.FilterMsgVO;
+import com.cream.helper.obj.domain.vo.account.setting.MsgFilterSettingVO;
 import com.cream.helper.obj.entity.account.AccountSetup;
+import com.cream.helper.service.constant.FilterMsgSettingType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class SettingService {
 
     private final AccountSetupMapper accountSetupMapper;
+    private final MsgTemplatePool msgTemplatePool;
+
+    private final Set<Integer> allDefaultFilterMsg;
 
     @Autowired
-    public SettingService(AccountSetupMapper accountSetupMapper) {
+    public SettingService(AccountSetupMapper accountSetupMapper,
+                          MsgTemplatePool msgTemplatePool) {
         this.accountSetupMapper = accountSetupMapper;
+        this.msgTemplatePool = msgTemplatePool;
+        this.allDefaultFilterMsg = initDefaultFilterMsg();
+    }
+
+    private Set<Integer> initDefaultFilterMsg() {
+        Set<Integer> res = new HashSet<>();
+        // 简单写死
+        res.add(1);
+        return Collections.unmodifiableSet(res);
     }
 
     public String getDefaultServer(long accountId) {
@@ -34,5 +57,47 @@ public class SettingService {
         } else {
             accountSetupMapper.updateDefaultServer(accountId, setDefaultServerDTO.getDefaultServer());
         }
+    }
+
+    public MsgFilterSettingVO getDefaultFilterMsg(long accountId) {
+        // 默认过滤取消的id
+        return getMsgFilterSettingVO(accountId, FilterMsgSettingType.Default);
+    }
+
+    private MsgFilterSettingVO getMsgFilterSettingVO(long accountId, FilterMsgSettingType settingType) {
+        AccountSetup accountSetup = accountSetupMapper.selectById(accountId);
+        if (accountSetup == null) {
+            return new MsgFilterSettingVO();
+        }
+        Set<Integer> filterMsgId;
+        if (settingType == FilterMsgSettingType.Default) {
+            filterMsgId = this.allDefaultFilterMsg;
+        } else {
+            filterMsgId = accountSetup.getCustomFilterMsgId();
+        }
+        Set<Integer> cancelFilterMsgId = accountSetup.getDefaultFilterCancelMsgId();
+        MsgFilterSettingVO msgFilterSettingVO = new MsgFilterSettingVO();
+        for (Integer msgId : filterMsgId) {
+            Message<?> msgTemplate = msgTemplatePool.getMsgTemplate(msgId);
+            if (msgTemplate == null) {
+                continue;
+            }
+            boolean filter = true;
+            if (settingType == FilterMsgSettingType.Default) {
+                filter = !cancelFilterMsgId.contains(msgId);
+            }
+            FilterMsgVO filterMsgVO = new FilterMsgVO(msgId, msgTemplate.getName(), filter);
+            if (msgTemplate.getMsgMeta().msgType == MsgType.Req) {
+                msgFilterSettingVO.addReqFilterMsg(filterMsgVO);
+            } else if (msgTemplate.getMsgMeta().msgType == MsgType.Res) {
+                msgFilterSettingVO.addResFilterMsg(filterMsgVO);
+            }
+        }
+        return msgFilterSettingVO;
+    }
+
+
+    public MsgFilterSettingVO getCustomerFilterMsg(long accountId) {
+        return getMsgFilterSettingVO(accountId, FilterMsgSettingType.Custom);
     }
 }
