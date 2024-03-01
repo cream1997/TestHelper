@@ -5,7 +5,7 @@ import com.cream.helper.core.net.common.MsgTemplatePool;
 import com.cream.helper.core.net.common.constant.MsgType;
 import com.cream.helper.core.net.msg.base.Message;
 import com.cream.helper.mapper.AccountSetupMapper;
-import com.cream.helper.obj.domain.dto.account.ModifyDefaultFilterMsgDTO;
+import com.cream.helper.obj.domain.dto.account.ModifyFilterMsgDTO;
 import com.cream.helper.obj.domain.dto.account.SetDefaultServerDTO;
 import com.cream.helper.obj.domain.vo.account.setting.FilterMsgVO;
 import com.cream.helper.obj.domain.vo.account.setting.MsgFilterSettingVO;
@@ -106,17 +106,28 @@ public class SettingService {
         return getMsgFilterSettingVO(accountId, FilterMsgSettingType.Custom);
     }
 
-    public void modifyDefaultFilterMsg(ModifyDefaultFilterMsgDTO modifyDTO) {
+    public void modifyDefaultFilterMsg(ModifyFilterMsgDTO modifyDTO) {
         AccountSetup accountSetup = getAccountSetup(modifyDTO.getAccountId());
         if (accountSetup == null) {
             return;
         }
-        List<Integer> cancelFilterMsgId = modifyDTO.getCancelFilterMsgId();
+        List<Integer> cancelFilterMsgId = modifyDTO.getModifyMsgId();
         if (NullUtil.isEmpty(cancelFilterMsgId)) {
             accountSetup.setDefaultFilterCancelMsgId(Collections.emptySet());
         } else {
             accountSetup.setDefaultFilterCancelMsgId(new HashSet<>(cancelFilterMsgId));
         }
+        accountSetupMapper.updateById(accountSetup);
+    }
+
+    public void modifyCustomFilterMsg(ModifyFilterMsgDTO modifyDto) {
+        AccountSetup accountSetup = getAccountSetup(modifyDto.getAccountId());
+        if (accountSetup == null) {
+            return;
+        }
+        List<Integer> modifyMsgId = modifyDto.getModifyMsgId();
+        Set<Integer> customFilterMsgId = modifyMsgId == null ? Collections.emptySet() : new HashSet<>(modifyMsgId);
+        accountSetup.setCustomFilterMsgId(customFilterMsgId);
         accountSetupMapper.updateById(accountSetup);
     }
 
