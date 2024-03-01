@@ -1,5 +1,6 @@
 package com.cream.helper.controller.account;
 
+import com.cream.helper.obj.domain.dto.account.ModifyDefaultFilterMsgDTO;
 import com.cream.helper.obj.domain.dto.account.SetDefaultServerDTO;
 import com.cream.helper.obj.domain.vo.account.setting.MsgFilterSettingVO;
 import com.cream.helper.service.impl.SettingService;
@@ -36,5 +37,13 @@ public class SettingController {
     @PostMapping("/getCustomerFilterMsg")
     public MsgFilterSettingVO getCustomerFilterMsg(@RequestBody long accountId) {
         return settingService.getCustomerFilterMsg(accountId);
+    }
+
+    @PostMapping("/modifyDefaultFilterMsg")
+    public MsgFilterSettingVO modifyDefaultFilterMsg(ModifyDefaultFilterMsgDTO modifyDTO) {
+        // 先修改
+        settingService.modifyDefaultFilterMsg(modifyDTO);
+        // 然后全覆盖返回
+        return settingService.getDefaultFilterMsg(modifyDTO.getAccountId());
     }
 }

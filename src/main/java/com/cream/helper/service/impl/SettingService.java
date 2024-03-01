@@ -5,18 +5,23 @@ import com.cream.helper.core.net.common.MsgTemplatePool;
 import com.cream.helper.core.net.common.constant.MsgType;
 import com.cream.helper.core.net.msg.base.Message;
 import com.cream.helper.mapper.AccountSetupMapper;
+import com.cream.helper.obj.domain.dto.account.ModifyDefaultFilterMsgDTO;
 import com.cream.helper.obj.domain.dto.account.SetDefaultServerDTO;
 import com.cream.helper.obj.domain.vo.account.setting.FilterMsgVO;
 import com.cream.helper.obj.domain.vo.account.setting.MsgFilterSettingVO;
 import com.cream.helper.obj.entity.account.AccountSetup;
 import com.cream.helper.service.constant.FilterMsgSettingType;
+import com.cream.helper.utils.NullUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+@Slf4j
 @Service
 public class SettingService {
 
@@ -65,7 +70,7 @@ public class SettingService {
     }
 
     private MsgFilterSettingVO getMsgFilterSettingVO(long accountId, FilterMsgSettingType settingType) {
-        AccountSetup accountSetup = accountSetupMapper.selectById(accountId);
+        AccountSetup accountSetup = getAccountSetup(accountId);
         if (accountSetup == null) {
             return new MsgFilterSettingVO();
         }
@@ -99,5 +104,28 @@ public class SettingService {
 
     public MsgFilterSettingVO getCustomerFilterMsg(long accountId) {
         return getMsgFilterSettingVO(accountId, FilterMsgSettingType.Custom);
+    }
+
+    public void modifyDefaultFilterMsg(ModifyDefaultFilterMsgDTO modifyDTO) {
+        AccountSetup accountSetup = getAccountSetup(modifyDTO.getAccountId());
+        if (accountSetup == null) {
+            return;
+        }
+        List<Integer> cancelFilterMsgId = modifyDTO.getCancelFilterMsgId();
+        if (NullUtil.isEmpty(cancelFilterMsgId)) {
+            accountSetup.setDefaultFilterCancelMsgId(Collections.emptySet());
+        } else {
+            accountSetup.setDefaultFilterCancelMsgId(new HashSet<>(cancelFilterMsgId));
+        }
+        accountSetupMapper.updateById(accountSetup);
+    }
+
+    private AccountSetup getAccountSetup(long accountId) {
+        AccountSetup accountSetup = accountSetupMapper.selectById(accountId);
+        if (accountSetup == null) {
+            log.error("获取账户设置为空，accountId:{}", accountId);
+            return null;
+        }
+        return accountSetup;
     }
 }
