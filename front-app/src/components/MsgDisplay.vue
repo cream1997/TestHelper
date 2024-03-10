@@ -8,8 +8,9 @@ import {useAccountStore} from "@/stores/account";
 import type AccountStore from "@/interface/store/AccountStore";
 import {nextTick, onUnmounted, reactive, ref, shallowReactive, watch} from "vue";
 import {post} from "@/net/axios";
-import type MsgVO from "@/interface/vo/MsgVO";
+import type MsgVO from "@/interface/vo/msg/MsgVO";
 import FetchResWorker from "@/net/FetchResWorker.ts?worker";
+import MsgFilterSetting from "@/components/msg/MsgFilterSetting.vue";
 
 const accountInfo: AccountStore = useAccountStore();
 const msgList = shallowReactive<Array<MsgVO>>([]);
@@ -154,8 +155,6 @@ function selectMsgBackColor(msg: MsgVO) {
     };
   }
 }
-
-const settingShow = ref<boolean>(false);
 </script>
 
 <template>
@@ -180,27 +179,7 @@ const settingShow = ref<boolean>(false);
       </el-input>
     </span>
     <span class="num-display">{{ msgList.length }}</span>
-
-    <el-popover :visible="settingShow" placement="bottom" trigger="click" width="360px">
-      <template #reference>
-        <button @click="settingShow = !settingShow" class="setup-btn">设置</button>
-      </template>
-      <div style="height: 360px; overflow: auto">
-        <p class="filter-setting-title">默认过滤</p>
-        <ul>
-          <li>ReqHeartranklistinfodetailMessage</li>
-          <li>Req1</li>
-          <li>ResHeart</li>
-          <li>Res1</li>
-        </ul>
-        <hr class="filter-setting-hr" />
-        <p class="filter-setting-title">自定义过滤</p>
-        <ul>
-          <li>CustomMsg1</li>
-        </ul>
-      </div>
-    </el-popover>
-
+    <MsgFilterSetting />
     <button class="stop-btn" @click="stopReceive = !stopReceive">
       {{ stopReceive ? "恢复" : "暂停" }}
     </button>
@@ -305,13 +284,6 @@ const settingShow = ref<boolean>(false);
   display: inline-block;
 }
 
-.clear-btn,
-.stop-btn,
-.setup-btn {
-  text-align: right;
-  cursor: pointer;
-}
-
 .msgType-span,
 .msgName-span,
 .msgId-span,
@@ -349,15 +321,5 @@ const settingShow = ref<boolean>(false);
 .msgTime-span {
   text-align: right;
   font-size: small;
-}
-
-.filter-setting-title {
-  margin-top: 1px;
-  margin-bottom: 1px;
-}
-
-.filter-setting-hr {
-  margin-top: 1px;
-  margin-bottom: 1px;
 }
 </style>

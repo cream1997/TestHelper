@@ -6,7 +6,7 @@ export default {
 <script setup lang="ts">
 import {ref} from "vue";
 import {post} from "@/net/axios";
-import type MsgVO from "@/interface/vo/MsgVO";
+import type MsgVO from "@/interface/vo/msg/MsgVO";
 import JsonEditor from "json-editor-vue";
 
 let rawMsg = ref();
