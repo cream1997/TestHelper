@@ -12,6 +12,7 @@ import type MsgVO from "@/interface/vo/msg/MsgVO";
 import FetchResWorker from "@/net/FetchResWorker.ts?worker";
 import MsgFilterSetting from "@/components/msg/MsgFilterSetting.vue";
 import {useFilterSettingStore} from "@/stores/useFilterSettingStore";
+import {ReqNameColor, ReqTypeColor, ResNameColor, ResTypeColor} from "@/constant/ColorConst";
 
 const filterSettingStore = useFilterSettingStore();
 
@@ -69,7 +70,7 @@ function heartBeat() {
     const clientHeight = msgListDom.clientHeight;
     const scrollIsInBottom = originScrollTop + clientHeight + 3 > msgListDom.scrollHeight;
     // todo 消息先处理
-  
+
     // 后过滤
     msgVOS.forEach((msgVO) => {
       if (!filterSettingStore.needFilter(msgVO.msgId)) {
@@ -100,37 +101,19 @@ function heartBeat() {
   });
 }
 
-function clearConsole() {
-  msgList.splice(0, msgList.length);
-}
-
-const reqTypeColor = {
-  color: "rgba(93,215,72)"
-};
-
-const resTypeColor = {
-  color: "rgba(187,187,65)"
-};
-
 const computeMsgTypeColor = function (msgType: number) {
   if (msgType == 1) {
-    return reqTypeColor;
+    return ReqTypeColor;
   } else {
-    return resTypeColor;
+    return ResTypeColor;
   }
-};
-const reqNameColor = {
-  color: "rgb(125, 217, 230)"
-};
-const resNameColor = {
-  color: "rgb(183, 130, 23)"
 };
 
 const computeMsgNameColor = function (msgType: number) {
   if (msgType == 1) {
-    return reqNameColor;
+    return ReqNameColor;
   } else {
-    return resNameColor;
+    return ResNameColor;
   }
 };
 
@@ -188,7 +171,7 @@ function selectMsgBackColor(msg: MsgVO) {
     <button class="stop-btn" @click="stopReceive = !stopReceive">
       {{ stopReceive ? "恢复" : "暂停" }}
     </button>
-    <button class="clear-btn" @click="clearConsole">清空</button>
+    <button class="clear-btn" @click="msgList.splice(0, msgList.length)">清空</button>
   </p>
   <div class="middle">
     <ol class="msg-list-class" ref="msgListDomRef">

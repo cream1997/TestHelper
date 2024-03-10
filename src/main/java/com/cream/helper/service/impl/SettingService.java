@@ -23,6 +23,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static com.cream.helper.core.net.common.constant.MsgMeta.*;
+
 @Slf4j
 @Service
 public class SettingService {
@@ -43,10 +45,16 @@ public class SettingService {
     private Set<Integer> initDefaultFilterMsg() {
         Set<Integer> res = new HashSet<>();
         // 简单写死
-        res.add(1);
-        res.add(99);
-        res.add(100);
-        res.add(101);
+        res.add(LoginReq.msgId);
+        res.add(LoginRes.msgId);
+        res.add(EnterRoleReq.msgId);
+        res.add(EnterRoleRes.msgId);
+        res.add(HeartReq.msgId);
+        res.add(HeartRes.msgId);
+        res.add(MockMsgOne.msgId);
+        res.add(TestMsg1.msgId);
+        res.add(TestMsg2.msgId);
+        res.add(TestMsg3.msgId);
         return Collections.unmodifiableSet(res);
     }
 
