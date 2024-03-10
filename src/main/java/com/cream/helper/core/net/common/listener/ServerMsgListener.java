@@ -84,7 +84,7 @@ public class ServerMsgListener extends MsgListener {
     }
 
     private void mockRes(Channel channel) {
-        int randomMsgNum = RANDOM.nextInt(20);
+        int randomMsgNum = RANDOM.nextInt(2);
         for (int i = 0; i < randomMsgNum; i++) {
             Message<?> message = geneRandomMockMsg();
             channel.writeAndFlush(message);
