@@ -2,6 +2,8 @@ package com.cream.helper.controller.account;
 
 import com.cream.helper.obj.domain.dto.account.ModifyFilterMsgDTO;
 import com.cream.helper.obj.domain.dto.account.SetDefaultServerDTO;
+import com.cream.helper.obj.domain.dto.msg.MsgFilterSettingDTO;
+import com.cream.helper.obj.domain.dto.msg.UpdateFilterSettingDTO;
 import com.cream.helper.obj.domain.vo.account.setting.MsgFilterSettingVO;
 import com.cream.helper.service.impl.SettingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +55,10 @@ public class SettingController {
         settingService.modifyCustomFilterMsg(modifyDto);
         // 然后全覆盖返回
         return settingService.getCustomerFilterMsg(modifyDto.getAccountId());
+    }
+
+    @PostMapping("/changeMsgFilterSetting")
+    public MsgFilterSettingDTO changeMsgFilterSetting(@RequestBody UpdateFilterSettingDTO updateDTO) {
+        return settingService.changeMsgFilterSetting(updateDTO);
     }
 }

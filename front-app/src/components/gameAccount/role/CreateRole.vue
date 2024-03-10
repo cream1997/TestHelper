@@ -5,7 +5,7 @@ export default {
 </script>
 <script setup lang="ts">
 import type AccountStore from "@/interface/store/AccountStore";
-import {useAccountStore} from "@/stores/account";
+import {useAccountStore} from "@/stores/useAccountStore";
 import {reactive} from "vue";
 import {Tip} from "@/tools/CommonTool";
 import UserState from "@/interface/UserState";

@@ -6,7 +6,7 @@ export default {
 <script setup lang="ts">
 import {onMounted, reactive, ref} from "vue";
 import {post} from "@/net/axios";
-import {useAccountStore} from "@/stores/account";
+import {useAccountStore} from "@/stores/useAccountStore";
 import {checkAccountNotNull} from "@/tools/CheckFormTool";
 import Cookies from "js-cookie";
 import router from "@/router";

@@ -5,7 +5,7 @@ export default {
 </script>
 <script setup lang="ts">
 import type AccountStore from "@/interface/store/AccountStore";
-import {useAccountStore} from "@/stores/account";
+import {useAccountStore} from "@/stores/useAccountStore";
 import type RoleItemVO from "@/interface/vo/role/RoleItemVO";
 import {MsgBox, Tip} from "@/tools/CommonTool";
 import type {Action} from "element-plus";

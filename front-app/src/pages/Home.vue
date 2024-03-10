@@ -8,7 +8,7 @@ import Account from "@/components/gameAccount/GameAccountBox.vue";
 import QuickMenu from "@/components/QuickMenu.vue";
 import CommonReq from "@/components/commonReq/CommonReq.vue";
 import MsgDisplay from "@/components/MsgDisplay.vue";
-import {useAccountStore} from "@/stores/account";
+import {useAccountStore} from "@/stores/useAccountStore";
 import UserState from "@/interface/UserState";
 import {post} from "@/net/axios";
 import {onMounted} from "vue";

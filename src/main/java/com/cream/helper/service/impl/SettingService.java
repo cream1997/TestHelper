@@ -7,6 +7,8 @@ import com.cream.helper.core.net.msg.base.Message;
 import com.cream.helper.mapper.AccountSetupMapper;
 import com.cream.helper.obj.domain.dto.account.ModifyFilterMsgDTO;
 import com.cream.helper.obj.domain.dto.account.SetDefaultServerDTO;
+import com.cream.helper.obj.domain.dto.msg.MsgFilterSettingDTO;
+import com.cream.helper.obj.domain.dto.msg.UpdateFilterSettingDTO;
 import com.cream.helper.obj.domain.vo.account.setting.FilterMsgVO;
 import com.cream.helper.obj.domain.vo.account.setting.MsgFilterSettingVO;
 import com.cream.helper.obj.entity.account.AccountSetup;
@@ -42,6 +44,9 @@ public class SettingService {
         Set<Integer> res = new HashSet<>();
         // 简单写死
         res.add(1);
+        res.add(99);
+        res.add(100);
+        res.add(101);
         return Collections.unmodifiableSet(res);
     }
 
@@ -138,5 +143,43 @@ public class SettingService {
             return null;
         }
         return accountSetup;
+    }
+
+    public MsgFilterSettingDTO changeMsgFilterSetting(UpdateFilterSettingDTO updateDTO) {
+        long accountId = updateDTO.getAccountId();
+        if (accountId == 0) {
+            throw new RunErr("未登录");
+        }
+        AccountSetup accountSetup = accountSetupMapper.selectById(accountId);
+        if (accountSetup == null) {
+            throw new RunErr("账户为空");
+        }
+        FilterMsgVO filterMsgVO = updateDTO.getFilterMsgVO();
+        if (filterMsgVO != null) {
+            // todo 目前只做默认过滤的取消，后续再细化
+            int msgId = filterMsgVO.getMsgId();
+            boolean filter = filterMsgVO.isFilter();
+            Set<Integer> defaultFilterCancelMsgId = accountSetup.getDefaultFilterCancelMsgId();
+            if (filter) {
+                defaultFilterCancelMsgId.remove(msgId);
+            } else {
+                defaultFilterCancelMsgId.add(msgId);
+            }
+            accountSetup.setDefaultFilterCancelMsgId(defaultFilterCancelMsgId);
+            accountSetupMapper.updateById(accountSetup);
+        }
+        boolean resetDefaultFilter = updateDTO.isResetDefaultFilter();
+        if (resetDefaultFilter) {
+            accountSetup.setDefaultFilterCancelMsgId(Collections.emptySet());
+            accountSetupMapper.updateById(accountSetup);
+        }
+        boolean clearCustomFilterMsg = updateDTO.isClearCustomFilter();
+        if (clearCustomFilterMsg) {
+            accountSetup.setCustomFilterMsgId(Collections.emptySet());
+            accountSetupMapper.updateById(accountSetup);
+        }
+        MsgFilterSettingVO defaultFilterMsg = getDefaultFilterMsg(accountId);
+        MsgFilterSettingVO customerFilterMsg = getCustomerFilterMsg(accountId);
+        return new MsgFilterSettingDTO(defaultFilterMsg, customerFilterMsg);
     }
 }

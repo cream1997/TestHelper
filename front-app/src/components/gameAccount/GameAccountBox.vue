@@ -4,7 +4,7 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import {useAccountStore} from "@/stores/account";
+import {useAccountStore} from "@/stores/useAccountStore";
 import type AccountStore from "@/interface/store/AccountStore";
 import UserAccount from "@/components/gameAccount/user/UserAccount.vue";
 import RoleAccount from "@/components/gameAccount/role/RoleAccount.vue";

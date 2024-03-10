@@ -6,7 +6,7 @@ export default {
 <script setup lang="ts">
 import TimePicker from "@/components/time/TimePicker.vue";
 import type AccountStore from "@/interface/store/AccountStore";
-import {useAccountStore} from "@/stores/account";
+import {useAccountStore} from "@/stores/useAccountStore";
 import {onUnmounted, ref, watch} from "vue";
 
 const accountInfo: AccountStore = useAccountStore();

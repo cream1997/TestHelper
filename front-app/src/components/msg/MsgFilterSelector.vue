@@ -6,26 +6,31 @@ export default {
 <script setup lang="ts">
 import FilterMsgType from "@/components/msg/constant/FilterMsgType";
 import {post} from "@/net/axios";
-import {useAccountStore} from "@/stores/account";
+import {useAccountStore} from "@/stores/useAccountStore";
 import type AccountStore from "@/interface/store/AccountStore";
-import {useFilterMsgSettingStore} from "@/stores/FilterMsgSetting";
+import {useFilterSettingStore} from "@/stores/useFilterSettingStore";
 import type MsgFilterSettingVO from "@/interface/vo/msg/filter/MsgFilterSettingVO";
 import {computed, type ComputedRef, reactive} from "vue";
+import type FilterMsgVO from "@/interface/vo/msg/filter/FilterMsgVO";
 
-const accountInfo: AccountStore = useAccountStore();
-const filterMsgSetting = useFilterMsgSettingStore();
+const filterMsgSettingStore = useFilterSettingStore();
 
 const props = defineProps(["filterType"]);
 const filterType: FilterMsgType = props.filterType;
 
 const filterMsg: ComputedRef<MsgFilterSettingVO | null> = computed(() => {
   if (filterType == FilterMsgType.Default) {
-    return filterMsgSetting.defaultFilterMsg;
+    return filterMsgSettingStore.defaultFilterMsg;
   } else if (filterType == FilterMsgType.Custom) {
-    return filterMsgSetting.customFilterMsg;
+    return filterMsgSettingStore.customFilterMsg;
   }
   return null;
 });
+
+function changeFilterSetting(msg: FilterMsgVO) {
+  msg.filter = !msg.filter;
+  filterMsgSettingStore.updateSetting(msg, false, false);
+}
 </script>
 
 <template>
@@ -33,7 +38,12 @@ const filterMsg: ComputedRef<MsgFilterSettingVO | null> = computed(() => {
     <div class="default-filter-msg-div">
       <ul class="msg-panel1">
         <li v-for="msg in filterMsg?.allReqFilterMsg" :key="msg.msgId">
-          <input type="checkbox" :checked="msg.filter" />
+          <input
+            type="checkbox"
+            v-if="filterType == FilterMsgType.Default"
+            :checked="msg.filter"
+            @click="changeFilterSetting(msg)"
+          />
           {{ msg.msgName }}
         </li>
       </ul>
@@ -41,7 +51,12 @@ const filterMsg: ComputedRef<MsgFilterSettingVO | null> = computed(() => {
     <div class="default-filter-msg-div">
       <ul class="msg-panel1">
         <li v-for="msg in filterMsg?.allResFilterMsg" :key="msg.msgId">
-          <input type="checkbox" :checked="msg.filter" />
+          <input
+            type="checkbox"
+            v-if="filterType == FilterMsgType.Default"
+            :checked="msg.filter"
+            @click="changeFilterSetting(msg)"
+          />
           {{ msg.msgName }}
         </li>
       </ul>

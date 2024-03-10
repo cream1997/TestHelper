@@ -7,7 +7,7 @@ export default {
 import {onMounted, onUnmounted, reactive} from "vue";
 import {useRouter} from "vue-router";
 import {Tip, Notice} from "@/tools/CommonTool";
-import {useAccountStore} from "@/stores/account";
+import {useAccountStore} from "@/stores/useAccountStore";
 import type Account from "@/interface/Account";
 import config from "@/config.json";
 import type LoginVO from "@/interface/vo/account/LoginVO";

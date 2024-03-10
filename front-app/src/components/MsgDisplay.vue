@@ -4,7 +4,7 @@ export default {
 };
 </script>
 <script lang="ts" setup>
-import {useAccountStore} from "@/stores/account";
+import {useAccountStore} from "@/stores/useAccountStore";
 import type AccountStore from "@/interface/store/AccountStore";
 import {nextTick, onUnmounted, reactive, ref, shallowReactive, watch} from "vue";
 import {post} from "@/net/axios";
