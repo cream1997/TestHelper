@@ -11,6 +11,9 @@ import {post} from "@/net/axios";
 import type MsgVO from "@/interface/vo/msg/MsgVO";
 import FetchResWorker from "@/net/FetchResWorker.ts?worker";
 import MsgFilterSetting from "@/components/msg/MsgFilterSetting.vue";
+import {useFilterSettingStore} from "@/stores/useFilterSettingStore";
+
+const filterSettingStore = useFilterSettingStore();
 
 const accountInfo: AccountStore = useAccountStore();
 const msgList = shallowReactive<Array<MsgVO>>([]);
@@ -58,21 +61,23 @@ const clearToNum = 50;
 
 function heartBeat() {
   post("/heartBeat", accountInfo.uid).then((msgVOS: Array<MsgVO>) => {
-    if (stopReceive.value) {
-      return;
-    }
-    if (msgVOS.length == 0) {
-      return;
-    }
-    if (!msgListDomRef.value) {
+    if (stopReceive.value || msgVOS.length == 0 || !msgListDomRef.value) {
       return;
     }
     const msgListDom = msgListDomRef.value as HTMLElement;
     const originScrollTop = msgListDom.scrollTop;
     const clientHeight = msgListDom.clientHeight;
     const scrollIsInBottom = originScrollTop + clientHeight + 3 > msgListDom.scrollHeight;
-    msgList.push(...msgVOS);
-    msgVOS.forEach((item) => {
+    // todo 消息先处理
+  
+    // 后过滤
+    msgVOS.forEach((msgVO) => {
+      if (!filterSettingStore.needFilter(msgVO.msgId)) {
+        msgList.push(msgVO);
+      }
+    });
+
+    msgList.forEach((item) => {
       searchMsgNameSet.add(item.msgName);
     });
     nextTick(() => {
