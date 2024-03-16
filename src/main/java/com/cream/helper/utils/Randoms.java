@@ -2,7 +2,7 @@ package com.cream.helper.utils;
 
 import java.util.*;
 
-public class RandomUtil {
+public class Randoms {
 
     private static final Random RANDOM = new Random();
 

@@ -12,7 +12,7 @@ import com.cream.helper.core.net.msg.res.test.ResTestThreeMsg;
 import com.cream.helper.core.net.msg.res.test.ResTestTwoTwoMsg;
 import com.cream.helper.core.net.proto.clazz.CommonProto;
 import com.cream.helper.core.net.proto.clazz.TestProto;
-import com.cream.helper.utils.RandomUtil;
+import com.cream.helper.utils.Randoms;
 import com.cream.helper.utils.msg.MsgClassUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -103,7 +103,7 @@ public class ServerMsgListener extends MsgListener {
                 .build());
         ResTestTwoTwoMsg testMsg2 = new ResTestTwoTwoMsg(() -> TestProto.Test2.newBuilder().setMsg(IdUtil.fastSimpleUUID()).build());
         ResTestThreeMsg testMsg3 = new ResTestThreeMsg(() -> TestProto.Test3.newBuilder().setNo((int) IdUtil.getSnowflakeNextId()).build());
-        return RandomUtil.random(mockMsg1, testMsg1, testMsg2, testMsg3);
+        return Randoms.random(mockMsg1, testMsg1, testMsg2, testMsg3);
     }
 
     /**
